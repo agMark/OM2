@@ -1,7 +1,7 @@
 
-# 802 Owner's Manual
+# Owner's Manual Environment
 
-The Repository is for the 802 Owner's Manual in html/xml format.
+The Repository is for editing the Air Tractor Owner's Manuals in html/xml format.
 
 Please contact Mark for access to modify the files in this repository.
 
