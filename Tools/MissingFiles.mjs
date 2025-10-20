@@ -40,7 +40,7 @@ allFiles = allFiles.concat(sec5Files);
 allFiles = allFiles.concat(sec6Files);
 
 import { DocSection } from '../code/DocSection.mjs'
-import { DocDef } from '../DocDef.mjs'
+import { DocDef } from '../DocDef_802.mjs'
 
 let docDefFiles = [];
 /**
