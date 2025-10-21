@@ -6,7 +6,7 @@ import { DocSection } from './code/DocSection.mjs'
 let def_Sec_1_0_1 = new DocSection().i(true, "1.0.1", true, "CERTIFICATION BASIS", true, `html/Description/402/CERTIFICATION BASIS_402.html`);
 let def_Sec_1_0_2 = new DocSection();
 def_Sec_1_0_2
-    .i(true, "1.0.2", true, "INSTRUCTIONS FOR CONTINUED AIRWORTHINESS (ICA's)", true, "html/Description/402/INSTRUCTIONS FOR CONTINUED AIRWORTHINESS_402.html")
+    .i(true, "1.0.2", true, "INSTRUCTIONS FOR CONTINUED AIRWORTHINESS (ICA's)", true, "html/Description/INSTRUCTIONS FOR CONTINUED AIRWORTHINESS.html")
     .s([
         new DocSection().i(false, "", false, "", true, "html/Description/402/802OM_402.html", "break-after: avoid"),
         new DocSection().i(false, "", false, "", true, "html/Description/402/ADDRESS AIR TRACTOR_402.html", "padding-left: 5em;"),

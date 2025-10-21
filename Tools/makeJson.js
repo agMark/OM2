@@ -1,7 +1,7 @@
 //This file converts from the original javascript doc def to a json file.
 
 
-import { DocDef } from '../DocDef_802.mjs'
+import { DocDef } from '../DocDef_402.mjs'
 
 import fs from 'fs'
 
