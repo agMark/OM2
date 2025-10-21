@@ -1,6 +1,6 @@
 //@ts-check
 
-import { DocDef } from "../DocDef_802.mjs";
+import { DocDef } from "../docDefs/DocDef_802.mjs";
 import { DocSection } from "../code/DocSection.mjs";
 import fs from 'fs';
 import path from 'path';
@@ -20,13 +20,13 @@ let getAllHtmlFiles = (section, array) => {
         getAllHtmlFiles(s, array);
     })
 }
-getAllHtmlFiles(DocDef.Sections[3], allHtmlFiles);
+getAllHtmlFiles(DocDef.Sections[2], allHtmlFiles);
 
 
 for(let i=0; i < allHtmlFiles.length; i++){
     let parsedPath = path.parse(allHtmlFiles[i]);
     let fileNameWithoutExtension = parsedPath.name;
-    let newFileName = fileNameWithoutExtension + "_402.html";
+    let newFileName = fileNameWithoutExtension + "_602.html";
     let newFilePath = "./temp/" + newFileName;
     let content = "<p style='color:red;'>CONTENT NOT CREATED</p>";
     fs.writeFileSync(newFilePath, content, "utf-8");
