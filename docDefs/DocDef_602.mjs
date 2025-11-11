@@ -30,7 +30,7 @@ DocDef.Sections = [
 ];
 
 var docVars= new DocVars();
-docVars.vars.DOCNUM = "03-0017";
+docVars.vars.DOCNUM = "03-0117";
 docVars.vars.SHORTDATE = "3/1/26";
 docVars.vars.LONGDATE = "3/1/2026";
 docVars.vars.SHORTMODELS = "AT-602";

@@ -6,14 +6,14 @@ import { DocSection } from '../code/DocSection.mjs'
 let def_Sec_1_0_1 = new DocSection().i(true, "1.0.1", true, "CERTIFICATION BASIS", true, `html/Description/602/CERTIFICATION BASIS_602.html`);
 let def_Sec_1_0_2 = new DocSection();
 def_Sec_1_0_2
-    .i(true, "1.0.2", true, "INSTRUCTIONS FOR CONTINUED AIRWORTHINESS (ICA's)", true, "html/Description/602/INSTRUCTIONS FOR CONTINUED AIRWORTHINESS_602.html")
+    .i(true, "1.0.2", true, "INSTRUCTIONS FOR CONTINUED AIRWORTHINESS (ICA's)", true, "html/Description/INSTRUCTIONS FOR CONTINUED AIRWORTHINESS.html")
     .s([
         new DocSection().i(false, "", false, "", true, "html/Description/602/802OM_602.html", "break-after: avoid"),
+        new DocSection().i(false, "", false, "", true, "html/Description/ADDRESS AIR TRACTOR.html", "padding-left: 5em;"),
+        new DocSection().i(false, "", false, "", true, "html/Description/602/602 SERVICE LETTERS.html", "break-after: avoid"),
         new DocSection().i(false, "", false, "", true, "html/Description/602/ADDRESS AIR TRACTOR_602.html", "padding-left: 5em;"),
-        new DocSection().i(false, "", false, "", true, "html/Description/602/802 SERVICE LETTERS_602.html", "break-after: avoid"),
-        new DocSection().i(false, "", false, "", true, "html/Description/602/ADDRESS AIR TRACTOR_602.html", "padding-left: 5em;"),
-        new DocSection().i(false, "", false, "", true, "html/Description/602/MANUAL PROPELLER_602.html", "break-after: avoid"),
-        new DocSection().i(false, "", false, "", true, "html/Description/602/ADDRESS HARTZELL_602.html", "padding-left: 5em;"),
+        new DocSection().i(false, "", false, "", true, "html/Description/MANUAL PROPELLER.html", "break-after: avoid"),
+        new DocSection().i(false, "", false, "", true, "html/Description/ADDRESS HARTZELL.html", "padding-left: 5em;"),
         new DocSection().i(false, "", false, "", true, "html/Description/602/MANUAL PT6A_45_602.html", "break-after: avoid"),
         new DocSection().i(false, "", false, "", true, "html/Description/602/ADDRESS PWC_602.html", "padding-left: 5em;"),
         new DocSection().i(false, "", false, "", true, "html/Description/602/MANUAL PT6A_65_602.html", "break-after: avoid"),
