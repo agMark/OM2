@@ -1,1 +1,80 @@
-<p style='color:red;'>CONTENT NOT CREATED</p>
+<p>
+    Refer to your parts manual and to schematic found in this manual, the system consists of:
+</p>
+<ol>
+    <li>
+        The Starter/Generator (S/G) - the armature is continuously engaged in the engine's accessory gear box. The S/G
+        functions as an electric motor for starting the engine and then as an engine driven DC Generator.
+    </li>
+    <li>
+        The Generator Control Unit (GCU) - The GCU is located under the cockpit floor.
+    </li>
+    <li>
+        The Line Contactor Relay (LCR) - located on the right side of the firewall.
+    </li>
+    <li>
+        The Start Relay - located on the right side of the firewall.
+    </li>
+    <li>
+        The Start Switch (ST SW) - located on the Lower Instrument Panel.
+    </li>
+    <li>
+        The Generator Switch (GEN SW) - located on the Lower Instrument Panel.
+    </li>
+    <li>
+        The Pilots Panel Voltmeter (VM) - located on the Lower Instrument Panel.
+    </li>
+    <li>
+        The Low Voltage Warning Light (LV LITE) - located on the Upper Instrument Panel (when equipped)
+    </li>
+    <li>
+        15 Amp GCU Circuit Breaker (15A C/B) - located on the right lower engine mount tube just ahead of the firewall.
+    </li>
+</ol>
+
+<p class="boldText">Theory of Operation</p>
+
+<p>
+    Starting - Actuating the Start Switch energizes the Start Relay which applies battery voltage to term C of the S/G
+    which operates as a series-wound DC motor. Note that at the same time battery voltage is applied to pin N of the GCU
+    which signals it to remove field excitation from the S/G. The purpose of this feature is to prevent the poor start
+    performance that would otherwise result if the Generator Switch were left in the ON position.
+</p>
+
+<p>
+    Note: It is recommended that the Generator Switch be in the OFF position during START because of the high inrush
+    current to the batteries immediately upon Start termination will result in higher-than-normal gas temperature (ITT).
+    It is better to allow the engine to stabilize at Ground Idle before turning the Generator Switch ON.
+</p>
+
+<p>
+    Generator Mode - Following engine starting and prior to turning the Generator Switch ON (The engine at ground idle)
+    the voltage output of the S/G (Terminal B) should be .5 to 1.5 volts. This is a residual voltage that results from
+    residual magnetism in the S/G even though the field excitation from the GCU is Zero. Turning the Generator Switch ON
+    causes this residual voltage to be applied to pin J, which the GCU in turn outputs on pin M. As a result, the S/G
+    output will build up rapidly and stabilize at the 27.5 V voltage setting of the GCU (externally adjusted from 26 to
+    30 volts). Sensing for Voltage Regulation is between pins B and G.
+</p>
+
+<p>
+    Line Contact Relay (LCR) Control - The GCU monitors the S/G output and the Bus Voltage on pins B and A respectively.
+    As the S/G voltage builds up to within approximately .2 volts of the Bus voltage the GCU will output system voltage
+    on pin H resulting in activation of the LCR. Power for this circuit is derived from pin J so turning the Generator
+    Switch OFF disables the LCR as well as the S/G.
+</p>
+
+<p>
+    Reverse Current Protection - If the S/G voltage drops below the Bus voltage (battery) due to normal conditions such
+    as engine shutdown or abnormal conditions such as loss of field excitation the S/G will draw reverse current
+    (discharge the battery). The GCU senses this condition via pin D which is connected to terminal D of the S/G.
+    Terminal D output is a positive voltage proportional to reverse current.
+</p>
+
+<p>
+    Overvoltage (OV) Protection - In the event that system faults occur, either internal or external to the GCU, that
+    results in over-excitation of the S/G the OV circuit will prevent the Bus voltage from going above approximately 32
+    volts. This protection is accomplished by a "Crowbar" circuit in the GCU which internally shorts pin J to D. This
+    results in immediate removal of voltage from the S/G field and the LCR coil. At the same time high current flow
+    through the 15A C/B causing it to trip. The OV Circuit has a time delay to prevent nuisance trips due to system
+    transients.
+</p>
