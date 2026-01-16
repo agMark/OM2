@@ -510,6 +510,7 @@ let defSec_2_90_14 = new DocSection().i(true, "2.90.14", true, "Brake Bleeding",
 let defSec_2_90_15 = new DocSection().i(true, "2.90.15", true, "Parking Brake", true, "html/Maintenance/Parking Brake.html");
 let defSec_2_90_16 = new DocSection().i(true, "2.90.16", true, "Main and Tail Gear Attach Bolts", true, "html/Maintenance/MAIN AND TAIL GEAR ATTACH BOLTS.html");
 let defSec_2_90_50 = new DocSection().i(true, "2.90.50", true, "Main Gear Spring Block Inspection", true, "html/Maintenance/Main Gear Spring Block Inspection.html");
+let defSec_2_90_70 = new DocSection().i(true, "2.90.70", true, "Master Cylinder Overhaul", true, "html/Maintenance/Master Cylinder Overhaul.html");
 let def_Sec_2_90 = new DocSection();
 def_Sec_2_90
     .i(true, "2.90", true, "LANDING GEAR AND BRAKES", false, "")
@@ -530,7 +531,8 @@ def_Sec_2_90
         defSec_2_90_14,
         defSec_2_90_15,
         defSec_2_90_16,
-        defSec_2_90_50
+        defSec_2_90_50,
+        defSec_2_90_70
     ]);
 
 
