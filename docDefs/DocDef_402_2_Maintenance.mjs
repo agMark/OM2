@@ -579,6 +579,8 @@ def_Sec_2_105
         defSec_2_105_5
     ]);
 
+let def_Sec_2_110 = new DocSection().i(true, "2.110", true, "Reserved", false, "");
+
 let defSec_2_200_1 = new DocSection().i(true, "2.200.1", true, "Recommended Time Limits", true, "html/Maintenance/402/Recommended Time Limits_402.html");
 let defSec_2_200_2 = new DocSection().i(true, "2.200.2", true, "Suggested Time Limits", true, "html/Maintenance/402/Suggested Time Limits_402.html");
 let def_Sec_2_200 = new DocSection();
@@ -614,7 +616,8 @@ def_Sec_2.s([
     def_Sec_2_95,
     def_Sec_2_100,
     def_Sec_2_105,
-    def_Sec_2_200
+    def_Sec_2_110,
+    def_Sec_2_200,
 ]);
 def_Sec_2.CustomClass = "sectionMaintenance";
 def_Sec_2.SetElementId("Sec_2");
