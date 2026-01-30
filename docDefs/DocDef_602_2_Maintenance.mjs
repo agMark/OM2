@@ -481,6 +481,7 @@ let defSec_2_85_1 = new DocSection().i(true, "2.85.1", true, "Altimeter / Static
 
 let defSec_2_85_3 = new DocSection().i(true, "2.85.3", true, "Compass", true, "html/Maintenance/602/Compass Calibration_602.html");
 let defSec_2_85_4 = new DocSection().i(true, "2.85.4", true, "Reserved", false, "");
+let defSec_2_85_5 = new DocSection().i(true, "2.85.5", true, "Garmin G5 Maintenance", true, "html/Maintenance/GarminG5Maintenance.html");
 let def_Sec_2_85 = new DocSection();
 def_Sec_2_85
     .i(true, "2.85", true, "INSTRUMENTS", false, "")
@@ -488,7 +489,8 @@ def_Sec_2_85
         defSec_2_85_1,
 
         defSec_2_85_3,
-        defSec_2_85_4
+        defSec_2_85_4,
+        defSec_2_85_5
     ]);
 
 
