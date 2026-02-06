@@ -461,6 +461,7 @@ let defSec_2_80_6 = new DocSection().i(true, "2.80.6", true, "Canopy Doors", tru
 let defSec_2_80_7 = new DocSection().i(true, "2.80.7", true, "Seat", true, "html/Maintenance/502/Seat_502.html");
 let defSec_2_80_8 = new DocSection().i(true, "2.80.8", true, "Engine Mount Inspection", true, "html/Maintenance/502/Engine Mount Inspection_502.html");
 let defSec_2_80_9 = new DocSection().i(true, "2.80.9", true, "Baggage Compartment", true, "html/Maintenance/502/Baggage Compartment_502.html");
+let defSec_2_80_10 = new DocSection().i(true, "2.80.10", true, "Grab Handle (504)", true, "html/Maintenance/502/GrabHandle.html");
 let def_Sec_2_80 = new DocSection();
 def_Sec_2_80
     .i(true, "2.80", true, "FUSELAGE", false, "")
@@ -473,7 +474,8 @@ def_Sec_2_80
         defSec_2_80_6,
         defSec_2_80_7,
         defSec_2_80_8,
-        defSec_2_80_9
+        defSec_2_80_9,
+        defSec_2_80_10
     ]);
 
 
