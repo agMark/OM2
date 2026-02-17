@@ -90,7 +90,7 @@ def_Sec_2_15
 
 
 
-let defSec_2_20_1 = new DocSection().i(true, "2.20.1", true, "Cockpit Cleaning and Maintenance", true, "html/Maintenance/602/Cockpit Cleaning and Maintenance_602.html");
+let defSec_2_20_1 = new DocSection().i(true, "2.20.1", true, "Cockpit Cleaning and Maintenance", true, "html/Maintenance/Cockpit Cleaning and Maintenance.html");
 let defSec_2_20_2 = new DocSection().i(true, "2.20.2", true, "Amsafe Airbag System", true, "html/Maintenance/602/Amsafe Airbag System_602.html");
 let defSec_2_20_3 = new DocSection().i(true, "2.20.3", true, "Cockpit Fire Extinguisher", true, "html/Maintenance/602/Cockpit Fire Extinguisher_602.html");
 let defSec_2_20_4 = new DocSection().i(true, "2.20.4", true, "Impact Risks and Sharp Edges", true, "html/Maintenance/602/Impact Risks and Sharp Edges_602.html");
