@@ -124,6 +124,7 @@ let defSec_2_30_5 = new DocSection().i(true, "2.30.5", true, "Elevator Trim Tab 
 let defSec_2_30_6 = new DocSection().i(true, "2.30.6", true, "Elevator - Flap Interconnect System Rigging", true, "html/Maintenance/Elevator - Flap Interconnect System Rigging.html");
 let defSec_2_30_7 = new DocSection().i(true, "2.30.7", true, "Rudder Controls", true, "html/Maintenance/Rudder Controls.html");
 let defSec_2_30_8 = new DocSection().i(true, "2.30.8", true, "Rudder Trim Controls", true, "html/Maintenance/Rudder Trim Controls.html");
+let defSec_2_30_9 = new DocSection().i(true, "2.30.9", true, "Rudder Trim Rigging", true, "html/Maintenance/Rudder Trim Rigging.html");
 let def_Sec_2_30 = new DocSection();
 def_Sec_2_30
     .i(true, "2.30", true, "CONTROL SYSTEMS", true, "html/Maintenance/Control Systems.html")
@@ -135,7 +136,8 @@ def_Sec_2_30
         defSec_2_30_5,
         defSec_2_30_6,
         defSec_2_30_7,
-        defSec_2_30_8
+        defSec_2_30_8,
+        defSec_2_30_9
     ]);
 
 
