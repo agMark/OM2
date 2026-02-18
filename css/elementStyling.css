@@ -344,7 +344,7 @@ tr{
     width: 6in;
     height: 6in;
 }
-.imageCentered_6x4{
+.imageCentered_6x4{ /*L/W = 1.5*/
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -386,7 +386,7 @@ tr{
     width: 4in;
     height: 2in;
 }
-.imageCentered_4x3{
+.imageCentered_4x3{ /*L/W = 1.33*/
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -407,14 +407,14 @@ tr{
     width: 5in;
     height: 2in;
 }
-.imageCentered_5x3{
+.imageCentered_5x3{ /*L/W = 1.67*/
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 5in;
     height: 3in;
 }
-.imageCentered_5x4{
+.imageCentered_5x4{ /*L/W = 1.25*/
     display: block;
     margin-left: auto;
     margin-right: auto;
