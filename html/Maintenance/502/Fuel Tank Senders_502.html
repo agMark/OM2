@@ -1,1 +1,75 @@
-<p style='color:red;'>CONTENT NOT CREATED</p>
+<p>
+    Each of the fuel tanks has two fuel-quantity sending elements. These two sending elements are connected in series
+    electrically. The outboard sending element is active in sensing fuel level when the fuel level is in the upper third
+    of the tank. The inboard sending element is active when the fuel level is in the lower third of the tank. Both of
+    the elements are active when the fuel level is in the mid-range. A functional schematic is shown in 
+    <xref fileTarget="img_AnalogFuelQuantitySchematic.png"></xref>.
+    A wiring schematic for the analog system is shown in <xref fileTarget="img_FuelQuantityWiringAnalog.png"></xref>
+    and for the MVP-50T system in <xref fileTarget="img_FuelQuantityWiringMvp.png"></xref>
+</p>
+
+<figure>
+    <img class="imageCentered_6x4" src="img/img_AnalogFuelQuantitySchematic.png">
+    <figcaption class="centerText">Analog Fuel Quantity System Functional Schematic</figcaption>
+</figure>
+
+<figure>
+    <img class="imageCentered_6x4" src="img/img_FuelQuantityWiringAnalog.png">
+    <figcaption class="centerText">Analog Fuel Quantity System Wiring - Analog</figcaption>
+</figure>
+
+<figure>
+    <img class="imageCentered_6x4" src="img/img_FuelQuantityWiringMvp.png">
+    <figcaption class="centerText">Analog Fuel Quantity System Wiring - MVP-50T</figcaption>
+</figure>
+
+
+<p>The inboard sender is insulated from ground (wing skin) by insulating washers that are used on both sides of the five
+    holes in its flange.</p>
+
+<p>The outboard sender is grounded to the wing skin through its mounting bolts.</p>
+
+<p>The inboard and outboard tank senders have different part numbers, but both use a Rochester resistive float probe. The sender is installed with five AN bolts, bushings and AN nuts. Both senders have Teflon washers under the bolt head for sealing purposes. </p>
+
+<p><b>Troubleshooting</b></p>
+<p>To verify functionality of the senders:</p>
+<ol>
+    <li>Remove fuel tank covers as required to gain access to senders.</li>
+    <li>Locate wiring exiting wing. This will be either a "banana jack" or a COAX connector.</li>
+    <li>Each sender should provide between 0 and 30 ohms of resistance. There are multiple ways to verify that each is
+        functioning, the following assumes the tank has been drained and the senders are resting at the bottom of the
+        tank.</li>
+    <ol type="A">
+        <li>Measure resistance between signal wire (banana jack or center coax center conductor). Resistance should be
+            very near 0 ohms with both probes fully down.</li>
+        <li>Slowly raise 1 probe. Resistance will increase to approximately 30 ohms. Observe for erratic behavior any
+            signs of
+            a bad resistor wiper.</li>
+        <li>With first probe all the way down, slowly exercise the other probe in the same way.</li>
+        <li>Raise both probes, total resistance should be approximately 60 ohms.</li>
+    </ol>
+    <li>If this procedure did not identify the cause of the issue, inspect for damaged wires or insulators on the
+        inboard sender. Inadvertent grounding is a typical cause of issues.
+    </li>
+</ol>
+
+
+<p>To verify sender excitation from analog fuel gauges:</p>
+<p>Excitation voltage is provided by the gauges. A small circuit board uses a Zener diode circuit to provide a small
+    voltage that runs through the senders.</p>
+<p>With infinite resistance (unplug the coax cable or banana jack), the voltage entering the wing should be
+    approximately 0.5V. If otherwise, further inspect the gauge and trimming circuit.</p>
+
+
+<p><b>Sender Replacement</b></p>
+
+<p>When the sender is being replaced, the cork at the end of the float arm should just touch the bottom of the tank when
+    the arm is at the lower end of its stroke. It should almost touch the top of the tank at the upper end of the
+    stroke. If it will not quite touch the tank bottom or touches too soon, bend the arm gently by hand to achieve the
+    desired position. </p>
+
+<p>
+    Before reinstalling the inspection plate on the fuel tank top, move the float arm through the full stroke with the
+    battery switch “On" to see that the sender is working properly. Seal the inspection plate per instruction in 
+    <xref sectionTarget="2.75.2" prependLabel="Section"></xref> and re-install.
+</p><p style='color:red;'>Content copied from approved 802OM with part numbers removed. Are ohm and voltage values correct for 500 series?</p>
