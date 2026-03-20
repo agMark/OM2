@@ -180,6 +180,71 @@ export class DocSection {
     }
 
     /**
+     * 
+     * @param {boolean} includeSelf 
+     */
+    CreateWebToc = (includeSelf, targetDiv) => {
+        /*
+                <ul>
+                    <li>
+                        <details open>
+                            <summary>1. Documentation</summary>
+                            <ul>
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">A Very Long Section Title That Should Scroll</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+        */
+        if (includeSelf) {
+
+            if (this.IsNumbered && this.DisplayTitle) {
+                if (this.Sections.length > 0) {
+
+                    let li = document.createElement("li");
+                    let details = document.createElement("details");
+                    details.open = false;
+                    let summary = document.createElement("summary");
+                    let a = document.createElement("a");
+                    a.href = "#" + this.ElementId;
+                    a.innerText = this.SectionNumber + " - " + this.SectionTitle;
+                    summary.appendChild(a);
+                    details.appendChild(summary);
+                    li.appendChild(details);
+                    targetDiv.appendChild(li);
+
+
+                    let ul = document.createElement("ul");
+                    ul.style.marginLeft = "20px";
+                    details.appendChild(ul);
+                    this.Sections.forEach(s => {
+                        s.CreateWebToc(true, ul);
+                    });
+                }
+                else {
+                    let li = document.createElement("li");
+                    let a = document.createElement("a");
+                    a.href = "#" + this.ElementId;
+                    a.innerText = this.SectionNumber + " - " + this.SectionTitle;
+                    li.appendChild(a);
+                    targetDiv.appendChild(li);
+                }
+            }
+
+
+        }
+        else {
+            if (this.Sections.length > 0) {
+                this.Sections.forEach(s => {
+                    s.CreateWebToc(true, targetDiv);
+                });
+            }
+        }
+
+    }
+
+    /**
      * Sets the html id attribute of the section's main div.
      * @param {string} id 
      */

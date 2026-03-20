@@ -1,0 +1,199 @@
+<html>
+
+<head>
+    <title data-vars="DOCNUM">TITLE</title>
+
+    <link href="css/elementStyling.css" rel="stylesheet">
+
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: sans-serif;
+            overflow: hidden;
+            /* Prevent selection globally while dragging */
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* 1. SIDEBAR */
+        #sidebar {
+            width: 500px;
+            min-width: 150px;
+            max-width: 600px;
+            background: #f8f9fa;
+            border-right: 1px solid #ddd;
+            flex-shrink: 0;
+            overflow: auto;
+            position: relative;
+        }
+
+        /* 2. THE RESIZER (The Hit Area) */
+        #draghandle {
+            position: absolute;
+            top: 0;
+            right: -5px;
+            /* Centers it over the border */
+            width: 10px;
+            height: 100%;
+            cursor: col-resize;
+            z-index: 100;
+            background: transparent;
+        }
+
+        #draghandle:hover {
+            background: rgba(0, 123, 255, 0.3);
+        }
+
+        /* 3. THE MAGIC OVERLAY */
+        /* This appears only when dragging to block all other page interactions */
+        #shield {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            cursor: col-resize;
+        }
+
+        /* 4. CONTENT (8-Inch Scrolling) */
+        .scrollable-content {
+            width: 8in;
+            min-width: 8in;
+            height: 100vh;
+            overflow-y: auto;
+            background: white;
+            padding: 40px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            border-right: 1px solid #eee;
+            /* Re-enable selection for content specifically */
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        /* 5. LOGO AREA (Static) */
+        .logo-area {
+            flex-grow: 1;
+            height: 100vh;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-area img {
+            max-width: 200px;
+            opacity: 0.5;
+        }
+
+        /* TOC Styles */
+        .toc {
+            padding: 20px;
+            white-space: nowrap;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin: 10px 0;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+    <div id="shield"></div>
+
+    <div class="container">
+        <aside id="sidebar">
+            <div id="draghandle"></div>
+            <div class="toc">
+                <h3 style="text-align: center;">Contents</h3>
+                <ul id="webToc">
+
+                    <!-- <li>
+                        <details open>
+                            <summary>1. Documentation</summary>
+                            <ul>
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">A Very Long Section Title That Should Scroll</a></li>
+                            </ul>
+                        </details>
+                    </li> -->
+                </ul>
+            </div>
+        </aside>
+
+        <main class="scrollable-content" id="contentTarget">
+
+        </main>
+
+        <section class="logo-area">
+            <img src="./img/AT-Logo1.png" alt="Logo">
+        </section>
+    </div>
+
+
+
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const handle = document.getElementById('draghandle');
+        const shield = document.getElementById('shield');
+
+        let isResizing = false;
+
+        handle.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            shield.style.display = 'block'; // Activate the shield
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+
+            let offsetRight = e.clientX;
+
+            // Bound checks
+            if (offsetRight < 150) offsetRight = 150;
+            if (offsetRight > 600) offsetRight = 600;
+
+            sidebar.style.width = offsetRight + 'px';
+        });
+
+        window.addEventListener('mouseup', () => {
+            isResizing = false;
+            shield.style.display = 'none'; // Hide the shield
+        });
+    </script>
+
+    <script type="module">
+        let targetDiv = document.getElementById("contentTarget");
+        let tocDiv = document.getElementById("webToc");
+        import { renderDoc } from "./RenderDoc.mjs"
+        renderDoc(true, "../docDefs/DocDef_802.mjs", targetDiv, tocDiv);
+    </script>
+</body>
+
+</html>

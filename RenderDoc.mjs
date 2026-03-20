@@ -8,8 +8,13 @@ import { tocPostProcess } from "./code/TocPostProcess.mjs";
 
 
 
-
-let renderDoc = (isWebRender, docDefFile) => {
+/**
+ * 
+ * @param {boolean} isWebRender 
+ * @param {string} docDefFile 
+ * @param {HTMLElement | null} webTargetDiv 
+ */
+let renderDoc = (isWebRender, docDefFile, webTargetDiv = null, webTargetTocDiv = null) => {
     /**@type {DocSection} */
     let DocDef = null;
     /**@type {DocVars} */
@@ -67,11 +72,15 @@ let renderDoc = (isWebRender, docDefFile) => {
 
 
         await DocDef.GetContent();
-        if (!globalThis.isWebRender) {
+        if (!isWebRender) {
             DocDef.RenderContent(true, document.body);
         }
         else {
-            DocDef.RenderContent(true, globalThis.contentTarget);
+            DocDef.RenderContent(true, webTargetDiv);
+            if (webTargetTocDiv) {
+                DocDef.CreateWebToc(false, webTargetTocDiv);
+            }
+
         }
 
         docVars.InjectVars(document.body);
