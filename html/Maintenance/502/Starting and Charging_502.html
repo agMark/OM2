@@ -13,22 +13,22 @@ Actuating the Start Switch energizes the Start Relay, which applies battery volt
 <p><div class="boxCautionLarge">
  <p class="boxCautionLargeHeader"><b>NOTE</b>
  <p class="boxCautionLargeText">
-It is recommended that the Generator Switch be in the OFF position during start because the high inrush current to the batteries immediately upon Start termination will result in higher than normal gas temperature (ITT). It is better to allow the engine to stabilize at Ground Idle before turning the Generator Switch ON.
+It is recommended that the Generator Switch be in the OFF position during start because the high inrush current to the batteries immediately upon start termination will result in higher than normal gas temperature (ITT). It is better to allow the engine to stabilize at ground idle before turning the Generator Switch ON.
 </p>
 </div>
 <p>
 <b>Generating Mode</b>
 <p>
-Following engine starting and prior to turning the Generator Switch ON (the egine at ground idle) the voltage output of the S/G (Terminal B) should be .5 to 1.5 volts. This is a residual voltage that results from residual magnetism in the S/G even though the field excitation from the GCU is zero. Turning the Generator Switch ON causes this residual voltage to be applied to pin J, which the GCU in turn outputs on pin M. As a result, the S/G output will build up rapidly and stabilize at the 27.5 Volt setting of the GCU (externally adjusted from 26.5 to 28.5 volts). Sensing for Voltage Regulation is between pins B and G.
+Following engine starting and prior to turning the Generator Switch ON (with the engine at ground idle) the voltage output of the S/G (terminal B) should be .5 to 1.5 volts. This is a residual voltage that results from residual magnetism in the S/G even though the field excitation from the GCU is zero. Turning the Generator Switch ON causes this residual voltage to be applied to pin J, which the GCU in turn outputs on pin M. As a result, the S/G output will build up rapidly and stabilize at the 27.5 volt setting of the GCU (externally adjusted from 26.5 to 28.5 volts). Sensing for voltage regulation is between pins B and G.
 <p>
 <b>Line Contact Relay (LCR) Control</b>
 <p>
-The GCU monitors the S/G output and the Bus Voltage on pins B and A respectively. As the S/G voltage builds up to within approximately .2 volts of the Bus voltage the GCU will output system voltage on the pin H resulting in activation of the LCR. Power of this circuit is derived from pin J, so turning the Generator Switch OFF disables the LCR as well as the S/G.
+The GCU monitors the S/G output and the bus voltage on pins B and A respectively. As the S/G voltage builds up to within approximately .2 volts of the bus voltage the GCU will output system voltage on the pin H resulting in activation of the LCR. Power of this circuit is derived from pin J, so turning the Generator Switch OFF disables the LCR as well as the S/G.
 <p>
 <b>Reverse Current Protection</b>
 <p>
-If the S/G voltage drops below the Bus voltage (battery) due to normal conditions such as engine shut down or abnormal conditions such as loss of field excitation the S/G will draw reverse current (discharge the battery). The GCU senses this condition via pin D that is connected to terminal D of the S/G. Terminal D output is a positive voltage proportional to reverse current.
+If the S/G voltage drops below the bus voltage (battery) due to normal conditions such as engine shut down or abnormal conditions such as loss of field excitation the S/G will draw reverse current (discharge the battery). The GCU senses this condition via pin D that is connected to terminal D of the S/G. Terminal D output is a positive voltage proportional to reverse current.
 <p>
 <b>Overvoltage (OV) Protection</b>
 <p>
-S/G the OV circuit will prevent the Bus voltage from going above approximately 32 volts. This protection is accomplished by a “Crowbar” circuit in the GCU, which internally shorts pin J to D. This results in immediate removal of voltage from the S/G field and the LCR coil. At the same time high current flow through the 15A C/B causing it to trip. The OV Circuit has a time delay to prevent nuisance trips due to system transients.
+S/G the OV circuit will prevent the bus voltage from going above approximately 32 volts. This protection is accomplished by a “crowbar” circuit in the GCU, which internally shorts pin J to D. This results in immediate removal of voltage from the S/G field and the LCR coil. At the same time high current flow through the 15A C/B causing it to trip. The OV Circuit has a time delay to prevent nuisance trips due to system transients.
