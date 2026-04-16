@@ -1,1 +1,308 @@
-<p style='color:red;'>CONTENT NOT CREATED</p>
+<p>
+    As a general rule, if the starter-generator functions normally in the Start mode there 
+    will be nothing wrong with it that would prevent it from functioning in the Generate mode.
+</p>
+
+<p>
+    Before attempting to correct any problem with this system first read, understand 
+    <xref fileTarget="html/Maintenance/Starting and Charging.html" prependLabel="Section"></xref> 
+    and acquaint yourself with the location and function of the various 
+    components. Look for obvious problems such as overheating, burned wires, loose components and loose 
+    electrical connections. Disconnect the GCU cannon plug and inspect it and all other electrical connections for 
+    corrosion. Correct any of these problems before proceeding.
+</p>
+
+<p><b>Equipment</b></p>
+<p>
+    Equipment recommended for troubleshooting the charging system is shown below:
+</p>
+<ul>
+    <li>
+        A multimeter capable of .01V resolution in the 0-2.5V range, .15V resolution in the 0-30V range 
+        and capable of reading from a fraction of an ohm to several kilohms will be required. 
+        An autoranging digital instrument is ideal but any good quality until will work. For point-to-point ringout, the 
+        ohmmeter function will be used.
+    </li>
+    <li>
+        GCU Breakout Box- This is not absolutely essential but it is very effective in localizing many problems. 
+        It can be fabricated per <xref fileTarget="img_Fig_45.png" xrefType="link">Fig Cross Reference</xref> below or it is available from your dealer.
+    </li>
+</ul>
+<figure>
+    <img class="imageCentered_4x3" src="img/img_Fig_45.png">
+    <figcaption class="centerText"> Breakout Box - Voltage Regulator</figcaption>
+</figure>
+
+<p><b>Troubleshooting Procedures</b></p>
+
+<p><b>Static Tests</b></p>
+<p>
+    Before going into specific symptoms which will result in operational squawks, it is productive to 
+    point out a static test routine that is quick and easy and will result in localizing some problems without starting 
+    the engine.
+</p>
+
+<p>Set Master Switch to OFF and Generator Switch to ON and check the following:</p>
+<table class="plainTableLarge">
+    <tr>
+        <th class="plainTableHeaderCell">From</th>
+        <th class="plainTableHeaderCell">To</th>
+        <th class="plainTableHeaderCell">Normal Value</th>
+        <th class="plainTableHeaderCell">Notes</th>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">GCU Pin L</td>
+        <td class="plainTableNormalCell">S/G Pin B</td>
+        <td class="plainTableNormalCell">0 ohms</td>
+        <td class="plainTableNormalCell">
+            If high, check Start Switch, Generator Switch, 15A C/B, and
+            all associated wires and connections.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">GCU Pin L</td>
+        <td class="plainTableNormalCell">S/G Pin E</td>
+        <td class="plainTableNormalCell">0 ohms</td>
+        <td class="plainTableNormalCell">
+            If high, check wire and connections from L to ground.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">GCU Pin G</td>
+        <td class="plainTableNormalCell">S/G Pin E</td>
+        <td class="plainTableNormalCell">0 ohms</td>
+        <td class="plainTableNormalCell">
+            If high, check wire and connections.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">GCU Pin M</td>
+        <td class="plainTableNormalCell">S/G Pin A</td>
+        <td class="plainTableNormalCell">0 ohms</td>
+        <td class="plainTableNormalCell">
+            If high, check wire and connections.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">S/G Pin A</td>
+        <td class="plainTableNormalCell">S/G Pin E</td>
+        <td class="plainTableNormalCell">2 ohms</td>
+        <td class="plainTableNormalCell">
+            If over 5 ohms, suspect S/G field is open.  
+            If less than 1.5 ohms, suspect that S/G field is shorted for GCU
+            M to S/G A wire shorted to ground.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">GCU Pin D</td>
+        <td class="plainTableNormalCell">S/G Pin D</td>
+        <td class="plainTableNormalCell">0 ohms</td>
+        <td class="plainTableNormalCell">
+            If high, check wire and connections.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">GCU Pin H</td>
+        <td class="plainTableNormalCell">LCR Pin X2</td>
+        <td class="plainTableNormalCell">0 ohms</td>
+        <td class="plainTableNormalCell">
+            If high, check wire and connections.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">LCR Pin X2</td>
+        <td class="plainTableNormalCell">S/G Pin E</td>
+        <td class="plainTableNormalCell">56 ohms</td>
+        <td class="plainTableNormalCell">
+            If over 75 ohms, suspect LCR Coil is open. 
+            If less, suspect LCR Coil is shorted or GCU H to LCR X2
+            wire is shorted to ground.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">GCU Pin A</td>
+        <td class="plainTableNormalCell">LCR Pin AZ</td>
+        <td class="plainTableNormalCell">0 ohms</td>
+        <td class="plainTableNormalCell">
+            If high, check wire and connections.
+        </td>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">GCU Pin B</td>
+        <td class="plainTableNormalCell">LCR Pin A1</td>
+        <td class="plainTableNormalCell">0 ohms</td>
+        <td class="plainTableNormalCell">
+            If high, check wire and connections.
+        </td>
+    </tr>
+</table>
+
+<p><b>Scenario Troubleshooting - Generator Won't Come Online</b></p>
+<p>Evidenced by voltmeter reading below 25V and or low voltage light staying on.</p>
+
+<table class="plainTableLarge">
+    <tr>
+        <th class="plainTableHeaderCell cellWidth1_5">Symptom</th>
+        <th class="plainTableHeaderCell">Probable Cause</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Fix</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Notes</th>
+    </tr>
+    <tr>
+        <td class="plainTableNormalCell">
+            After engine start, GEN will not come on line unless the Start Switch is engaged momentarily after 
+            the Generator Switch is turned on.
+        </td>
+        <td class="plainTableNormalCell">
+            Field Flash function of GCU inoperative.
+        </td>
+        <td class="plainTableNormalCell">
+            Repair or replace GCU.
+        </td>
+        <td class="plainTableNormalCell">
+            The system can be operated as described without creating further detrimental effects until a convenient 
+            time to have the GCU replaced or repaired.
+        </td>
+    </tr>
+</table>
+
+<table class="marginTop1 plainTableLarge">
+    <tr>
+        <th class="plainTableHeaderCell cellWidth1_5">Symptom</th>
+        <th class="plainTableHeaderCell">Probable Cause</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Fix</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Notes</th>
+    </tr>
+
+    <tr>
+        <td class="plainTableNormalCell">
+            During engine shutdown the starter continues to run if the Generator Switch is left ON.
+        </td>
+        <td class="plainTableNormalCell">
+            Reverse Current Protection function of GCU is defective.
+        </td>
+        <td class="plainTableNormalCell">
+            Repair or replace GCU.
+        </td>
+        <td class="plainTableNormalCell">
+            Turning the Generator Switch off prior to engine shutdown will correct this condition as a stopgap 
+            measure, but the operator should be aware that if this precaution is overlooked damage to the starter generator 
+            can result.
+        </td>
+    </tr>
+</table>
+
+
+<table class="plainTableLarge marginTop1">
+    <tr>
+        <th class="plainTableHeaderCell cellWidth1_5">Symptom</th>
+        <th class="plainTableHeaderCell">Probable Cause</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Fix</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Notes</th>
+    </tr>
+
+    <tr>
+        <td class="plainTableNormalCell">
+            After an engine start the Generator will not come on line but 
+            normal generator output voltage exists (nominally 28V) at A1 of the LCR.
+        </td>
+        <td class="plainTableNormalCell">
+            This symptom would indicate that the Generator has built up and is being regulated but the 
+            LCR is not connecting the Generator to the bus. This can be caused by:
+            <ul>
+                <li>Bad LCR, check for 56 ohms through LCR Coil.</li>
+                <li>Check the Main Bus Circuit Breaker.</li>
+                <li>No output (nominally 28V) on pin H of the GCU (defective GCU)</li>
+                <li>Output on pin H but no voltage on X2 of LCR (defective wiring).</li>
+                <li>Normal voltage (nominally 28V) from X2 to X1 of LCR (defective LCR).</li>
+                <li>Normal voltage (nominally 28V) from both X2 and X1 of LCR (open ground wire).</li>
+            </ul>
+        </td>
+        <td class="plainTableNormalCell">
+            <p>Repair or replace GCU, or</p>
+            <p>Ring out and repair wiring as required</p>
+            <p>Replace LCR</p>
+        </td>
+        <td class="plainTableNormalCell">
+        </td>
+    </tr>
+</table>
+
+
+<table class="plainTableLarge marginTop1">
+    <tr>
+        <th class="plainTableHeaderCell cellWidth1_5">Symptom</th>
+        <th class="plainTableHeaderCell">Probable Cause</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Fix</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Notes</th>
+    </tr>
+
+    <tr>
+        <td class="plainTableNormalCell">
+            After an engine start the Generator won't come online and the voltage at A1 to the LCR is only 
+            about 1 Volt and there is no voltage on pin J of the GCU.
+        </td>
+        <td class="plainTableNormalCell">
+            There is a discontinuity in the circuit feeding power to the GCU, which includes the wiring, 
+            the 15A C/B, Generator Switch and the Start Switch.
+        </td>
+        <td class="plainTableNormalCell">
+            Make sure that the 15A C/B is not tripped and that the Generator Switch is ON and then proceed to ring 
+            out and isolate the discontinuity from A1 of the LCR to pin J.
+        </td>
+        <td class="plainTableNormalCell">
+        </td>
+    </tr>
+</table>
+
+
+<table class="plainTableLarge marginTop1">
+    <tr>
+        <th class="plainTableHeaderCell cellWidth1_5">Symptom</th>
+        <th class="plainTableHeaderCell">Probable Cause</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Fix</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Notes</th>
+    </tr>
+
+    <tr>
+        <td class="plainTableNormalCell">
+            The Generator won't come on line and the voltage on A1 of the LCR is low (9-16V).
+        </td>
+        <td class="plainTableNormalCell">
+            The Voltage Regulator section of the GCU is defective.
+        </td>
+        <td class="plainTableNormalCell">
+            Repair or replace the GCU.
+        </td>
+        <td class="plainTableNormalCell">
+        </td>
+    </tr>
+</table>
+
+
+<table class="plainTableLarge marginTop1">
+    <tr>
+        <th class="plainTableHeaderCell cellWidth1_5">Symptom</th>
+        <th class="plainTableHeaderCell">Probable Cause</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Fix</th>
+        <th class="plainTableHeaderCell cellWidth1_0">Notes</th>
+    </tr>
+
+    <tr>
+        <td class="plainTableNormalCell">
+            The voltmeter indicates rapidly increasing bus voltage and then at about 
+            32V suddenly drops to about 24V, slowly decreasing as the batteries discharge.
+        </td>
+        <td class="plainTableNormalCell">
+            This is indicative of an overvoltage trip and may be accompanied by the 15A C/B tripping. In 
+            those cases where the C/B does not trip the system can be restored to normal operation by momentarily turning 
+            the Generator Switch off and back on.
+        </td>
+        <td class="plainTableNormalCell">
+            If resetting the C/B or cycling the Generator Switch restores the system and the generator stays on line 
+            the GCU is suspect of an intermittent condition. If the symptoms repeat the GCU is faulty and should be repaired 
+            or replaced.
+        </td>
+        <td class="plainTableNormalCell">
+        </td>
+    </tr>
+</table><p style='color:red;'>Copied from approved 802OM. Some grammatical errors corrected.</p>
