@@ -118,6 +118,47 @@
             color: #0066cc;
         }
     </style>
+    <style>
+        /* Reset Button Styling */
+        #reset-view-btn {
+            display: block;
+            width: 90%;
+            margin: 10px auto;
+            padding: 8px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        #reset-view-btn:hover {
+            background: #004499;
+        }
+
+        /* Existing Isolation Styles */
+        .hidden-section {
+            display: none !important;
+        }
+
+        .toc-inactive {
+            opacity: 0.3;
+            pointer-events: none;
+            filter: grayscale(1);
+        }
+
+        .isolate-btn {
+            cursor: pointer;
+            padding: 0 5px;
+            color: #888;
+        }
+
+        .isolate-btn.active {
+            color: #d9534f;
+            font-weight: bold;
+        }
+    </style>
 
 </head>
 
@@ -131,6 +172,7 @@
             <div id="draghandle"></div>
             <div class="toc">
                 <h3 style="text-align: center;">Contents</h3>
+                <button id="reset-view-btn" onclick="window.resetManualView()">Show Full Manual</button>
                 <ul id="webToc">
 
                     <!-- <li>
@@ -186,11 +228,28 @@
             isResizing = false;
             shield.style.display = 'none'; // Hide the shield
         });
+
+
     </script>
 
     <script type="module">
         let targetDiv = document.getElementById("contentTarget");
         let tocDiv = document.getElementById("webToc");
+        import { renderDoc } from "./RenderDoc.mjs"
+        renderDoc(true, "../docDefs/DocDef_802.mjs", targetDiv, tocDiv);
+    </script>
+
+
+    <script type="module">
+        import { toggleIsolate, resetManualView } from './IsolationManager.mjs';
+
+        // Attach to window for the dynamic buttons and reset button to access
+        window.toggleIsolate = toggleIsolate;
+        window.resetManualView = resetManualView;
+
+        let targetDiv = document.getElementById("contentTarget");
+        let tocDiv = document.getElementById("webToc");
+
         import { renderDoc } from "./RenderDoc.mjs"
         renderDoc(true, "../docDefs/DocDef_802.mjs", targetDiv, tocDiv);
     </script>
