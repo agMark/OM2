@@ -510,6 +510,7 @@ export class DocSection {
                                         xrefs[0].replaceWith(a);
                                     }
                                     else if (figTargets.length == 0) {
+                                        console.log("No file targets found for: " + fileTarget);
                                         throw "No file targets found."
                                     }
                                     else {
