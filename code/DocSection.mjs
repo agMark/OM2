@@ -210,6 +210,18 @@ export class DocSection {
                     a.href = "#" + this.ElementId;
                     a.innerText = this.SectionNumber + " - " + this.SectionTitle;
                     summary.appendChild(a);
+
+                    const isolateIcon = document.createElement('span');
+                    isolateIcon.innerHTML = ' ⊝'; // Or use an SVG icon
+                    isolateIcon.className = 'isolate-btn';
+                    isolateIcon.title = 'Isolate this section';
+                    isolateIcon.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleIsolate(this.ElementId, isolateIcon);
+                    };
+                    summary.appendChild(isolateIcon);
+
                     details.appendChild(summary);
                     li.appendChild(details);
                     targetDiv.appendChild(li);
@@ -498,6 +510,7 @@ export class DocSection {
                                         xrefs[0].replaceWith(a);
                                     }
                                     else if (figTargets.length == 0) {
+                                        console.log("No file targets found for: " + fileTarget);
                                         throw "No file targets found."
                                     }
                                     else {
