@@ -62,10 +62,11 @@ def_Sec_1_50
     ]);
 let def_Sec_1_55 = new DocSection();
 def_Sec_1_55
-    .i(true, "1.55", true, "ENGINE CONTROLS", true, "html/Description/502/Engine Controls_502.html")
+    .i(true, "1.55", true, "ENGINE CONTROLS", true, "html/Description/Engine Controls.html")
     .s([
-        new DocSection().i(true, "1.55.1", true, "Air Tractor Throttle Quadrant", true, "html/Description/502/Air Tractor Throttle Quadrant_502.html"),
-        new DocSection().i(true, "1.55.2", true, "Kawak Throttle Quadrant", true, "html/Description/502/Kawak Throttle Quadrant_502.html")
+        new DocSection().i(false, "", false, "", true, "html/Description/502/EngineControls_504.html"), //this snippet it only difference in this manual compared to the others
+        new DocSection().i(true, "1.55.1", true, "Air Tractor Throttle Quadrant", true, "html/Description/Air Tractor Throttle Quadrant.html"),
+        new DocSection().i(true, "1.55.2", true, "Kawak Throttle Quadrant", true, "html/Description/Kawak Throttle Quadrant.html")
     ]);
 let def_Sec_1_56_1 = new DocSection();
 def_Sec_1_56_1

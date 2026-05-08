@@ -58,10 +58,10 @@ def_Sec_1_50
     ]);
 let def_Sec_1_55 = new DocSection();
 def_Sec_1_55
-    .i(true, "1.55", true, "ENGINE CONTROLS", true, "html/Description/402/Engine Controls_402.html")
+    .i(true, "1.55", true, "ENGINE CONTROLS", true, "html/Description/Engine Controls.html")
     .s([
-        new DocSection().i(true, "1.55.1", true, "Air Tractor Throttle Quadrant", true, "html/Description/402/Air Tractor Throttle Quadrant_402.html"),
-        new DocSection().i(true, "1.55.2", true, "Kawak Throttle Quadrant", true, "html/Description/402/Kawak Throttle Quadrant_402.html")
+        new DocSection().i(true, "1.55.1", true, "Air Tractor Throttle Quadrant", true, "html/Description/Air Tractor Throttle Quadrant.html"),
+        new DocSection().i(true, "1.55.2", true, "Kawak Throttle Quadrant", true, "html/Description/Kawak Throttle Quadrant.html")
     ]);
 let def_Sec_1_56_1 = new DocSection();
 def_Sec_1_56_1
