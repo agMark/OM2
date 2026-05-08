@@ -123,7 +123,7 @@ def_Sec_1
     .s([
         def_Sec_1_0,
         new DocSection().i(true, "1.10", true, "AILERONS", true, "html/Description/502/AILERONS_502.html"),
-        new DocSection().i(true, "1.15", true, "AIR CONDITIONER", true, "html/Description/502/AIR CONDITIONER_502.html"),
+        new DocSection().i(true, "1.15", true, "AIR CONDITIONER", true, "html/Description/AIR CONDITIONER.html"),
         new DocSection().i(true, "1.20", true, "COCKPIT", true, "html/Description/502/COCKPIT_502.html"),
         new DocSection().i(true, "1.25", true, "COCKPIT HEATER", true, "html/Description/502/COCKPIT HEATER_502.html"),
         def_Sec_1_30,
