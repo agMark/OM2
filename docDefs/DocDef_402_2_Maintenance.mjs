@@ -40,7 +40,7 @@ def_Sec_2_0
 
 
 let defSec_2_10_1 = new DocSection().i(true, "2.10.1", true, "Ailerons", true, "html/Maintenance/402/Ailerons_402.html");
-let defSec_2_10_2 = new DocSection().i(true, "2.10.2", true, "Reserved", false, ""); //"Aileron Counterweights_402.html"
+let defSec_2_10_2 = new DocSection().i(true, "2.10.2", true, "Aileron Counterweights", true, "html/Maintenance/502/Aileron Counterweights_502.html");
 let defSec_2_10_3 = new DocSection().i(true, "2.10.3", true, "Aileron and Flap Bellcranks and Supports", true, "html/Maintenance/402/Aileron and Flap Bellcranks and Supports_402.html"); //was "Aileron Supports and Bellcranks_402.html"
 let def_Sec_2_10 = new DocSection();
 def_Sec_2_10
