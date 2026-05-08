@@ -93,12 +93,12 @@ def_Sec_1_70
 
 let def_Sec_1_85 = new DocSection();
 def_Sec_1_85
-    .i(true, "1.85", true, "INSTRUMENTS", true, "html/Description/402/INSTRUMENTS_402.html")
+    .i(true, "1.85", true, "INSTRUMENTS", true, "html/Description/Instruments.html")
     .s([
-        new DocSection().i(true, "1.85.1", true, "Altimeter", true, "html/Description/402/Altimeter_402.html"),
-        new DocSection().i(true, "1.85.2", true, "Airspeed Indicator", true, "html/Description/402/Airspeed Indicator_402.html"),
-        new DocSection().i(true, "1.85.3", true, "Compass", true, "html/Description/402/Compass_402.html"),
-        new DocSection().i(true, "1.85.4", true, "Attitude Indicator", true, "html/Description/402/Attitude Indicator_402.html")        
+        new DocSection().i(true, "1.85.1", true, "Altimeter", true, "html/Description/502/Altimeter_502.html"),
+        new DocSection().i(true, "1.85.2", true, "Airspeed Indicator", true, "html/Description/Airspeed Indicator.html"),
+        new DocSection().i(true, "1.85.3", true, "Compass", true, "html/Description/Compass.html"),
+        new DocSection().i(true, "1.85.4", true, "Attitude Indicator", true, "html/Description/Attitude Indicator.html")        
     ]);
 
 let def_Sec_1_90 = new DocSection();
