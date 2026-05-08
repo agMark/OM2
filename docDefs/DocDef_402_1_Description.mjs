@@ -130,7 +130,7 @@ def_Sec_1
         def_Sec_1_55,
         def_Sec_1_56,
         new DocSection().i(true, "1.60", true, "FCU MANUAL OVERRIDE", true, "html/Description/402/FCU MANUAL OVERRIDE_402.html"),
-        new DocSection().i(true, "1.65", true, "FIRE RETARDANT DISPERSAL SYSTEM (FRDS)", true, "html/Description/402/FIRE RETARDANT DISPERSAL SYSTEM_402.html"),
+        new DocSection().i(true, "1.65", true, "Reserved", false, ""),
         def_Sec_1_70,
         new DocSection().i(true, "1.75", true, "FUEL SYSTEM", true, "html/Description/402/Fuel System_402.html"),
         new DocSection().i(true, "1.80", true, "FUSELAGE", true, "html/Description/402/FUSELAGE_402.html"),
