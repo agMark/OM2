@@ -38,7 +38,7 @@ def_Sec_1_30
     .s([
         new DocSection().i(true, "1.30.1", true, "Aileron and Elevator Controls", true, "html/Description/502/Aileron and Elevator Controls_502.html"),
         new DocSection().i(true, "1.30.2", true, "Elevator Trim Controls", true, "html/Description/502/Elevator and Trim Controls_502.html"),
-        new DocSection().i(true, "1.30.3", true, "Electric Aileron Trim Tab", true, "html/Description/502/Electric Aileron Trim Tab_502.html"),
+        new DocSection().i(true, "1.30.3", true, "Reserved", false, ""),
         new DocSection().i(true, "1.30.4", true, "Rudder Controls", true, "html/Description/502/Rudder Controls_502.html"),
         new DocSection().i(true, "1.30.6", true, "Aileron - Rudder Interconnect System", true, "html/Description/502/Aileron - Rudder Interconnect System_502.html"),
         new DocSection().i(true, "1.30.7", true, "Elevator - Flap Interconnect System", true, "html/Description/502/Elevator - Flap Interconnect System_502.html")
