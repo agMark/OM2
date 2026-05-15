@@ -41,7 +41,7 @@ def_Sec_1_30
         new DocSection().i(true, "1.30.3", true, "Reserved", false, ""),
         new DocSection().i(true, "1.30.4", true, "Rudder Controls", true, "html/Description/502/Rudder Controls_502.html"),
         new DocSection().i(true, "1.30.6", true, "Aileron - Rudder Interconnect System", true, "html/Description/502/Aileron - Rudder Interconnect System_502.html"),
-        new DocSection().i(true, "1.30.7", true, "Elevator - Flap Interconnect System", true, "html/Description/502/Elevator - Flap Interconnect System_502.html")
+        new DocSection().i(true, "1.30.7", true, "Reserved", false, "")
     ]);
 let def_Sec_1_35 = new DocSection();
 def_Sec_1_35
