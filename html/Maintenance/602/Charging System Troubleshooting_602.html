@@ -1,6 +1,6 @@
 <p>
-    As a general rule if the Starter Generator functions normally in the Start mode there 
-    will be nothing wrong with it that would prevent it from functioning in the Generate mode.
+    As a general rule, if the Starter Generator functions normally in the Start mode there 
+    will be nothing that would prevent it from also functioning in the Generate mode.
 </p>
 
 <p>
@@ -8,7 +8,7 @@
     <xref sectionTarget="2.40.2" prependLabel="Section"></xref> 
     and acquaint yourself with the location and function of the various 
     components. Look for obvious problems such as overheating, burned wires, loose components, and loose 
-    electrical connections. Disconnect the GCU Cannon plug and inspect it and all other electrical connections for 
+    electrical connections. Disconnect the GCU cannon plug and inspect it and all other electrical connections for 
     corrosion. Correct any of these problems before proceeding.
 </p>
 
@@ -20,8 +20,8 @@
     <li>
         A multimeter capable of .01V resolution in the 0-2.5V range, .15V resolution in the 0-30V range 
         and capable of reading from a fraction of an ohm to several kilohms will be required. 
-        An autoranging digital instrument is ideal but any good quality until will work. For point-to-point ringout, the 
-        ohmmeter function will be used.
+        An autoranging digital instrument is ideal but any good quality unit will work. For point-to-point ringout, the 
+        ohmmeter function is used.
     </li>
     <li>
         GCU Breakout Box- This is not absolutely essential but it is very effective in localizing many problems. 
@@ -37,8 +37,8 @@
 
 <p><b>Static Tests</b></p>
 <p>
-    Before going into specific symptoms, which will result in, operational squawks it is productive to 
-    point out a static test routine that is quick and easy and will result in localizing some problems without starting 
+    Before going into specific symptoms which will result in operational squawks, it is productive to 
+    point out a static test routine that is quick, easy and will result in localizing some problems without starting 
     the engine.
 </p>
 
@@ -137,7 +137,7 @@
     </tr>
 </table>
 
-<p><b>Scenario Troubleshooting - Generator Won't Come on Line</b></p>
+<p><b>Scenario Troubleshooting - Generator Won't Come Online</b></p>
 <p>Evidenced by voltmeter reading below 25V and or low voltage light staying on.</p>
 
 <table class="plainTableLarge">
@@ -185,8 +185,8 @@
         </td>
         <td class="plainTableNormalCell">
             Turning the Generator Switch off prior to engine shutdown will correct this condition as a stopgap 
-            measure but the operator should be aware that if this precaution is overlooked damage to the starter generator 
-            can result.
+            measure but the operator should be aware that damage to the starter generator 
+            may result if this precaution is overlooked .
         </td>
     </tr>
 </table>
@@ -238,15 +238,15 @@
 
     <tr>
         <td class="plainTableNormalCell">
-            After an engine start the Generator won't come on line and the voltage at A1 to the LCR is only 
-            about 1 Volt and there is no voltage on pin J of the GCU.
+            After engine start the Generator won't come on line and the voltage at A1 to the LCR is only 
+            about 1 volt and there is no voltage on pin J of the GCU.
         </td>
         <td class="plainTableNormalCell">
             There is a discontinuity in the circuit feeding power to the GCU, which includes the wiring, 
             the 15A C/B, Generator Switch, and the Start Switch.
         </td>
         <td class="plainTableNormalCell">
-            Make sure that the 15A C/B is not tripped and that the Generator Switch is ON and then proceed to ring 
+            Make sure that the 15A circuit breaker is not tripped and that the Generator Switch is ON and then proceed to ring 
             out and isolate the discontinuity from A1 of the LCR to pin J.
         </td>
         <td class="plainTableNormalCell">
@@ -290,19 +290,18 @@
     <tr>
         <td class="plainTableNormalCell">
             The voltmeter indicates rapidly increasing bus voltage and then at about 
-            32V suddenly drops to about 24V and then slowly decreases as the batteries discharge.
+            32V suddenly drops to about 24V, slowly decreasing as the batteries discharge.
         </td>
         <td class="plainTableNormalCell">
-            This is indicative of an Overvoltage trip and may be accompanied by the 15A C/B tripping. In 
-            those cases where the C/B does not trip the system can be restored to normal operation by momentarily turning 
+            This is indicative of an Overvoltage trip and may be accompanied by the 15A circuit breaker tripping. In those cases where the circuit breaker does not trip, the system can be restored to normal operation by momentarily turning 
             the Generator Switch off and back on.
         </td>
         <td class="plainTableNormalCell">
-            If resetting the C/B or cycling the Generator Switch restores the system and the Generator stays on line 
+            If resetting the circuit breaker or cycling the Generator Switch restores the system and the Generator stays online, 
             the GCU is suspect of an intermittent condition. If the symptoms repeat the GCU is faulty and should be repaired 
             or replaced.
         </td>
         <td class="plainTableNormalCell">
         </td>
     </tr>
-</table>
+</table><p style='color:red;'>Text copied from approved 802OM and some grammar issues corrected.</p>
