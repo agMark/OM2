@@ -67,7 +67,7 @@ let defSec_2_15_9 = new DocSection().i(true, "2.15.9", true, "Service Procedures
 let defSec_2_15_10 = new DocSection().i(true, "2.15.10", true, "Service Procedures - Charging", true, "html/Maintenance/402/Charging_402.html");
 let defSec_2_15_11 = new DocSection().i(true, "2.15.11", true, "Service Procedures - Oiling", true, "html/Maintenance/402/Oiling_402.html");
 let defSec_2_15_12 = new DocSection().i(true, "2.15.12", true, "Service Procedures - Contamination Check", true, "html/Maintenance/402/Contamination Check_402.html");
-let defSec_2_15_13 = new DocSection().i(true, "2.15.13", true, "Compressor Cooling", true, "html/Maintenance/402/AC Compressor Cooling_402.html");
+let defSec_2_15_13 = new DocSection().i(true, "2.15.13", true, "Compressor Cooling", true, "html/Maintenance/AC Compressor Cooling.html");
 let def_Sec_2_15 = new DocSection();
 def_Sec_2_15
     .i(true, "2.15", true, "AIR CONDITIONER", true, "html/Maintenance/402/ENGINE DRIVEN AIR CONDITIONER_402.html")
@@ -185,10 +185,10 @@ def_Sec_2_35
 
 
 let defSec_2_40_1 = new DocSection().i(true, "2.40.1", true, "General", true, "html/Maintenance/402/Electrical System General_402.html");
-let defSec_2_40_2 = new DocSection().i(true, "2.40.2", true, "Starting / Charging / Power Distribution", true, "html/Maintenance/402/Starting and Charging_402.html");
-let defSec_2_40_3 = new DocSection().i(true, "2.40.3", true, "Charging System Troubleshooting", true, "html/Maintenance/402/Charging System Troubleshooting_402.html");
+let defSec_2_40_2 = new DocSection().i(true, "2.40.2", true, "Starting / Charging / Power Distribution", true, "html/Maintenance/Starting and Charging.html");
+let defSec_2_40_3 = new DocSection().i(true, "2.40.3", true, "Charging System Troubleshooting", true, "html/Maintenance/Charging System Troubleshooting.html");
 let defSec_2_40_4 = new DocSection().i(true, "2.40.4", true, "Low-Voltage Warning Light", true, "html/Maintenance/402/Low-Voltage Warning Light_402.html");
-let defSec_2_40_5 = new DocSection().i(true, "2.40.5", true, "Electrical Fuel Boost Pump", true, "html/Maintenance/402/Electrical Fuel Boost Pump_402.html");
+let defSec_2_40_5 = new DocSection().i(true, "2.40.5", true, "Electrical Fuel Boost Pump", true, "html/Maintenance/Electrical Fuel Boost Pump.html");
 let defSec_2_40_6 = new DocSection().i(true, "2.40.6", true, "Propeller Overspeed Solenoid", true, "html/Maintenance/402/Propeller Overspeed Solenoid_402.html");
 let defSec_2_40_7 = new DocSection().i(true, "2.40.7", true, "Stall-Warning Horn", true, "html/Maintenance/402/Stall-Warning Horn_402.html");
 let defSec_2_40_8 = new DocSection().i(true, "2.40.8", true, "Windshield Washer", true, "html/Maintenance/402/Windshield Washer_402.html");
@@ -204,9 +204,9 @@ let defSec_2_40_50 = new DocSection().i(true, "2.40.50", true, "Starter Generato
 let defSec_2_40_51 = new DocSection().i(true, "2.40.51", true, "Starter Generator Installation", true, "html/Maintenance/402/Starter Generator Installation_402.html");
 let defSec_2_40_52 = new DocSection().i(true, "2.40.52", true, "Starter Generator Brush Inspection", true, "html/Maintenance/402/Starter Generator Brush Inspection_402.html");
 let defSec_2_40_60 = new DocSection().i(true, "2.40.60", true, "Batteries", true, "html/Maintenance/402/Batteries_402.html")
-let defSec_2_40_61 = new DocSection().i(true, "2.40.61", true, "Checking Batteries", true, "html/Maintenance/402/Checking the Batteries_402.html")
-let defSec_2_40_62 = new DocSection().i(true, "2.40.62", true, "Battery Removal and Replacement", true, "html/Maintenance/402/Battery Removal and Replacement_402.html")
-let defSec_2_40_63 = new DocSection().i(true, "2.40.63", true, "Installing a New Dry Charged Battery", true, "html/Maintenance/402/Installing a New Gill Dry Charged Battery_402.html")
+let defSec_2_40_61 = new DocSection().i(true, "2.40.61", true, "Checking Batteries", true, "html/Maintenance/Checking the Batteries.html")
+let defSec_2_40_62 = new DocSection().i(true, "2.40.62", true, "Battery Removal and Replacement", true, "html/Maintenance/Battery Removal and Replacement.html")
+let defSec_2_40_63 = new DocSection().i(true, "2.40.63", true, "Installing a New Dry Charged Battery", true, "html/Maintenance/Installing a New Gill Dry Charged Battery.html")
 let def_Sec_2_40 = new DocSection();
 def_Sec_2_40
     .i(true, "2.40", true, "ELECTRICAL SYSTEM", false, "html/Maintenance/402/ELECTRICAL SYSTEM_402.html")
