@@ -1,12 +1,20 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import { DocDefIndexService, DocSection, toContentFileUrl } from './modelIndex';
+import { DocDefIndexService, DocSection, ModelId, toContentFileUrl } from './modelIndex';
+import { FigureIndexCache } from './figureIndex';
 
 let currentPanel: vscode.WebviewPanel | undefined;
 let currentDocUri: vscode.Uri | undefined;
 let debounceTimer: ReturnType<typeof setTimeout> | undefined;
 let singleFragmentMode = false;
+const figureIndexCache = new FigureIndexCache();
+
+interface XrefContext {
+	workspaceRoot: string;
+	model?: ModelId;
+	topSection?: DocSection;
+}
 
 function countChars(str: string, char: string): number {
 	let count = 0;
@@ -52,30 +60,71 @@ function rewriteImageSrcs(html: string, webview: vscode.Webview, workspaceRoot: 
 	});
 }
 
-/** Visually flags <xref> resolution status using the already-built section index; fileTarget xrefs
- *  (which may point at a figure) aren't verified since that needs a figure index this extension doesn't build. */
-function flagXrefs(html: string, indexService: DocDefIndexService): string {
-	return html
-		.replace(/<xref\b([^>]*)>/gi, (match, attrsStr: string) => {
-			const sectionTargetMatch = /sectionTarget="([^"]*)"/.exec(attrsStr);
-			const fileTargetMatch = /fileTarget="([^"]*)"/.exec(attrsStr);
-			if (sectionTargetMatch) {
-				const num = sectionTargetMatch[1];
-				const entries = indexService.getEntry(num);
-				if (entries.length > 0) {
-					return `<span class="om-xref-ok" title="→ ${escapeHtml(num)} - ${escapeHtml(entries[0].section.SectionTitle)}">${match}`;
-				}
-				return `<span class="om-xref-bad" title="Unresolved sectionTarget: ${escapeHtml(num)}">${match}`;
-			}
-			if (fileTargetMatch) {
-				return `<span class="om-xref-unknown" title="fileTarget not verified in preview">${match}`;
-			}
-			return match;
-		})
-		.replace(/<\/xref>/gi, '</xref></span>');
+interface ResolvedXref {
+	text: string;
+	resolved: boolean;
+	title: string;
 }
 
-function renderLeaf(leaf: DocSection, workspaceRoot: string, webview: vscode.Webview, indexService: DocDefIndexService, currentUrl: string, skipHeading: boolean): string {
+/**
+ * Resolves an <xref>'s final display text the same way DocSection.ResolveXrefs does: the tag's own
+ * placeholder inner text is always discarded, and real text is synthesized from prependLabel + the
+ * resolved target. sectionTarget matches a SectionNumber; fileTarget first tries an EXACT match
+ * against a numbered section's full ContentFileUrl (same as ResolveXrefs), then falls back to the
+ * figure case — resolved via FigureIndexCache, which mirrors NumberFigures' whole-top-level-section
+ * numbering rather than guessing.
+ */
+function resolveXrefText(attrsStr: string, indexService: DocDefIndexService, ctx: XrefContext): ResolvedXref {
+	const sectionTargetMatch = /sectionTarget="([^"]*)"/.exec(attrsStr);
+	const fileTargetMatch = /fileTarget="([^"]*)"/.exec(attrsStr);
+	const prependLabelMatch = /prependLabel="([^"]*)"/.exec(attrsStr);
+	const prependLabel = prependLabelMatch ? prependLabelMatch[1] : '';
+
+	if (sectionTargetMatch) {
+		const num = sectionTargetMatch[1];
+		const entries = indexService.getEntry(num);
+		const text = prependLabel ? `${prependLabel} ${num}` : num;
+		if (entries.length > 0) {
+			return { text, resolved: true, title: `→ ${num} - ${entries[0].section.SectionTitle}` };
+		}
+		return { text, resolved: false, title: `Unresolved sectionTarget: ${num}` };
+	}
+
+	if (fileTargetMatch) {
+		const target = fileTargetMatch[1];
+		const sectionEntries = indexService.findByContentFileUrl(target);
+		if (sectionEntries.length > 0) {
+			const num = sectionEntries[0].section.SectionNumber;
+			const text = prependLabel ? `${prependLabel} ${num}` : num;
+			return { text, resolved: true, title: `→ ${num} - ${sectionEntries[0].section.SectionTitle}` };
+		}
+		if (ctx.model && ctx.topSection) {
+			const figNum = figureIndexCache.getFigureNumber(ctx.workspaceRoot, ctx.model, ctx.topSection, target);
+			if (figNum !== undefined) {
+				const numberPrepend = `Figure ${ctx.topSection.SectionNumber}-`;
+				const text = prependLabel ? `${prependLabel} ${numberPrepend}${figNum}` : `${numberPrepend}${figNum}`;
+				return { text, resolved: true, title: `→ ${numberPrepend}${figNum}` };
+			}
+		}
+		const label = prependLabel || 'Figure';
+		return { text: `${label} ?`, resolved: false, title: 'Could not locate this figure under the current top-level section' };
+	}
+
+	return { text: '', resolved: false, title: 'Malformed xref (no sectionTarget or fileTarget)' };
+}
+
+/** Replaces each <xref>...</xref> with its resolved final text, styled as a real link when resolved. */
+function flagXrefs(html: string, indexService: DocDefIndexService, ctx: XrefContext): string {
+	return html.replace(/<xref\b([^>]*)>[\s\S]*?<\/xref>/gi, (_match, attrsStr: string) => {
+		const { text, resolved, title } = resolveXrefText(attrsStr, indexService, ctx);
+		if (resolved) {
+			return `<a href="#" class="om-xref-ok" title="${escapeHtml(title)}">${escapeHtml(text)}</a>`;
+		}
+		return `<span class="om-xref-bad" title="${escapeHtml(title)}">${escapeHtml(text)}</span>`;
+	});
+}
+
+function renderLeaf(leaf: DocSection, workspaceRoot: string, webview: vscode.Webview, indexService: DocDefIndexService, xrefCtx: XrefContext, currentUrl: string, skipHeading: boolean): string {
 	let out = '';
 	if (!skipHeading && leaf.DisplayTitle && leaf.SectionTitle) {
 		if (leaf.IsNumbered) {
@@ -90,7 +139,7 @@ function renderLeaf(leaf: DocSection, workspaceRoot: string, webview: vscode.Web
 		try {
 			const abs = path.join(workspaceRoot, leaf.ContentFileUrl);
 			const raw = fs.readFileSync(abs, 'utf-8');
-			const rendered = flagXrefs(rewriteImageSrcs(raw, webview, workspaceRoot), indexService);
+			const rendered = flagXrefs(rewriteImageSrcs(raw, webview, workspaceRoot), indexService, xrefCtx);
 			out += `<div class="${isCurrent ? 'om-current-fragment' : ''}">${rendered}</div>`;
 		} catch {
 			out += `<p class="om-preview-note">Could not read ${escapeHtml(leaf.ContentFileUrl)}</p>`;
@@ -107,12 +156,12 @@ async function buildPreviewHtml(webview: vscode.Webview, workspaceRoot: string, 
 	let bodyHtml: string;
 
 	if (singleFragmentMode) {
-		bodyHtml = flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService);
+		bodyHtml = flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot });
 	} else {
 		const entries = indexService.findByContentFileUrl(currentUrl);
 		if (entries.length === 0) {
 			bodyHtml = '<p class="om-preview-note">This fragment isn\'t referenced by any model\'s DocDef yet — showing raw content.</p>'
-				+ flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService);
+				+ flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot });
 		} else {
 			const { model, section: target } = entries[0];
 			const modelIndex = indexService.models.get(model);
@@ -120,6 +169,7 @@ async function buildPreviewHtml(webview: vscode.Webview, workspaceRoot: string, 
 			const numberedPath = (ancestry ?? []).filter((s) => s.IsNumbered && s.SectionNumber);
 			const sectionForContext = numberedPath.length > 0 ? numberedPath[numberedPath.length - 1] : target;
 			const breadcrumb = numberedPath.slice(0, -1);
+			const xrefCtx: XrefContext = { workspaceRoot, model, topSection: numberedPath[0] };
 
 			let html = `<p class="om-preview-note">Context: model ${escapeHtml(model)}</p>`;
 			for (const anc of breadcrumb) {
@@ -139,11 +189,11 @@ async function buildPreviewHtml(webview: vscode.Webview, workspaceRoot: string, 
 			}
 
 			if (sectionForContext.HasContent) {
-				html += renderLeaf(sectionForContext, workspaceRoot, webview, indexService, currentUrl, true);
+				html += renderLeaf(sectionForContext, workspaceRoot, webview, indexService, xrefCtx, currentUrl, true);
 			} else {
 				for (const child of sectionForContext.Sections ?? []) {
 					if (child.HasContent) {
-						html += renderLeaf(child, workspaceRoot, webview, indexService, currentUrl, false);
+						html += renderLeaf(child, workspaceRoot, webview, indexService, xrefCtx, currentUrl, false);
 					}
 				}
 			}
@@ -163,9 +213,8 @@ async function buildPreviewHtml(webview: vscode.Webview, workspaceRoot: string, 
   .om-preview-note { color: #888; font-style: italic; font-size: 0.85em; }
   .om-ancestor { opacity: 0.6; }
   .om-current-fragment { outline: 2px dashed #0066cc; outline-offset: 4px; }
-  .om-xref-ok { border-bottom: 1px dashed green; }
-  .om-xref-bad { border-bottom: 1px dashed red; }
-  .om-xref-unknown { border-bottom: 1px dotted #999; }
+  .om-xref-ok { color: #0645AD; text-decoration: underline; }
+  .om-xref-bad { color: #b00; border-bottom: 1px dashed #b00; cursor: help; }
 </style>
 </head>
 <body>
@@ -216,6 +265,7 @@ export function registerPreviewCommands(context: vscode.ExtensionContext, worksp
 			vscode.window.showInformationMessage(`OM Preview: ${singleFragmentMode ? 'single-fragment' : 'whole-section'} mode`);
 			await refreshPreview(workspaceRoot, indexService);
 		}),
+		indexService.onDidChange(() => figureIndexCache.invalidate()),
 		vscode.workspace.onDidChangeTextDocument((e) => {
 			if (!currentPanel || !currentDocUri || e.document.uri.toString() !== currentDocUri.toString()) {
 				return;
