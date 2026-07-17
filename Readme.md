@@ -35,14 +35,26 @@ The overarching idea is that these small files can eventually be organized and r
 
 We need to standardize the shape and formatting of images that are in the document.
 
-Currently acceptable shapes are:
+Each accepted shape has a corresponding `imageCentered_WxH` css class in `css/elementStyling.css` (in inches) that should be applied to the `<img>` element. Currently defined shapes are:
 
-    | Width(in) | Height(in)    |
-    |-----------|---------------|
-    | 6.0       | 8.0           |
-    | 6.0       | 4.0           |
-    | 3.0       | 2.0           |
+    | Class                  | Width(in) | Height(in) |
+    |------------------------|-----------|------------|
+    | imageCentered_6x8      | 6.0       | 8.0        |
+    | imageCentered_6x6      | 6.0       | 6.0        |
+    | imageCentered_6x4      | 6.0       | 4.0        |
+    | imageCentered_6x2      | 6.0       | 2.0        |
+    | imageCentered_5x4      | 5.0       | 4.0        |
+    | imageCentered_5x3      | 5.0       | 3.0        |
+    | imageCentered_5x2      | 5.0       | 2.0        |
+    | imageCentered_4x4      | 4.0       | 4.0        |
+    | imageCentered_4x3      | 4.0       | 3.0        |
+    | imageCentered_4x2      | 4.0       | 2.0        |
+    | imageCentered_3x5      | 3.0       | 5.0        |
+    | imageCentered_3x4      | 3.0       | 4.0        |
+    | imageCentered_3x3      | 3.0       | 3.0        |
+    | imageCentered_3x2      | 3.0       | 2.0        |
 
+If none of these fit, add a new `imageCentered_WxH` class to `css/elementStyling.css` (under the "STANDARD IMAGE FORMATTING" section) rather than using an inline `style` attribute, and add it to this table.
 
 ## Caution and Warning Boxes
 
@@ -52,15 +64,25 @@ small: 3in wide x Content Height\
 medium: 4.5in wide x Content Height\
 large: 6in wide x Content Height
 
-Each size has corresponding css classes that should be applied.
+Each size has corresponding css classes that should be applied. There are two box types: `boxCaution*` (black border/text) and `boxWarning*` (red border/text), each with `Small`/`Medium`/`Large` variants.
 
-For a small box, html markup is as follows:
+For a small caution box, html markup is as follows:
 ```html
 <div class="boxCautionSmall">
     <p class="boxCautionSmallHeader">CAUTION</p>
     <p class="boxCautionSmallText">Caution's text goes here.</p>
 </div>
 ```
+
+For a small warning box, html markup is as follows:
+```html
+<div class="boxWarningSmall">
+    <p class="boxWarningSmallHeader">WARNING</p>
+    <p class="boxWarningSmallText">Warning's text goes here.</p>
+</div>
+```
+
+Medium and Large variants follow the same pattern, substituting `Medium`/`Large` for `Small` in all three class names (e.g. `boxCautionMedium`/`boxCautionMediumHeader`/`boxCautionMediumText`, `boxWarningLarge`/`boxWarningLargeHeader`/`boxWarningLargeText`).
 
 
 ## Tables
