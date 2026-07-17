@@ -62,14 +62,42 @@ function walk(section: DocSection, bySectionNumber: Map<string, DocSection>, byC
 
 let cacheBuster = 0;
 
-async function importDocDef(workspaceRoot: string, model: ModelId): Promise<DocSection> {
-	const absPath = path.join(workspaceRoot, 'docDefs', `DocDef_${model}.mjs`);
+function toBustedFileUrl(absPath: string): string {
 	cacheBuster++;
-	// Cache-busting query defeats Node's ESM module cache so edits are picked up on refresh,
-	// matching the pattern already proven in Tools/exportDocDefJson.js for loading a DocDef live.
 	const url = new URL('file://' + absPath.replace(/\\/g, '/'));
 	url.searchParams.set('t', String(cacheBuster));
-	const mod: { DocDef: DocSection } = await import(url.href);
+	return url.href;
+}
+
+/**
+ * Loads a model's DocDef tree, guaranteed fresh (not just the top-level file).
+ *
+ * A naive cache-busted re-import of only `DocDef_<model>.mjs` isn't enough: that file statically
+ * imports its 7 section sub-files (`DocDef_<model>_N_*.mjs`, where all the real section content
+ * lives) via plain relative specifiers with no query string. Node's ESM module cache is keyed by
+ * resolved URL and never invalidates those, so after the first load every section file was frozen
+ * forever, even though the top-level wrapper was "freshly" re-imported each time — confirmed as the
+ * cause of edits (e.g. changing a section to "Reserved") never showing up after Refresh.
+ *
+ * Fix: read the top-level file's own source, rewrite every relative import specifier (its 7 section
+ * files plus code/DocSection.mjs and code/data_vars.mjs) to an absolute, freshly cache-busted
+ * file:// URL, then evaluate the rewritten source via a data: URL so none of it can fall back to
+ * Node's module cache. The section files themselves are still loaded via real file:// URLs (each
+ * with its own fresh busting query), so their own internal relative imports resolve normally against
+ * their real location — only the top-level rewrite needs this treatment.
+ */
+async function importDocDef(workspaceRoot: string, model: ModelId): Promise<DocSection> {
+	const docDefsDir = path.join(workspaceRoot, 'docDefs');
+	const topLevelPath = path.join(docDefsDir, `DocDef_${model}.mjs`);
+	let source = fs.readFileSync(topLevelPath, 'utf-8');
+
+	source = source.replace(/from\s+(['"])(\.\.\/[^'"]+)\1/g, (_match, quote: string, relPath: string) => {
+		const absPath = path.resolve(docDefsDir, relPath);
+		return `from ${quote}${toBustedFileUrl(absPath)}${quote}`;
+	});
+
+	const dataUrl = `data:text/javascript;base64,${Buffer.from(source, 'utf-8').toString('base64')}`;
+	const mod: { DocDef: DocSection } = await import(dataUrl);
 	return mod.DocDef;
 }
 

@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import { DocDefIndexService, DocSection, ModelId, toContentFileUrl } from './modelIndex';
+import { DocDefIndexService, DocSection, ModelId, MODEL_IDS, toContentFileUrl } from './modelIndex';
+import { CustomTreeItem } from './mergedTree';
 import { FigureIndexCache } from './figureIndex';
 
 let currentPanel: vscode.WebviewPanel | undefined;
@@ -9,6 +10,18 @@ let currentDocUri: vscode.Uri | undefined;
 let debounceTimer: ReturnType<typeof setTimeout> | undefined;
 let singleFragmentMode = false;
 const figureIndexCache = new FigureIndexCache();
+
+interface ComparePanelEntry {
+	panel: vscode.WebviewPanel;
+	model: ModelId;
+	contentFileUrl: string;
+	targetSection: DocSection;
+}
+let comparePanels: ComparePanelEntry[] = [];
+let compareDebounceTimer: ReturnType<typeof setTimeout> | undefined;
+
+/** Up to 9 numbered columns are supported by the API; 4 (one per model) is trivial. */
+const COMPARE_COLUMNS = [vscode.ViewColumn.One, vscode.ViewColumn.Two, vscode.ViewColumn.Three, vscode.ViewColumn.Four];
 
 interface XrefContext {
 	workspaceRoot: string;
@@ -148,59 +161,47 @@ function renderLeaf(leaf: DocSection, workspaceRoot: string, webview: vscode.Web
 	return out;
 }
 
-async function buildPreviewHtml(webview: vscode.Webview, workspaceRoot: string, indexService: DocDefIndexService, doc: vscode.TextDocument, contentWidthIn: number): Promise<string> {
-	const cssUri = webview.asWebviewUri(vscode.Uri.file(path.join(workspaceRoot, 'css', 'elementStyling.css')));
-	const currentUrl = toContentFileUrl(workspaceRoot, doc.uri.fsPath);
-	const rawFragmentText = doc.getText();
+/** Renders a section's ancestor-heading chain + its own content (or its content-bearing children) —
+ *  the core body shared by both the "follows the active editor" preview and the compare-all-models panes. */
+function renderSectionBody(workspaceRoot: string, webview: vscode.Webview, indexService: DocDefIndexService, model: ModelId, target: DocSection, currentUrl: string): string {
+	const modelIndex = indexService.models.get(model);
+	const ancestry = modelIndex ? findAncestryPath(modelIndex.docDef, target) : undefined;
+	const numberedPath = (ancestry ?? []).filter((s) => s.IsNumbered && s.SectionNumber);
+	const sectionForContext = numberedPath.length > 0 ? numberedPath[numberedPath.length - 1] : target;
+	const breadcrumb = numberedPath.slice(0, -1);
+	const xrefCtx: XrefContext = { workspaceRoot, model, topSection: numberedPath[0] };
 
-	let bodyHtml: string;
-
-	if (singleFragmentMode) {
-		bodyHtml = flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot });
-	} else {
-		const entries = indexService.findByContentFileUrl(currentUrl);
-		if (entries.length === 0) {
-			bodyHtml = '<p class="om-preview-note">This fragment isn\'t referenced by any model\'s DocDef yet — showing raw content.</p>'
-				+ flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot });
-		} else {
-			const { model, section: target } = entries[0];
-			const modelIndex = indexService.models.get(model);
-			const ancestry = modelIndex ? findAncestryPath(modelIndex.docDef, target) : undefined;
-			const numberedPath = (ancestry ?? []).filter((s) => s.IsNumbered && s.SectionNumber);
-			const sectionForContext = numberedPath.length > 0 ? numberedPath[numberedPath.length - 1] : target;
-			const breadcrumb = numberedPath.slice(0, -1);
-			const xrefCtx: XrefContext = { workspaceRoot, model, topSection: numberedPath[0] };
-
-			let html = `<p class="om-preview-note">Context: model ${escapeHtml(model)}</p>`;
-			for (const anc of breadcrumb) {
-				if (anc.DisplayTitle) {
-					const tag = headingTag(anc.SectionNumber);
-					html += `<${tag} class="om-ancestor">${escapeHtml(anc.SectionNumber)} - ${escapeHtml(anc.SectionTitle)}</${tag}>`;
-				}
-			}
-
-			if (sectionForContext.DisplayTitle) {
-				if (sectionForContext.IsNumbered) {
-					const tag = headingTag(sectionForContext.SectionNumber);
-					html += `<${tag}>${escapeHtml(sectionForContext.SectionNumber)} - ${escapeHtml(sectionForContext.SectionTitle)}</${tag}>`;
-				} else {
-					html += `<p class="unnumberedHeader">${escapeHtml(sectionForContext.SectionTitle)}</p>`;
-				}
-			}
-
-			if (sectionForContext.HasContent) {
-				html += renderLeaf(sectionForContext, workspaceRoot, webview, indexService, xrefCtx, currentUrl, true);
-			} else {
-				for (const child of sectionForContext.Sections ?? []) {
-					if (child.HasContent) {
-						html += renderLeaf(child, workspaceRoot, webview, indexService, xrefCtx, currentUrl, false);
-					}
-				}
-			}
-			bodyHtml = html;
+	let html = `<p class="om-preview-note">Context: model ${escapeHtml(model)}</p>`;
+	for (const anc of breadcrumb) {
+		if (anc.DisplayTitle) {
+			const tag = headingTag(anc.SectionNumber);
+			html += `<${tag} class="om-ancestor">${escapeHtml(anc.SectionNumber)} - ${escapeHtml(anc.SectionTitle)}</${tag}>`;
 		}
 	}
 
+	if (sectionForContext.DisplayTitle) {
+		if (sectionForContext.IsNumbered) {
+			const tag = headingTag(sectionForContext.SectionNumber);
+			html += `<${tag}>${escapeHtml(sectionForContext.SectionNumber)} - ${escapeHtml(sectionForContext.SectionTitle)}</${tag}>`;
+		} else {
+			html += `<p class="unnumberedHeader">${escapeHtml(sectionForContext.SectionTitle)}</p>`;
+		}
+	}
+
+	if (sectionForContext.HasContent) {
+		html += renderLeaf(sectionForContext, workspaceRoot, webview, indexService, xrefCtx, currentUrl, true);
+	} else {
+		for (const child of sectionForContext.Sections ?? []) {
+			if (child.HasContent) {
+				html += renderLeaf(child, workspaceRoot, webview, indexService, xrefCtx, currentUrl, false);
+			}
+		}
+	}
+	return html;
+}
+
+function wrapHtmlShell(webview: vscode.Webview, workspaceRoot: string, contentWidthIn: number, bodyHtml: string): string {
+	const cssUri = webview.asWebviewUri(vscode.Uri.file(path.join(workspaceRoot, 'css', 'elementStyling.css')));
 	return `<!DOCTYPE html>
 <html>
 <head>
@@ -225,14 +226,81 @@ ${bodyHtml}
 </html>`;
 }
 
+function getContentWidthIn(): number {
+	return vscode.workspace.getConfiguration('om.preview').get<number>('contentWidthIn', 6.5);
+}
+
+async function buildPreviewHtml(webview: vscode.Webview, workspaceRoot: string, indexService: DocDefIndexService, doc: vscode.TextDocument, contentWidthIn: number): Promise<string> {
+	const currentUrl = toContentFileUrl(workspaceRoot, doc.uri.fsPath);
+	const rawFragmentText = doc.getText();
+
+	let bodyHtml: string;
+	if (singleFragmentMode) {
+		bodyHtml = flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot });
+	} else {
+		const entries = indexService.findByContentFileUrl(currentUrl);
+		if (entries.length === 0) {
+			bodyHtml = '<p class="om-preview-note">This fragment isn\'t referenced by any model\'s DocDef yet — showing raw content.</p>'
+				+ flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot });
+		} else {
+			const { model, section: target } = entries[0];
+			bodyHtml = renderSectionBody(workspaceRoot, webview, indexService, model, target, currentUrl);
+		}
+	}
+
+	return wrapHtmlShell(webview, workspaceRoot, contentWidthIn, bodyHtml);
+}
+
 async function refreshPreview(workspaceRoot: string, indexService: DocDefIndexService): Promise<void> {
 	if (!currentPanel || !currentDocUri) {
 		return;
 	}
 	const doc = await vscode.workspace.openTextDocument(currentDocUri);
-	const config = vscode.workspace.getConfiguration('om.preview');
-	const contentWidthIn = config.get<number>('contentWidthIn', 6.5);
-	currentPanel.webview.html = await buildPreviewHtml(currentPanel.webview, workspaceRoot, indexService, doc, contentWidthIn);
+	currentPanel.webview.html = await buildPreviewHtml(currentPanel.webview, workspaceRoot, indexService, doc, getContentWidthIn());
+}
+
+function refreshComparePanel(workspaceRoot: string, indexService: DocDefIndexService, entry: ComparePanelEntry): void {
+	const bodyHtml = renderSectionBody(workspaceRoot, entry.panel.webview, indexService, entry.model, entry.targetSection, entry.contentFileUrl);
+	entry.panel.webview.html = wrapHtmlShell(entry.panel.webview, workspaceRoot, getContentWidthIn(), bodyHtml);
+}
+
+/** Opens one preview pane per model that has content for the given section, side by side, for
+ *  visually comparing how each model's version actually renders (e.g. before consolidating them). */
+function openCompareAllModels(workspaceRoot: string, indexService: DocDefIndexService, item: CustomTreeItem): void {
+	if (item.element.kind !== 'merged') {
+		return;
+	}
+	const { node } = item.element;
+	const candidates = MODEL_IDS
+		.map((model) => ({ model, section: node.perModel.get(model) }))
+		.filter((e): e is { model: ModelId; section: DocSection } => !!e.section && e.section.HasContent && !!e.section.ContentFileUrl);
+
+	if (candidates.length < 2) {
+		vscode.window.showInformationMessage('Need at least 2 models with content to compare.');
+		return;
+	}
+
+	// Close any previously-opened compare panels first so repeated use doesn't accumulate stale ones.
+	for (const entry of comparePanels) {
+		entry.panel.dispose();
+	}
+	comparePanels = [];
+
+	for (let i = 0; i < candidates.length; i++) {
+		const { model, section } = candidates[i];
+		const panel = vscode.window.createWebviewPanel(
+			'omComparePreview',
+			`OM: ${model} — ${node.sectionNumber} ${node.title}`,
+			COMPARE_COLUMNS[i] ?? vscode.ViewColumn.Beside,
+			{ enableScripts: false, localResourceRoots: [vscode.Uri.file(workspaceRoot)] }
+		);
+		const entry: ComparePanelEntry = { panel, model, contentFileUrl: section.ContentFileUrl, targetSection: section };
+		comparePanels.push(entry);
+		refreshComparePanel(workspaceRoot, indexService, entry);
+		panel.onDidDispose(() => {
+			comparePanels = comparePanels.filter((e) => e.panel !== panel);
+		});
+	}
 }
 
 export function registerPreviewCommands(context: vscode.ExtensionContext, workspaceRoot: string, indexService: DocDefIndexService): void {
@@ -265,15 +333,32 @@ export function registerPreviewCommands(context: vscode.ExtensionContext, worksp
 			vscode.window.showInformationMessage(`OM Preview: ${singleFragmentMode ? 'single-fragment' : 'whole-section'} mode`);
 			await refreshPreview(workspaceRoot, indexService);
 		}),
+		vscode.commands.registerCommand('om.compareAllModelsPreview', (item: CustomTreeItem) => {
+			openCompareAllModels(workspaceRoot, indexService, item);
+		}),
 		indexService.onDidChange(() => figureIndexCache.invalidate()),
 		vscode.workspace.onDidChangeTextDocument((e) => {
-			if (!currentPanel || !currentDocUri || e.document.uri.toString() !== currentDocUri.toString()) {
-				return;
+			if (currentPanel && currentDocUri && e.document.uri.toString() === currentDocUri.toString()) {
+				if (debounceTimer) {
+					clearTimeout(debounceTimer);
+				}
+				debounceTimer = setTimeout(() => { void refreshPreview(workspaceRoot, indexService); }, 250);
 			}
-			if (debounceTimer) {
-				clearTimeout(debounceTimer);
+
+			if (comparePanels.length > 0) {
+				const changedUrl = toContentFileUrl(workspaceRoot, e.document.uri.fsPath);
+				const affected = comparePanels.filter((entry) => entry.contentFileUrl === changedUrl);
+				if (affected.length > 0) {
+					if (compareDebounceTimer) {
+						clearTimeout(compareDebounceTimer);
+					}
+					compareDebounceTimer = setTimeout(() => {
+						for (const entry of affected) {
+							refreshComparePanel(workspaceRoot, indexService, entry);
+						}
+					}, 250);
+				}
 			}
-			debounceTimer = setTimeout(() => { void refreshPreview(workspaceRoot, indexService); }, 250);
 		}),
 		vscode.window.onDidChangeActiveTextEditor((editor) => {
 			if (!currentPanel || !editor || editor.document.languageId !== 'html') {
