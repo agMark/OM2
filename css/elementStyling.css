@@ -351,6 +351,13 @@ tr{
     width: 6in;
     height: 4in;
 }
+.imageCentered_6x3{ /*L/W = 1.5*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 6in;
+    height: 3in;
+}
 .imageCentered_6x2{
     display: block;
     margin-left: auto;

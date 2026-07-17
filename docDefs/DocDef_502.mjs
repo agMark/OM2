@@ -31,8 +31,8 @@ DocDef.Sections = [
 
 var docVars= new DocVars();
 docVars.vars.DOCNUM = "03-0110";
-docVars.vars.SHORTDATE = "3/1/26";
-docVars.vars.LONGDATE = "3/1/2026";
+docVars.vars.SHORTDATE = "9/1/26";
+docVars.vars.LONGDATE = "9/1/2026";
 docVars.vars.SHORTMODELS = "AT-502A/502B/504";
 
 export { DocDef, def_Sec_1, def_Sec_2, def_Sec_3, def_Sec_4, def_Sec_5, def_Sec_6, docVars}
