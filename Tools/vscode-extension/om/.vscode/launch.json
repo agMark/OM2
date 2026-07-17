@@ -1,0 +1,31 @@
+// A launch configuration that compiles the extension and then opens it inside a new window.
+// This extension now lives nested at OM2/Tools/vscode-extension/om, so the Extension
+// Development Host is pointed at the OM2 repo root rather than at this extension's own
+// folder, since the repo root is what the extension actually operates on.
+// NOTE: the target folder below is a hardcoded absolute path (a relative "${workspaceFolder}/../../.."
+// did not reliably resolve here) — if you clone this repo to a different location, update it.
+// NOTE: --new-window is required because the OM2 folder is normally already open in another
+// (non-debug) window during development — without it, VS Code just refocuses that existing
+// window instead of spawning a real Extension Development Host, and the extension never loads there.
+// Use IntelliSense to learn about possible attributes.
+// Hover to view descriptions of existing attributes.
+// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Run Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--new-window",
+				"C:/Users/mnichols.AIRTRACTOR/OneDrive - Air Tractor, Inc/temp/OM Map/OM2/OM2"
+			],
+			"outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			],
+			"preLaunchTask": "${defaultBuildTask}"
+		}
+	]
+}
