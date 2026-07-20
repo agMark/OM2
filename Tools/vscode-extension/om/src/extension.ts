@@ -4,7 +4,10 @@ import { DocDefIndexService } from './modelIndex';
 import { MergedTreeDataProvider, CustomTreeItem, compareModelFiles } from './mergedTree';
 import { insertStyleClassCommand } from './cssHelper';
 import { insertXrefCommand, insertXrefForSection } from './xrefHelper';
+import { insertFigureCommand } from './figureHelper';
+import { openImageInExternalEditorCommand } from './imageHelper';
 import { registerPreviewCommands } from './previewPanel';
+import { FigureIndexCache } from './figureIndex';
 
 export function activate(context: vscode.ExtensionContext): void {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
@@ -17,6 +20,11 @@ export function activate(context: vscode.ExtensionContext): void {
 	const indexService = new DocDefIndexService(workspaceRoot);
 	context.subscriptions.push(indexService);
 	context.subscriptions.push(indexService.startWatching());
+
+	// Shared across the preview, the xref figure picker, and the insert-figure command, so all
+	// three see the same cached figure data and invalidate together on a single index refresh.
+	const figureIndexCache = new FigureIndexCache();
+	context.subscriptions.push(indexService.onDidChange(() => figureIndexCache.invalidate()));
 
 	const treeDataProvider = new MergedTreeDataProvider(indexService);
 	context.subscriptions.push(vscode.window.registerTreeDataProvider('myTreeView', treeDataProvider));
@@ -60,7 +68,19 @@ export function activate(context: vscode.ExtensionContext): void {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('om.insertXref', async () => {
-			await insertXrefCommand(workspaceRoot, indexService);
+			await insertXrefCommand(workspaceRoot, indexService, figureIndexCache);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.insertFigure', async () => {
+			await insertFigureCommand(workspaceRoot, indexService, figureIndexCache);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.openImageInExternalEditor', async () => {
+			await openImageInExternalEditorCommand(workspaceRoot);
 		})
 	);
 
@@ -78,7 +98,7 @@ export function activate(context: vscode.ExtensionContext): void {
 		})
 	);
 
-	registerPreviewCommands(context, workspaceRoot, indexService);
+	registerPreviewCommands(context, workspaceRoot, indexService, figureIndexCache);
 }
 
 export function deactivate(): void { }
