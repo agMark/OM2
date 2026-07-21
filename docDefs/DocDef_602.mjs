@@ -34,7 +34,7 @@ docVars.vars.DOCNUM = "03-0117";
 docVars.vars.SHORTDATE = "3/1/26";
 docVars.vars.LONGDATE = "3/1/2026";
 docVars.vars.SHORTMODELS = "AT-602";
-
-
+docVars.vars.ENGINEAIRFILTEROILQTY = "22 fl. oz.";
+docVars.vars.ENGINEAIRFILTERPN = "53474-1";
 
 export { DocDef, def_Sec_1, def_Sec_2, def_Sec_3, def_Sec_4, def_Sec_5, def_Sec_6, docVars}

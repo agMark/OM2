@@ -5,7 +5,9 @@ class DocVars{
             DOCNUM: "",
             SHORTDATE: "",
             LONGDATE: "",
-            SHORTMODELS: ""
+            SHORTMODELS: "",
+            ENGINEAIRFILTEROILQTY: "",
+            ENGINEAIRFILTERPN: ""
         }
     }
 
