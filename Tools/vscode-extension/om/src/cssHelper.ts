@@ -90,6 +90,26 @@ export function parseElementStylingCss(cssText: string): CssClassInfo[] {
 	return infos;
 }
 
+// Pagination-control utility classes from the top of css/pagedjs.css. Deliberately a fixed whitelist
+// rather than parsing the whole file like parseElementStylingCss does for elementStyling.css: most of
+// pagedjs.css is renderer-internal machinery (running headers, page counters, per-top-level-section
+// page assignment) that authors should never manually apply to arbitrary content, so a generic parse
+// would clutter the picker with things that don't belong in it.
+const PAGE_BREAK_CLASS_NAMES = ['breakBeforeRight', 'breakBefore', 'dontBreakBefore', 'breakAfter', 'dontBreakAfter'];
+
+function collectPageBreakClasses(pagedJsCssText: string): CssClassInfo[] {
+	const infos: CssClassInfo[] = [];
+	for (const name of PAGE_BREAK_CLASS_NAMES) {
+		const re = new RegExp(`\\.${name}\\s*\\{([^}]*)\\}`);
+		const m = re.exec(pagedJsCssText);
+		if (m) {
+			const detail = m[1].replace(/\s+/g, ' ').trim();
+			infos.push({ className: name, category: 'PAGE BREAK CONTROL (pagedjs.css)', detail });
+		}
+	}
+	return infos;
+}
+
 /** Finds the opening tag (e.g. <img ...>) enclosing the given position, skipping closing tags. */
 function findEnclosingTagRange(document: vscode.TextDocument, position: vscode.Position): vscode.Range | undefined {
 	const offset = document.offsetAt(position);
@@ -128,6 +148,14 @@ export async function insertStyleClassCommand(workspaceRoot: string): Promise<vo
 		return;
 	}
 	const classes = parseElementStylingCss(cssText);
+
+	const pagedJsCssPath = path.join(workspaceRoot, 'css', 'pagedjs.css');
+	try {
+		const pagedJsCssText = fs.readFileSync(pagedJsCssPath, 'utf-8');
+		classes.push(...collectPageBreakClasses(pagedJsCssText));
+	} catch {
+		// css/pagedjs.css missing shouldn't block the elementStyling.css classes from still working.
+	}
 
 	const items: (vscode.QuickPickItem & { className?: string })[] = [];
 	let lastCategory: string | undefined;

@@ -5,6 +5,7 @@ import { MergedTreeDataProvider, CustomTreeItem, compareModelFiles } from './mer
 import { insertStyleClassCommand } from './cssHelper';
 import { insertXrefCommand, insertXrefForSection } from './xrefHelper';
 import { insertFigureCommand } from './figureHelper';
+import { insertBoxCommand } from './boxHelper';
 import { openImageInExternalEditorCommand } from './imageHelper';
 import { registerPreviewCommands } from './previewPanel';
 import { FigureIndexCache } from './figureIndex';
@@ -75,6 +76,12 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('om.insertFigure', async () => {
 			await insertFigureCommand(workspaceRoot, indexService, figureIndexCache);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.insertBox', async () => {
+			await insertBoxCommand(workspaceRoot);
 		})
 	);
 
