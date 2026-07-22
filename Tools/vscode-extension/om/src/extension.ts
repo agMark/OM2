@@ -9,6 +9,9 @@ import { insertBoxCommand } from './boxHelper';
 import { openImageInExternalEditorCommand } from './imageHelper';
 import { registerPreviewCommands } from './previewPanel';
 import { FigureIndexCache } from './figureIndex';
+import { ImageSourceRegistry } from './imageSourceRegistry';
+import { ImageSourceTreeDataProvider, ImageSourceTreeItem } from './imageSourceTree';
+import { linkImageToSourceCommand, openImageSourceCommand, removeImageSourceLinkCommand, linkCurrentImageToSourceCommand } from './imageSourceCommands';
 
 export function activate(context: vscode.ExtensionContext): void {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
@@ -46,6 +49,12 @@ export function activate(context: vscode.ExtensionContext): void {
 
 	const treeDataProvider = new MergedTreeDataProvider(indexService);
 	context.subscriptions.push(vscode.window.registerTreeDataProvider('myTreeView', treeDataProvider));
+
+	const imageSourceRegistry = new ImageSourceRegistry(workspaceRoot);
+	context.subscriptions.push(imageSourceRegistry);
+	context.subscriptions.push(imageSourceRegistry.startWatching());
+	const imageSourceTreeDataProvider = new ImageSourceTreeDataProvider(workspaceRoot, imageSourceRegistry);
+	context.subscriptions.push(vscode.window.registerTreeDataProvider('imageSourceView', imageSourceTreeDataProvider));
 
 	void indexService.refresh();
 
@@ -105,6 +114,37 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('om.openImageInExternalEditor', async () => {
 			await openImageInExternalEditorCommand(workspaceRoot);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.linkImageToSource', async (item?: ImageSourceTreeItem) => {
+			await linkImageToSourceCommand(imageSourceRegistry, item);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.openImageSource', async (item: ImageSourceTreeItem) => {
+			await openImageSourceCommand(workspaceRoot, item);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.removeImageSourceLink', async (item: ImageSourceTreeItem) => {
+			await removeImageSourceLinkCommand(imageSourceRegistry, item);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.linkCurrentImageToSource', async () => {
+			await linkCurrentImageToSourceCommand(workspaceRoot, imageSourceRegistry);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.refreshImageSources', () => {
+			imageSourceRegistry.reload();
+			vscode.window.setStatusBarMessage('OM: image sources refreshed', 2000);
 		})
 	);
 

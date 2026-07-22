@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "images": {
+    "img/img_ruddercontrollayout.PNG": {
+      "sources": [
+        "imgSrc/ruddercontrollayout.dwg"
+      ]
+    }
+  }
+}

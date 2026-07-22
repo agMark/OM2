@@ -43,6 +43,13 @@ export class ImageSourceRegistry implements vscode.Disposable {
 		return path.join(this.workspaceRoot, ...REGISTRY_RELATIVE_PATH.split('/'));
 	}
 
+	/** Force-reloads from disk and notifies listeners — used by the manual refresh command as a
+	 *  fallback in case the file watcher missed an external change. */
+	reload(): void {
+		this.load();
+		this._onDidChange.fire();
+	}
+
 	private load(): void {
 		try {
 			const raw = fs.readFileSync(this.registryPath, 'utf-8');

@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -26,6 +26,11 @@
             {
                 "id": "myTreeView",
                 "name": "My Tree View",
+                "icon": "resources/my-icon.svg"
+            },
+            {
+                "id": "imageSourceView",
+                "name": "Image Sources",
                 "icon": "resources/my-icon.svg"
             }
         ]
@@ -81,6 +86,27 @@
         {
             "command": "om.openImageInExternalEditor",
             "title": "OM: Reveal Image in File Explorer (for Open With...)"
+        },
+        {
+            "command": "om.refreshImageSources",
+            "title": "OM: Refresh Image Sources",
+            "icon": "$(refresh)"
+        },
+        {
+            "command": "om.linkImageToSource",
+            "title": "OM: Link Image to Source File..."
+        },
+        {
+            "command": "om.openImageSource",
+            "title": "OM: Open Source in File Explorer"
+        },
+        {
+            "command": "om.removeImageSourceLink",
+            "title": "OM: Remove Source Link..."
+        },
+        {
+            "command": "om.linkCurrentImageToSource",
+            "title": "OM: Link Current Image to Source File..."
         }
     ],
     "menus": {
@@ -88,6 +114,16 @@
             {
                 "command": "om.refresh",
                 "when": "view == myTreeView",
+                "group": "navigation"
+            },
+            {
+                "command": "om.refreshImageSources",
+                "when": "view == imageSourceView",
+                "group": "navigation"
+            },
+            {
+                "command": "om.linkImageToSource",
+                "when": "view == imageSourceView",
                 "group": "navigation"
             }
         ],
@@ -104,6 +140,18 @@
             {
                 "command": "om.insertXrefForSection",
                 "when": "view == myTreeView && viewItem =~ /^(merged|divergentSection)$/"
+            },
+            {
+                "command": "om.linkImageToSource",
+                "when": "view == imageSourceView && viewItem =~ /^(unlinkedImage|linkedImage|sourceFile)$/"
+            },
+            {
+                "command": "om.openImageSource",
+                "when": "view == imageSourceView && viewItem == linkedImage"
+            },
+            {
+                "command": "om.removeImageSourceLink",
+                "when": "view == imageSourceView && viewItem == linkedImage"
             }
         ],
         "editor/context": [
@@ -129,6 +177,11 @@
             },
             {
                 "command": "om.openImageInExternalEditor",
+                "when": "resourceLangId == html",
+                "group": "om"
+            },
+            {
+                "command": "om.linkCurrentImageToSource",
                 "when": "resourceLangId == html",
                 "group": "om"
             }
