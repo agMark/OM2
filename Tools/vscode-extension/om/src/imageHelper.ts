@@ -3,8 +3,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 /** Finds the <img src="..."> nearest the cursor by character-offset distance — fragments are small
- *  (per the repo's own convention) so this is reliably correct without needing a full HTML parse. */
-function findNearestImageSrc(document: vscode.TextDocument, position: vscode.Position): string | undefined {
+ *  (per the repo's own convention) so this is reliably correct without needing a full HTML parse.
+ *  Also reused by imageSourceTree.ts's "link the currently-edited image" command. */
+export function findNearestImageSrc(document: vscode.TextDocument, position: vscode.Position): string | undefined {
 	const text = document.getText();
 	const offset = document.offsetAt(position);
 	const imgRe = /<img\b[^>]*\bsrc="([^"]+)"/gi;
