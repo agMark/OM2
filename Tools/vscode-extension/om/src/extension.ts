@@ -27,6 +27,23 @@ export function activate(context: vscode.ExtensionContext): void {
 	const figureIndexCache = new FigureIndexCache();
 	context.subscriptions.push(indexService.onDidChange(() => figureIndexCache.invalidate()));
 
+	// Figures are parsed from html/**/*.html fragment content, not docDefs/*.mjs, so the cache also
+	// needs to invalidate when a fragment file changes on disk (e.g. after inserting a new figure and
+	// saving) — otherwise a just-added figure wouldn't show up in the xref picker until some unrelated
+	// docDefs edit happened to trigger the index refresh above.
+	const htmlWatcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(workspaceRoot, 'html/**/*.html'));
+	let htmlDebounceTimer: ReturnType<typeof setTimeout> | undefined;
+	const scheduleFigureCacheInvalidate = () => {
+		if (htmlDebounceTimer) {
+			clearTimeout(htmlDebounceTimer);
+		}
+		htmlDebounceTimer = setTimeout(() => { figureIndexCache.invalidate(); }, 300);
+	};
+	htmlWatcher.onDidChange(scheduleFigureCacheInvalidate);
+	htmlWatcher.onDidCreate(scheduleFigureCacheInvalidate);
+	htmlWatcher.onDidDelete(scheduleFigureCacheInvalidate);
+	context.subscriptions.push(htmlWatcher);
+
 	const treeDataProvider = new MergedTreeDataProvider(indexService);
 	context.subscriptions.push(vscode.window.registerTreeDataProvider('myTreeView', treeDataProvider));
 
