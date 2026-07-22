@@ -302,7 +302,7 @@ let defSec_2_50_42 = new DocSection().i(true, "2.50.42", true, "Air Conditioner 
 let defSec_2_50_50 = new DocSection().i(true, "2.50.50", true, "XFlow Air Filter", true, "html/Maintenance/XFlow Air Filter.html");
 let def_Sec_2_50 = new DocSection();
 def_Sec_2_50
-    .i(true, "2.50", true, "ENGINE MAINTENANCE", true, "html/Maintenance/402/ENGINE MAINTENANCE_402.html")
+    .i(true, "2.50", true, "ENGINE MAINTENANCE", true, "html/Maintenance/ENGINE MAINTENANCE.html")
     .s([
         defSec_2_50_1,
         defSec_2_50_2,
@@ -354,8 +354,8 @@ def_Sec_2_55
 
 
 let defSec_2_56_1 = new DocSection().i(true, "2.56.1", true, "Analog Engine Instruments", true, "html/Maintenance/402/Engine Instruments_402.html");
-let defSec_2_56_2 = new DocSection().i(true, "2.56.2", true, "MVP-50T Engine Instrument System", true, "html/Maintenance/402/MVP-50T_402.html");
-let defSec_2_56_3 = new DocSection().i(true, "2.56.3", true, "Low Fuel Warning System", true, "html/Maintenance/402/Low Fuel Warning System_402.html");
+let defSec_2_56_2 = new DocSection().i(true, "2.56.2", true, "MVP-50T Engine Instrument System", true, "html/Maintenance/MVP-50T.html");
+let defSec_2_56_3 = new DocSection().i(true, "2.56.3", true, "Low Fuel Warning System", true, "html/Maintenance/502/Low Fuel Warning System_502.html");
 let defSec_2_56_4 = new DocSection().i(true, "2.56.4", true, "Analog Engine Instrument Calibration", true, "html/Maintenance/402/Analog Engine Instrument Calibration_402.html");
 let defSec_2_56_5 = new DocSection().i(true, "2.56.5", true, "MVP-50T Engine Instrument Calibration", true, "html/Maintenance/MVP50T Engine Instrument Calibration.html")
 let def_Sec_2_56 = new DocSection();
