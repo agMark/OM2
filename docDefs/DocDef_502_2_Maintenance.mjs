@@ -95,6 +95,7 @@ let defSec_2_20_2 = new DocSection().i(true, "2.20.2", true, "Amsafe Airbag Syst
 let defSec_2_20_3 = new DocSection().i(true, "2.20.3", true, "Cockpit Fire Extinguisher", true, "html/Maintenance/Cockpit Fire Extinguisher.html");
 let defSec_2_20_4 = new DocSection().i(true, "2.20.4", true, "Impact Risks and Sharp Edges", true, "html/Maintenance/Impact Risks and Sharp Edges.html");
 let defSec_2_20_5 = new DocSection().i(true, "2.20.5", true, "Cockpit Controls", true, "html/Maintenance/502/COCKPIT CONTROLS_502.html");
+let defSec_2_20_6 = new DocSection().i(true, "2.20.6", true, "Restraint Harness Condition", true, "html/Maintenance/Harness Condition.html");
 let def_Sec_2_20 = new DocSection();
 def_Sec_2_20
     .i(true, "2.20", true, "COCKPIT", false, "")
@@ -103,7 +104,8 @@ def_Sec_2_20
         defSec_2_20_2,
         defSec_2_20_3,
         defSec_2_20_4,
-        defSec_2_20_5
+        defSec_2_20_5,
+        defSec_2_20_6
     ]);
 
 
@@ -199,7 +201,7 @@ let defSec_2_40_12 = new DocSection().i(true, "2.40.12", true, "Flap Light", tru
 let defSec_2_40_13 = new DocSection().i(true, "2.40.13", true, "Position (Nav) and Strobe Lights", true, "html/Maintenance/502/Nav and Strobe Lights_502.html");
 let defSec_2_40_14 = new DocSection().i(true, "2.40.14", true, "Taxi Lights", true, "html/Maintenance/502/Taxi Lights_502.html");
 let defSec_2_40_15 = new DocSection().i(true, "2.40.15", true, "Night Working Lights", true, "html/Maintenance/502/Night Working Lights_502.html");
-let defSec_2_40_16 = new DocSection().i(true, "2.40.16", true, "Oil Cooler Blower", true, "html/Maintenance/502/Oil Cooler Blower_502.html");
+let defSec_2_40_16 = new DocSection().i(true, "2.40.16", true, "Reserved", false, "");
 let defSec_2_40_50 = new DocSection().i(true, "2.40.50", true, "Starter Generator Removal", true, "html/Maintenance/Starter Generator Removal.html");
 let defSec_2_40_51 = new DocSection().i(true, "2.40.51", true, "Starter Generator Installation", true, "html/Maintenance/Starter Generator Installation.html");
 let defSec_2_40_52 = new DocSection().i(true, "2.40.52", true, "Starter Generator Brush Inspection", true, "html/Maintenance/Starter Generator Brush Inspection.html");
