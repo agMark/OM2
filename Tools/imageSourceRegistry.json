@@ -5,6 +5,26 @@
       "sources": [
         "imgSrc/ruddercontrollayout.dwg"
       ]
+    },
+    "img/img_504Trim.png": {
+      "sources": [
+        "imgSrc/504 - TRIM.dwg"
+      ]
+    },
+    "img/img_502Trim.png": {
+      "sources": [
+        "imgSrc/502 - TRIM.dwg"
+      ]
+    },
+    "img/img_502TrimTabHinge.png": {
+      "sources": [
+        "imgSrc/trimTab502.dwg"
+      ]
+    },
+    "img/img_502TrimTab.png": {
+      "sources": [
+        "imgSrc/trimTab502.dwg"
+      ]
     }
   }
 }
