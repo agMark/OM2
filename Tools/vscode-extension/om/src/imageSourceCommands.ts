@@ -58,11 +58,9 @@ export async function linkImageToSourceCommand(registry: ImageSourceRegistry, it
 	}
 }
 
-export async function openImageSourceCommand(workspaceRoot: string, item: ImageSourceTreeItem): Promise<void> {
-	if (item.element.kind !== 'image') {
-		return;
-	}
-	const sources = item.element.sources;
+/** Reveals a linked source in Explorer, prompting to pick which one if there's more than one — the
+ *  core shared by both the tree's "Open Source in File Explorer" and the editor's equivalent command. */
+async function revealSourcesForImage(workspaceRoot: string, sources: string[]): Promise<void> {
 	if (sources.length === 0) {
 		vscode.window.showInformationMessage('This image has no linked source file yet.');
 		return;
@@ -79,6 +77,29 @@ export async function openImageSourceCommand(workspaceRoot: string, item: ImageS
 		target = picked.relPath;
 	}
 	await vscode.commands.executeCommand('revealFileInOS', vscode.Uri.file(path.join(workspaceRoot, target)));
+}
+
+export async function openImageSourceCommand(workspaceRoot: string, item: ImageSourceTreeItem): Promise<void> {
+	if (item.element.kind !== 'image') {
+		return;
+	}
+	await revealSourcesForImage(workspaceRoot, item.element.sources);
+}
+
+/** Editor-context equivalent of openImageSourceCommand: reveals the source(s) already linked to the
+ *  <img> nearest the cursor, without needing to switch to the Image Sources tree view first. */
+export async function openCurrentImageSourceCommand(workspaceRoot: string, registry: ImageSourceRegistry): Promise<void> {
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) {
+		vscode.window.showWarningMessage('Open an HTML fragment and place your cursor near an <img> tag first.');
+		return;
+	}
+	const src = findNearestImageSrc(editor.document, editor.selection.active);
+	if (!src) {
+		vscode.window.showWarningMessage('No <img> tag found in this fragment.');
+		return;
+	}
+	await revealSourcesForImage(workspaceRoot, registry.getLinksForImage(src));
 }
 
 export async function removeImageSourceLinkCommand(registry: ImageSourceRegistry, item: ImageSourceTreeItem): Promise<void> {

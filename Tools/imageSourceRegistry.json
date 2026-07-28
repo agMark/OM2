@@ -25,6 +25,11 @@
       "sources": [
         "imgSrc/trimTab502.dwg"
       ]
+    },
+    "img/img_FlapLightSchematic_802.png": {
+      "sources": [
+        "imgSrc/flapLightSchematic.dwg"
+      ]
     }
   }
 }
