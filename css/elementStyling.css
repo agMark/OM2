@@ -144,6 +144,7 @@ tr{
     margin-top: .2em;
     margin-bottom: .2em;
     break-before: avoid;
+    break-inside: avoid;
 }
 .boxCautionSmallHeader{
     font-weight: bold;
@@ -164,6 +165,7 @@ tr{
     margin-top: .2em;
     margin-bottom: .2em;
     break-before: avoid;
+    break-inside: avoid;
 }
 .boxCautionMediumHeader{
     font-weight: bold;
@@ -184,6 +186,7 @@ tr{
     margin-top: .2em;
     margin-bottom: .2em;
     break-before: avoid;
+    break-inside: avoid;
 }
 .boxCautionLargeHeader{
     font-weight: bold;
@@ -206,7 +209,7 @@ tr{
     margin-top: .2em;
     margin-bottom: .2em;
     break-before: avoid;
-    page-break-inside:avoid;
+    break-inside: avoid;
 }
 .boxWarningSmallHeader{
     color: red;
@@ -229,7 +232,7 @@ tr{
     margin-top: .2em;
     margin-bottom: .2em;
     break-before: avoid;
-    page-break-inside:avoid;
+    break-inside: avoid;
 }
 .boxWarningMediumHeader{
     font-weight: bold;
@@ -252,7 +255,7 @@ tr{
     margin-top: .2em;
     margin-bottom: .2em;
     break-before: avoid;
-    page-break-inside:avoid;
+    break-inside: avoid;
 }
 .boxWarningLargeHeader{
     color: red;
