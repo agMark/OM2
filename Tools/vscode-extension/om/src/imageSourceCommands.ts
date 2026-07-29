@@ -59,7 +59,7 @@ export async function linkImageToSourceCommand(registry: ImageSourceRegistry, it
 }
 
 /** Reveals a linked source in Explorer, prompting to pick which one if there's more than one — the
- *  core shared by both the tree's "Open Source in File Explorer" and the editor's equivalent command. */
+ *  core shared by both the tree's "Reveal Source in File Explorer" and the editor's equivalent command. */
 async function revealSourcesForImage(workspaceRoot: string, sources: string[]): Promise<void> {
 	if (sources.length === 0) {
 		vscode.window.showInformationMessage('This image has no linked source file yet.');

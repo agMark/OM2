@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -46,12 +46,20 @@
             "title": "OM: Compare Model Files..."
         },
         {
+            "command": "om.goToDocDefSource",
+            "title": "OM: Go to DocDef Source"
+        },
+        {
             "command": "om.insertXrefForSection",
             "title": "OM: Insert Xref to This Section"
         },
         {
             "command": "om.insertStyleClass",
             "title": "OM: Insert Style Class..."
+        },
+        {
+            "command": "om.goToStyleClass",
+            "title": "OM: Go to CSS Class Definition"
         },
         {
             "command": "om.insertXref",
@@ -98,7 +106,7 @@
         },
         {
             "command": "om.openImageSource",
-            "title": "OM: Open Source in File Explorer"
+            "title": "OM: Reveal Source in File Explorer"
         },
         {
             "command": "om.removeImageSourceLink",
@@ -110,7 +118,7 @@
         },
         {
             "command": "om.openCurrentImageSource",
-            "title": "OM: Open Current Image's Source in File Explorer"
+            "title": "OM: Reveal Current Image's Source in File Explorer"
         }
     ],
     "menus": {
@@ -146,6 +154,10 @@
                 "when": "view == myTreeView && viewItem =~ /^(merged|divergentSection)$/"
             },
             {
+                "command": "om.goToDocDefSource",
+                "when": "view == myTreeView && viewItem =~ /^(merged|divergentSection)$/"
+            },
+            {
                 "command": "om.linkImageToSource",
                 "when": "view == imageSourceView && viewItem =~ /^(unlinkedImage|linkedImage|sourceFile)$/"
             },
@@ -161,6 +173,11 @@
         "editor/context": [
             {
                 "command": "om.insertStyleClass",
+                "when": "resourceLangId == html",
+                "group": "om"
+            },
+            {
+                "command": "om.goToStyleClass",
                 "when": "resourceLangId == html",
                 "group": "om"
             },

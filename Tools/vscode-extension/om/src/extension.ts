@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { DocDefIndexService } from './modelIndex';
-import { MergedTreeDataProvider, CustomTreeItem, compareModelFiles } from './mergedTree';
-import { insertStyleClassCommand } from './cssHelper';
+import { MergedTreeDataProvider, CustomTreeItem, compareModelFiles, revealInDocDef } from './mergedTree';
+import { insertStyleClassCommand, goToStyleClassCommand } from './cssHelper';
 import { insertXrefCommand, insertXrefForSection } from './xrefHelper';
 import { insertFigureCommand } from './figureHelper';
 import { insertBoxCommand } from './boxHelper';
@@ -88,8 +88,20 @@ export function activate(context: vscode.ExtensionContext): void {
 	);
 
 	context.subscriptions.push(
+		vscode.commands.registerCommand('om.goToDocDefSource', async (item: CustomTreeItem) => {
+			await revealInDocDef(workspaceRoot, item);
+		})
+	);
+
+	context.subscriptions.push(
 		vscode.commands.registerCommand('om.insertStyleClass', async () => {
 			await insertStyleClassCommand(workspaceRoot);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.goToStyleClass', async () => {
+			await goToStyleClassCommand(workspaceRoot);
 		})
 	);
 

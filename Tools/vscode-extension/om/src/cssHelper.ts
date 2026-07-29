@@ -132,6 +132,102 @@ function findEnclosingTagRange(document: vscode.TextDocument, position: vscode.P
 	return undefined;
 }
 
+function escapeRegExp(text: string): string {
+	return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** Byte offset of a `.className {` rule's selector within cssText, or undefined if not declared there. */
+export function locateCssClassDefinitionOffset(cssText: string, className: string): number | undefined {
+	const re = new RegExp(`\\.${escapeRegExp(className)}(?![A-Za-z0-9_-])\\s*\\{`);
+	const m = re.exec(cssText);
+	return m ? m.index : undefined;
+}
+
+/** Opens the CSS file that declares `.className` (checked in elementStyling.css then pagedjs.css)
+ *  and selects the rule's selector line. Returns false if the class isn't declared in either file. */
+async function revealCssClassDefinition(workspaceRoot: string, className: string): Promise<boolean> {
+	for (const fileName of ['elementStyling.css', 'pagedjs.css']) {
+		const cssPath = path.join(workspaceRoot, 'css', fileName);
+		let cssText: string;
+		try {
+			cssText = fs.readFileSync(cssPath, 'utf-8');
+		} catch {
+			continue;
+		}
+		const idx = locateCssClassDefinitionOffset(cssText, className);
+		if (idx === undefined) {
+			continue;
+		}
+		const cssDoc = await vscode.workspace.openTextDocument(vscode.Uri.file(cssPath));
+		const cssEditor = await vscode.window.showTextDocument(cssDoc, { preview: false });
+		const braceIdx = cssText.indexOf('{', idx);
+		const startPos = cssDoc.positionAt(idx);
+		const endPos = braceIdx === -1 ? startPos : cssDoc.positionAt(braceIdx);
+		cssEditor.selection = new vscode.Selection(startPos, endPos);
+		cssEditor.revealRange(new vscode.Range(startPos, endPos), vscode.TextEditorRevealType.InCenter);
+		return true;
+	}
+	return false;
+}
+
+/** Right-click "Go to CSS Class Definition": jumps from a class token in an HTML tag's class="..."
+ *  attribute to its `.className { ... }` rule in css/elementStyling.css or css/pagedjs.css. If the
+ *  cursor isn't sitting on a specific token but the tag has more than one class, asks which one. */
+export async function goToStyleClassCommand(workspaceRoot: string): Promise<void> {
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) {
+		vscode.window.showWarningMessage('Open an HTML fragment and place your cursor on an element with a class attribute first.');
+		return;
+	}
+
+	const tagRange = findEnclosingTagRange(editor.document, editor.selection.active);
+	if (!tagRange) {
+		vscode.window.showWarningMessage('Place your cursor inside an element\'s opening tag, e.g. <div class="...">, then run this command.');
+		return;
+	}
+	const tagText = editor.document.getText(tagRange);
+	const tagStartOffset = editor.document.offsetAt(tagRange.start);
+
+	const prefixMatch = /class\s*=\s*"/.exec(tagText);
+	if (!prefixMatch) {
+		vscode.window.showWarningMessage('This element has no class attribute.');
+		return;
+	}
+	const valueStartInTag = prefixMatch.index + prefixMatch[0].length;
+	const valueEndInTag = tagText.indexOf('"', valueStartInTag);
+	const value = valueEndInTag === -1 ? '' : tagText.slice(valueStartInTag, valueEndInTag);
+
+	const tokens: { name: string; start: number; end: number }[] = [];
+	const tokenRe = /\S+/g;
+	let tm: RegExpExecArray | null;
+	while ((tm = tokenRe.exec(value))) {
+		tokens.push({ name: tm[0], start: valueStartInTag + tm.index, end: valueStartInTag + tm.index + tm[0].length });
+	}
+	if (tokens.length === 0) {
+		vscode.window.showWarningMessage('This element\'s class attribute is empty.');
+		return;
+	}
+
+	const cursorOffsetInTag = editor.document.offsetAt(editor.selection.active) - tagStartOffset;
+	const hit = tokens.find((t) => cursorOffsetInTag >= t.start && cursorOffsetInTag <= t.end);
+	let className: string | undefined;
+	if (hit) {
+		className = hit.name;
+	} else if (tokens.length === 1) {
+		className = tokens[0].name;
+	} else {
+		className = await vscode.window.showQuickPick(tokens.map((t) => t.name), { placeHolder: 'Which class should be opened?' });
+	}
+	if (!className) {
+		return;
+	}
+
+	const found = await revealCssClassDefinition(workspaceRoot, className);
+	if (!found) {
+		vscode.window.showWarningMessage(`No CSS rule named ".${className}" found in css/elementStyling.css or css/pagedjs.css.`);
+	}
+}
+
 export async function insertStyleClassCommand(workspaceRoot: string): Promise<void> {
 	const editor = vscode.window.activeTextEditor;
 	if (!editor) {
