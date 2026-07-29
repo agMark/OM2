@@ -35,6 +35,31 @@
       "sources": [
         "imgSrc/TaxiLightSchematic.dwg"
       ]
+    },
+    "img/img_CockpitLighting_RearSeat.png": {
+      "sources": [
+        "imgSrc/CockpitLightingSchematics.dwg"
+      ]
+    },
+    "img/img_CockpitLighting_Dimmer.png": {
+      "sources": [
+        "imgSrc/CockpitLightingSchematics.dwg"
+      ]
+    },
+    "img/img_CockpitLighting_Lights.png": {
+      "sources": [
+        "imgSrc/CockpitLightingSchematics.dwg"
+      ]
+    },
+    "img/img_CockpitLighting_DomeLight.png": {
+      "sources": [
+        "imgSrc/CockpitLightingSchematics.dwg"
+      ]
+    },
+    "img/img_CockpitLighting_MapLight.png": {
+      "sources": [
+        "imgSrc/CockpitLightingSchematics.dwg"
+      ]
     }
   }
 }

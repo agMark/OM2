@@ -1,19 +1,48 @@
-<p>The wiring schematic for the cockpit lighting is shown in <xref fileTarget="img_Fig_40.png" xrefType="link">Fig Cross
-        Reference</xref>. The intensity level of the cockpit lights, except for the dome and map lights, is controlled
-    by the solid-state dimming circuit. </p>
+
+<p>
+    Cockpit lighting can vary significantly from one aircraft to another.  However, all systems function in the same manner.
+</p>
+<p>
+    The instrument panel and other interior lights (post lights) are controlled by a solid state dimmer circuit.  There
+    are two dimmer circuits, generally one for the upper panel and one for the lower and remaining lights. Power is supplied by
+    the instrument lights circuit breaker and a switch.  The dimmer circuit is shown in <xref fileTarget="img_CockpitLighting_Dimmer.png" xrefType="link">ref</xref>.
+    Typical connection of the lights to the dimmed lighting busses is shown in <xref fileTarget="img_CockpitLighting_Lights.png" xrefType="link">ref</xref>.  Note that
+    the actual configuration of the busses and the lights vary from aircraft to aircraft.
+</p>
+
+
+
 <figure>
-    <img class="imageCentered_6x4" src="img/img_Fig_40.png">
-    <figcaption class="centerText">Wiring Schematic- Lighting</figcaption>
+    <img class="imageCentered_6x6" src="img/img_CockpitLighting_Dimmer.png">
+    <figcaption class="centerText">Cockpit Lighting - Dimmer Circuits and Power Supply</figcaption>
 </figure>
-<p>When the panel light switch is turned ON, power is available to the dimming circuit. The panel-light intensity is
-    controlled by the panel-light rheostat on the instrument panel. </p>
+
+<figure>
+    <img class="imageCentered_6x6" src="img/img_CockpitLighting_Lights.png">
+    <figcaption class="centerText">Cockpit Lighting - Typical Light Circuits (location and bus arrangements vary)</figcaption>
+</figure>
+
+
+<p>
+    The dome and map lights are not dimmed.  The flap light is controlled by its switch while the map light is wire
+    directly to the circuit breaker so that it is always available.  Refer to 
+    <xref fileTarget="img_CockpitLighting_DomeLight.png" xrefType="link">ref</xref> and
+    <xref fileTarget="img_CockpitLighting_MapLight.png" xrefType="link">ref</xref>.
+</p>
+
+<figure>
+    <img class="imageCentered_6x3" src="img/img_CockpitLighting_DomeLight.png">
+    <figcaption class="centerText">Dome Light Schematic</figcaption>
+</figure>
+
+<figure>
+    <img class="imageCentered_6x3" src="img/img_CockpitLighting_MapLight.png">
+    <figcaption class="centerText">Map Light Schematic</figcaption>
+</figure>
 
 
 <p><b>Troubleshooting</b></p>
 
-<p>The following instructions are for the upper panel dimmer circuit. Troubleshooting the lower panel is identical
-    except that on later aircraft the wires are numbered differently from the upper panel control to the lower panel
-    control. Use the schematic, drawing 60059 page 2, and the assembly drawing, 60647, to aid in troubleshooting. </p>
 
 <p>If one of the electronic dimmers should fail to operate, first check the five-Amp-instrument-light circuit breaker.
     If the flap light burns when the master switch and the instrument light switches are activated, the circuit breaker
@@ -32,8 +61,8 @@
 <p>Once it is known that the instrument lights and wiring are good, and the dimmer still will not control them, use a
     Volt meter to make sure that the instrument-light switch is feeding bus voltage to the variable resistor and the C
     terminal of the transistor. To access the terminals of the transistor, remove the two screws that hold the heat sink
-    to the lower panel. The variable-resistor terminal with the 60302-167 wire is the power wire from the instrument
-    light switch. If voltage is not present at either one or both of these terminals, isolate the trouble and make the
+    to the lower panel. Identify the power wire that runs to the variable resistor from the instrument light switch.
+    If voltage is not present at either one or both of these terminals, isolate the trouble and make the
     necessary repairs to the wiring. Use the Volt meter to check the voltage at the B terminal of the transistor. This
     voltage should vary from 0 to bus level when the control knob is turned. </p>
 
