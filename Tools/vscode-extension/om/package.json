@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -107,6 +107,10 @@
         {
             "command": "om.linkCurrentImageToSource",
             "title": "OM: Link Current Image to Source File..."
+        },
+        {
+            "command": "om.openCurrentImageSource",
+            "title": "OM: Open Current Image's Source in File Explorer"
         }
     ],
     "menus": {
@@ -182,6 +186,11 @@
             },
             {
                 "command": "om.linkCurrentImageToSource",
+                "when": "resourceLangId == html",
+                "group": "om"
+            },
+            {
+                "command": "om.openCurrentImageSource",
                 "when": "resourceLangId == html",
                 "group": "om"
             }
