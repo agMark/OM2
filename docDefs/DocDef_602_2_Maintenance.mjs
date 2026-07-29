@@ -186,10 +186,10 @@ def_Sec_2_35
 
 
 
-let defSec_2_40_1 = new DocSection().i(true, "2.40.1", true, "General", true, "html/Maintenance/602/Electrical System General_602.html");
+let defSec_2_40_1 = new DocSection().i(true, "2.40.1", true, "General", true, "html/Maintenance/Electrical System General.html");
 let defSec_2_40_2 = new DocSection().i(true, "2.40.2", true, "Starting / Charging / Power Distribution", true, "html/Maintenance/Starting and Charging.html");
 let defSec_2_40_3 = new DocSection().i(true, "2.40.3", true, "Charging System Troubleshooting", true, "html/Maintenance/Charging System Troubleshooting.html");
-let defSec_2_40_4 = new DocSection().i(true, "2.40.4", true, "Low-Voltage Warning Light", true, "html/Maintenance/602/Low-Voltage Warning Light_602.html");
+let defSec_2_40_4 = new DocSection().i(true, "2.40.4", true, "Low-Voltage Warning Light", true, "html/Maintenance/Low-Voltage Warning Light.html");
 let defSec_2_40_5 = new DocSection().i(true, "2.40.5", true, "Electrical Fuel Boost Pump", true, "html/Maintenance/Electrical Fuel Boost Pump.html");
 let defSec_2_40_6 = new DocSection().i(true, "2.40.6", true, "Propeller Overspeed Solenoid", true, "html/Maintenance/Propeller Overspeed Solenoid.html");
 let defSec_2_40_7 = new DocSection().i(true, "2.40.7", true, "Stall-Warning Horn", true, "html/Maintenance/Stall-Warning Horn.html");

@@ -30,6 +30,11 @@
       "sources": [
         "imgSrc/flapLightSchematic.dwg"
       ]
+    },
+    "img/TaxiLightWiringSchematic.png": {
+      "sources": [
+        "imgSrc/TaxiLightSchematic.dwg"
+      ]
     }
   }
 }
