@@ -60,6 +60,21 @@
       "sources": [
         "imgSrc/CockpitLightingSchematics.dwg"
       ]
+    },
+    "img/img_NavStrobeSchematic_LHWing.png": {
+      "sources": [
+        "imgSrc/navStrobeSchematics.dwg"
+      ]
+    },
+    "img/img_NavStrobeSchematic_RHWing.png": {
+      "sources": [
+        "imgSrc/navStrobeSchematics.dwg"
+      ]
+    },
+    "img/img_NavStrobeSchematic_Tail.png": {
+      "sources": [
+        "imgSrc/navStrobeSchematics.dwg"
+      ]
     }
   }
 }
