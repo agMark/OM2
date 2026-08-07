@@ -90,6 +90,16 @@
       "sources": [
         "imgSrc/workingLightSchematics.dwg"
       ]
+    },
+    "img/img_FlapSchematicDualSwitches.png": {
+      "sources": [
+        "imgSrc/flapSchematic.dwg"
+      ]
+    },
+    "img/img_FlapSchematic.png": {
+      "sources": [
+        "imgSrc/flapSchematic.dwg"
+      ]
     }
   }
 }
