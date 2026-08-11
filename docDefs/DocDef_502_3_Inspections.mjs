@@ -2,7 +2,7 @@
 
 import {DocSection} from '../code/DocSection.mjs'
 
-let def_Sec_3_0 = new DocSection().i(true, "3.0", true, "GENERAL", true, `html/Inspection/502/GENERAL_502.html`);
+let def_Sec_3_0 = new DocSection().i(true, "3.0", true, "GENERAL", true, `html/Inspection/GENERAL.html`);
 
 
 let def_Sec_3_1_0 = new DocSection().i(true, "3.1.0", true, "General", true, `html/Inspection/502/Insp_GENERAL_502.html`);
