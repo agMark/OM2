@@ -93,7 +93,7 @@ def_Sec_1_70
 
 let def_Sec_1_85 = new DocSection();
 def_Sec_1_85
-    .i(true, "1.85", true, "INSTRUMENTS", true, "html/Description/Instruments.html")
+    .i(true, "1.85", true, "INSTRUMENTS", true, "html/Description/INSTRUMENTS.html")
     .s([
         new DocSection().i(true, "1.85.1", true, "Altimeter", true, "html/Description/502/Altimeter_502.html"),
         new DocSection().i(true, "1.85.2", true, "Airspeed Indicator", true, "html/Description/Airspeed Indicator.html"),
