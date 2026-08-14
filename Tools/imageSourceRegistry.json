@@ -100,6 +100,16 @@
       "sources": [
         "imgSrc/flapSchematic.dwg"
       ]
+    },
+    "img/img_MainGearAttachBolts1.png": {
+      "sources": [
+        "imgSrc/LandingGearBolts.dwg"
+      ]
+    },
+    "img/img_MainGearAttachBolts2.png": {
+      "sources": [
+        "imgSrc/LandingGearBolts.dwg"
+      ]
     }
   }
 }
