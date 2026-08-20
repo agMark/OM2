@@ -14,10 +14,13 @@
 
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const series = process.argv[2] || '502';
-const root = path.resolve('html');
-const reportsDir = path.resolve('Tools', 'reports');
+const root = path.resolve(__dirname, '..', 'html');
+const reportsDir = path.resolve(__dirname, 'reports');
 
 const RED_TAG_RE = /<(span|p|div|font|b|strong|em|i)\b[^>]*style\s*=\s*(['"])[^'"]*color\s*:\s*(?:red|#f00\b|#ff0000|rgb\(\s*255\s*,\s*0\s*,\s*0\s*\))[^'"]*\2[^>]*>([\s\S]*?)<\/\1>/gi;
 const BOX_RE = /<div[^>]*class\s*=\s*(['"])[^'"]*box(?:Caution|Warning)[^'"]*\1[^>]*>[\s\S]*?<\/div>/gi;
