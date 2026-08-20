@@ -8,6 +8,7 @@ import { insertFigureCommand } from './figureHelper';
 import { insertBoxCommand } from './boxHelper';
 import { openImageInExternalEditorCommand } from './imageHelper';
 import { registerPreviewCommands } from './previewPanel';
+import { registerChangeReportCommands } from './changeReportCommands';
 import { FigureIndexCache } from './figureIndex';
 import { ImageSourceRegistry } from './imageSourceRegistry';
 import { ImageSourceTreeDataProvider, ImageSourceTreeItem } from './imageSourceTree';
@@ -181,6 +182,7 @@ export function activate(context: vscode.ExtensionContext): void {
 	);
 
 	registerPreviewCommands(context, workspaceRoot, indexService, figureIndexCache);
+	registerChangeReportCommands(context, workspaceRoot, indexService);
 }
 
 export function deactivate(): void { }
