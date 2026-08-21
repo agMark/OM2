@@ -25,8 +25,8 @@ let def_Sec_3_1_16 = new DocSection().i(true, "3.1.16", true, "Empennage", true,
 let def_Sec_3_1_17 = new DocSection().i(true, "3.1.17", true, "Cockpit", true, `html/Inspection/502/Insp_COCKPIT_502.html`);
 let def_Sec_3_1_18 = new DocSection().i(true, "3.1.18", true, "Dispersal Equipment", true, `html/Inspection/502/Insp_DISPERSAL EQUIPMENT_502.html`);
 let def_Sec_3_1_19 = new DocSection().i(true, "3.1.19", true, "Air Conditioning System", true, `html/Inspection/502/Insp_AIR CONDITIONING SYSTEM_502.html`);
-let def_Sec_3_1_20 = new DocSection().i(true, "3.1.20", true, "Fire Gate Gen II Hydraulic System (If Equipped)", true, `html/Inspection/502/Insp_FIRE GATE GEN II HYDRAULIC SYSTEM_502.html`);
-let def_Sec_3_1_21 = new DocSection().i(true, "3.1.21", true, "Fire Gate Gen III Electric System (If Equipped)", true, `html/Inspection/502/Insp_FIRE GATE GEN III ELECTRIC SYSTEM_502.html`);
+let def_Sec_3_1_20 = new DocSection().i(true, "3.1.20", true, "Reserved", false, ``);
+let def_Sec_3_1_21 = new DocSection().i(true, "3.1.21", true, "Reserved", false, ``);
 let def_Sec_3_1 = new DocSection().i(true, "3.1", true, "SCHEDULED INSPECTIONS", true, `html/Inspection/502/SCHEDULED INSPECTIONS_502.html`);
 def_Sec_3_1
     .s([
@@ -54,7 +54,7 @@ def_Sec_3_1
         def_Sec_3_1_21
     ]);
 
-let def_Sec_3_2_1 = new DocSection().i(true, "3.2.1", true, "Hard / Heavy Landing Inspection", true, "html/Inspection/502/Insp_HARD OR HEAVY LANDING INSPECTION_502.html");
+let def_Sec_3_2_1 = new DocSection().i(true, "3.2.1", true, "Hard / Heavy Landing Inspection", true, "html/Inspection/Insp_HARD OR HEAVY LANDING INSPECTION.html");
 let def_Sec_3_2_2 = new DocSection().i(true, "3.2.2", true, "Flight Into Turbulent Air and Post Flight Inspections", true, "html/Inspection/502/Insp_FLIGHT INTO TURBULENT AIR AND POST FLIGHT INSPECTIONS_502.html");
 let def_Sec_3_2_3 = new DocSection().i(true, "3.2.3", true, "Flight Into Thunderstorms and Post Flight Inspections", true, "html/Inspection/502/Insp_FLIGHT INTO THUNDERSTORMS AND POST FLIGHT INSPECTIONS_502.html");
 let def_Sec_3_2_4 = new DocSection().i(true, "3.2.4", true, "Obstacle Collision", true, "html/Inspection/502/Insp_Obstacle Collision_502.html");
@@ -62,7 +62,7 @@ let def_Sec_3_2_5 = new DocSection().i(true, "3.2.5", true, "Propeller Strike / 
 let def_Sec_3_2_6 = new DocSection().i(true, "3.2.6", true, "Starter-Generator Malfunction", true, "html/Inspection/502/Insp_Starter-Generator Malfunction_502.html");
 let def_Sec_3_2_7 = new DocSection().i(true, "3.2.7", true, "Engine Oil Metal Contamination", true, "html/Inspection/502/Insp_Engine Oil Metal Contamination_502.html");
 let def_Sec_3_2_8 = new DocSection().i(true, "3.2.8", true, "Propeller and Engine Damage", true, "html/Inspection/502/Insp_Propeller and Engine Damage_502.html");
-let def_Sec_3_2 = new DocSection().i(true, "3.2", true, "UNSCHEDULED INSPECTIONS", true, "html/Inspection/502/Insp_UNSCHEDULED INSPECTIONS_502.html");
+let def_Sec_3_2 = new DocSection().i(true, "3.2", true, "UNSCHEDULED INSPECTIONS", true, "html/Inspection/Insp_UNSCHEDULED INSPECTIONS.html");
 def_Sec_3_2
     .s([
         def_Sec_3_2_1,

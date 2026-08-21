@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -90,6 +90,10 @@
         {
             "command": "om.insertBox",
             "title": "OM: Insert Caution/Warning Box..."
+        },
+        {
+            "command": "om.insertDataVar",
+            "title": "OM: Insert Data Var..."
         },
         {
             "command": "om.openImageInExternalEditor",
@@ -218,6 +222,11 @@
             },
             {
                 "command": "om.insertBox",
+                "when": "resourceLangId == html",
+                "group": "om"
+            },
+            {
+                "command": "om.insertDataVar",
                 "when": "resourceLangId == html",
                 "group": "om"
             },

@@ -137,6 +137,32 @@ function flagXrefs(html: string, indexService: DocDefIndexService, ctx: XrefCont
 	});
 }
 
+/**
+ * Highlights each `data-vars="X"` element with what it will actually render as, mirroring
+ * code/data_vars.mjs DocVars.InjectVars (which swaps the tag's textContent for `docVars.vars[X]` — or
+ * throws "unrecognized or unset variable" if that key is missing or still an empty string, since the
+ * real check is a truthy test, not just a key-existence check). The preview never had model context
+ * for this, so these tags previously just showed their static placeholder text unchanged.
+ */
+function injectDataVars(html: string, model: ModelId | undefined, indexService: DocDefIndexService): string {
+	const docVars = model ? indexService.models.get(model)?.docVars : undefined;
+	return html.replace(
+		/(<([a-zA-Z][a-zA-Z0-9]*)\b[^>]*\bdata-vars="([^"]*)"[^>]*>)([\s\S]*?)(<\/\2>)/gi,
+		(_match, openTag: string, _tag: string, varName: string, inner: string, closeTag: string) => {
+			const value = docVars?.[varName];
+			if (value) {
+				const title = `data-vars="${varName}" renders as "${value}"`;
+				return `${openTag}<span class="om-var-ok" title="${escapeHtml(title)}">${escapeHtml(value)}</span>${closeTag}`;
+			}
+			const reason = !docVars
+				? 'no model context for this fragment'
+				: (varName in docVars ? 'value is unset (empty string)' : 'unrecognized variable name');
+			const title = `data-vars="${varName}": ${reason} — will throw "unrecognized or unset variable" at render time`;
+			return `${openTag}<span class="om-var-bad" title="${escapeHtml(title)}">${inner}</span>${closeTag}`;
+		}
+	);
+}
+
 function renderLeaf(leaf: DocSection, workspaceRoot: string, webview: vscode.Webview, indexService: DocDefIndexService, xrefCtx: XrefContext, currentUrl: string, skipHeading: boolean): string {
 	let out = '';
 	if (!skipHeading && leaf.DisplayTitle && leaf.SectionTitle) {
@@ -152,7 +178,8 @@ function renderLeaf(leaf: DocSection, workspaceRoot: string, webview: vscode.Web
 		try {
 			const abs = path.join(workspaceRoot, leaf.ContentFileUrl);
 			const raw = fs.readFileSync(abs, 'utf-8');
-			const rendered = flagXrefs(rewriteImageSrcs(raw, webview, workspaceRoot), indexService, xrefCtx);
+			const withXrefs = flagXrefs(rewriteImageSrcs(raw, webview, workspaceRoot), indexService, xrefCtx);
+			const rendered = injectDataVars(withXrefs, xrefCtx.model, indexService);
 			out += `<div class="${isCurrent ? 'om-current-fragment' : ''}">${rendered}</div>`;
 		} catch {
 			out += `<p class="om-preview-note">Could not read ${escapeHtml(leaf.ContentFileUrl)}</p>`;
@@ -216,6 +243,8 @@ function wrapHtmlShell(webview: vscode.Webview, workspaceRoot: string, contentWi
   .om-current-fragment { outline: 2px dashed #0066cc; outline-offset: 4px; }
   .om-xref-ok { color: #0645AD; text-decoration: underline; }
   .om-xref-bad { color: #b00; border-bottom: 1px dashed #b00; cursor: help; }
+  .om-var-ok { background: #e6ffe6; border-bottom: 1px dashed #2a2; cursor: help; }
+  .om-var-bad { background: #ffe6e6; border-bottom: 1px dashed #b00; cursor: help; }
 </style>
 </head>
 <body>
@@ -233,15 +262,20 @@ function getContentWidthIn(): number {
 async function buildPreviewHtml(webview: vscode.Webview, workspaceRoot: string, indexService: DocDefIndexService, figureIndexCache: FigureIndexCache, doc: vscode.TextDocument, contentWidthIn: number): Promise<string> {
 	const currentUrl = toContentFileUrl(workspaceRoot, doc.uri.fsPath);
 	const rawFragmentText = doc.getText();
+	const entries = indexService.findByContentFileUrl(currentUrl);
+	// A fragment can be shared by more than one model with different docVars — the preview can only
+	// show one rendering at a time, so it picks the first owning model as its best guess.
+	const inferredModel = entries[0]?.model;
 
 	let bodyHtml: string;
 	if (singleFragmentMode) {
-		bodyHtml = flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot, figureIndexCache });
+		const withXrefs = flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot, figureIndexCache, model: inferredModel });
+		bodyHtml = injectDataVars(withXrefs, inferredModel, indexService);
 	} else {
-		const entries = indexService.findByContentFileUrl(currentUrl);
 		if (entries.length === 0) {
+			const withXrefs = flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot, figureIndexCache });
 			bodyHtml = '<p class="om-preview-note">This fragment isn\'t referenced by any model\'s DocDef yet — showing raw content.</p>'
-				+ flagXrefs(rewriteImageSrcs(rawFragmentText, webview, workspaceRoot), indexService, { workspaceRoot, figureIndexCache });
+				+ injectDataVars(withXrefs, undefined, indexService);
 		} else {
 			const { model, section: target } = entries[0];
 			bodyHtml = renderSectionBody(workspaceRoot, webview, indexService, figureIndexCache, model, target, currentUrl);

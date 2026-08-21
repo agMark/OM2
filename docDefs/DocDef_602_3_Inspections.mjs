@@ -25,8 +25,8 @@ let def_Sec_3_1_16 = new DocSection().i(true, "3.1.16", true, "Empennage", true,
 let def_Sec_3_1_17 = new DocSection().i(true, "3.1.17", true, "Cockpit", true, `html/Inspection/602/Insp_COCKPIT_602.html`);
 let def_Sec_3_1_18 = new DocSection().i(true, "3.1.18", true, "Dispersal Equipment", true, `html/Inspection/602/Insp_DISPERSAL EQUIPMENT_602.html`);
 let def_Sec_3_1_19 = new DocSection().i(true, "3.1.19", true, "Air Conditioning System", true, `html/Inspection/602/Insp_AIR CONDITIONING SYSTEM_602.html`);
-let def_Sec_3_1_20 = new DocSection().i(true, "3.1.20", true, "Fire Gate Gen II Hydraulic System (If Equipped)", true, `html/Inspection/602/Insp_FIRE GATE GEN II HYDRAULIC SYSTEM_602.html`);
-let def_Sec_3_1_21 = new DocSection().i(true, "3.1.21", true, "Fire Gate Gen III Electric System (If Equipped)", true, `html/Inspection/602/Insp_FIRE GATE GEN III ELECTRIC SYSTEM_602.html`);
+let def_Sec_3_1_20 = new DocSection().i(true, "3.1.20", true, "Reserved", false, ``);
+let def_Sec_3_1_21 = new DocSection().i(true, "3.1.21", true, "Reserved", false, ``);
 let def_Sec_3_1 = new DocSection().i(true, "3.1", true, "SCHEDULED INSPECTIONS", true, `html/Inspection/602/SCHEDULED INSPECTIONS_602.html`);
 def_Sec_3_1
     .s([

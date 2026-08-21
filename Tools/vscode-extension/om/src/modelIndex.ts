@@ -22,6 +22,9 @@ export type ModelId = typeof MODEL_IDS[number];
 export interface ModelIndex {
 	model: ModelId;
 	docDef: DocSection;
+	/** DocVars.vars for this model (DocDef_<model>.mjs's `docVars` export) — the values `data-vars="X"`
+	 *  tags are replaced with at render time (code/data_vars.mjs InjectVars). */
+	docVars: Record<string, string>;
 	bySectionNumber: Map<string, DocSection>;
 	byContentFileUrl: Map<string, DocSection[]>;
 }
@@ -86,7 +89,7 @@ function toBustedFileUrl(absPath: string): string {
  * with its own fresh busting query), so their own internal relative imports resolve normally against
  * their real location — only the top-level rewrite needs this treatment.
  */
-async function importDocDef(workspaceRoot: string, model: ModelId): Promise<DocSection> {
+async function importDocDef(workspaceRoot: string, model: ModelId): Promise<{ docDef: DocSection; docVars: Record<string, string> }> {
 	const docDefsDir = path.join(workspaceRoot, 'docDefs');
 	const topLevelPath = path.join(docDefsDir, `DocDef_${model}.mjs`);
 	let source = fs.readFileSync(topLevelPath, 'utf-8');
@@ -97,8 +100,8 @@ async function importDocDef(workspaceRoot: string, model: ModelId): Promise<DocS
 	});
 
 	const dataUrl = `data:text/javascript;base64,${Buffer.from(source, 'utf-8').toString('base64')}`;
-	const mod: { DocDef: DocSection } = await import(dataUrl);
-	return mod.DocDef;
+	const mod: { DocDef: DocSection; docVars?: { vars: Record<string, string> } } = await import(dataUrl);
+	return { docDef: mod.DocDef, docVars: mod.docVars?.vars ?? {} };
 }
 
 async function loadModel(workspaceRoot: string, model: ModelId): Promise<ModelIndex | undefined> {
@@ -106,11 +109,11 @@ async function loadModel(workspaceRoot: string, model: ModelId): Promise<ModelIn
 	if (!fs.existsSync(filePath)) {
 		return undefined;
 	}
-	const docDef = await importDocDef(workspaceRoot, model);
+	const { docDef, docVars } = await importDocDef(workspaceRoot, model);
 	const bySectionNumber = new Map<string, DocSection>();
 	const byContentFileUrl = new Map<string, DocSection[]>();
 	walk(docDef, bySectionNumber, byContentFileUrl);
-	return { model, docDef, bySectionNumber, byContentFileUrl };
+	return { model, docDef, docVars, bySectionNumber, byContentFileUrl };
 }
 
 /**

@@ -8,6 +8,9 @@ export interface FigureInfo {
 	figNum: number;
 	caption?: string;
 	fragmentFile: string;
+	/** Character offsets of the `<img ...>` tag within the fragment file's raw text, for diagnostics. */
+	imgStart: number;
+	imgEnd: number;
 }
 
 /** Walks a top-level section's whole tree in document order, reading each fragment's raw text for
@@ -30,7 +33,14 @@ function collectFiguresForTopSection(workspaceRoot: string, topSection: DocSecti
 						const basename = path.basename(imgMatch[1]);
 						const captionMatch = /<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/i.exec(m[0]);
 						const caption = captionMatch ? captionMatch[1].replace(/<[^>]+>/g, '').trim() : undefined;
-						figs.push({ basename, topSectionNumber: topSection.SectionNumber, figNum: counter, caption, fragmentFile: section.ContentFileUrl });
+						const imgTagMatch = /<img\b[^>]*>/i.exec(m[0]);
+						const imgOffsetInFigure = imgTagMatch?.index ?? imgMatch.index;
+						const imgLength = imgTagMatch ? imgTagMatch[0].length : imgMatch[0].length;
+						const imgStart = m.index + imgOffsetInFigure;
+						figs.push({
+							basename, topSectionNumber: topSection.SectionNumber, figNum: counter, caption,
+							fragmentFile: section.ContentFileUrl, imgStart, imgEnd: imgStart + imgLength
+						});
 					}
 				}
 			} catch {
