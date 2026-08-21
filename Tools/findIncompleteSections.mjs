@@ -1,8 +1,15 @@
-// Scans a series manual (html/*/<series>/*.html) for the in-line "color:red"
-// editorial markers used throughout these manuals to flag content that is
-// missing, unverified, or copied from another series pending review.
+// Scans every section of a series manual that is ACTUALLY WIRED UP in its
+// docDefs/DocDef_<series>.mjs tree (the authoritative source of what's in the
+// compiled manual - see docDefs/*.mjs ContentFileUrl) for the in-line
+// "color:red" editorial markers used throughout these manuals to flag content
+// that is missing, unverified, or copied from another series pending review.
 //
-// Usage (run from repo root):
+// Deliberately does NOT just glob html/*/<series>/*.html - that folder holds
+// orphaned per-model files left over from old edits that no DocDef references
+// any more, and scanning them produces false "not created" hits for sections
+// that were actually removed from the manual, not left incomplete.
+//
+// Usage (run from the repo root or from Tools/ - both work):
 //   node Tools/findIncompleteSections.mjs [series]
 //
 // series defaults to 502. Examples: node Tools/findIncompleteSections.mjs 402
@@ -14,12 +21,12 @@
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const series = process.argv[2] || '502';
-const root = path.resolve(__dirname, '..', 'html');
+const repoRoot = path.resolve(__dirname, '..');
 const reportsDir = path.resolve(__dirname, 'reports');
 
 const RED_TAG_RE = /<(span|p|div|font|b|strong|em|i)\b[^>]*style\s*=\s*(['"])[^'"]*color\s*:\s*(?:red|#f00\b|#ff0000|rgb\(\s*255\s*,\s*0\s*,\s*0\s*\))[^'"]*\2[^>]*>([\s\S]*?)<\/\1>/gi;
@@ -36,29 +43,41 @@ function stripTags(s) {
     .trim();
 }
 
-function findAllHtmlFiles(dir, seriesDirName, out) {
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      findAllHtmlFiles(full, seriesDirName, out);
-    } else if (path.basename(dir) === seriesDirName && /\.html?$/i.test(entry.name)) {
-      out.push(full);
-    }
-  }
+// --- walk the docDef tree to find what's actually used in this manual ---
+const docDefPath = path.resolve(repoRoot, 'docDefs', `DocDef_${series}.mjs`);
+if (!fs.existsSync(docDefPath)) {
+  console.error(`No docDefs/DocDef_${series}.mjs found. Known series: 402, 502, 602.`);
+  process.exit(1);
 }
+const { DocDef } = await import(pathToFileURL(docDefPath).href);
 
-const files = [];
-findAllHtmlFiles(root, series, files);
-files.sort();
+const usedSections = [];
+(function walk(section) {
+  if (section.HasContent && section.ContentFileUrl) {
+    usedSections.push({
+      sectionNumber: section.SectionNumber,
+      sectionTitle: section.SectionTitle,
+      contentFileUrl: section.ContentFileUrl,
+    });
+  }
+  (section.Sections || []).forEach(walk);
+})(DocDef);
 
-if (files.length === 0) {
-  console.error(`No html files found under any "${series}" folder inside ${root}. Known series subfolders: 402, 502, 602.`);
+if (usedSections.length === 0) {
+  console.error(`DocDef_${series}.mjs walked to zero content sections - is the docDef export shaped as expected?`);
   process.exit(1);
 }
 
 const results = [];
+let missingFileCount = 0;
 
-for (const file of files) {
+for (const sec of usedSections) {
+  const file = path.resolve(repoRoot, sec.contentFileUrl);
+  if (!fs.existsSync(file)) {
+    missingFileCount++;
+    console.warn(`  ! section ${sec.sectionNumber} (${sec.sectionTitle}) references missing file: ${sec.contentFileUrl}`);
+    continue;
+  }
   const content = fs.readFileSync(file, 'utf8');
 
   // ranges of legitimate approved WARNING/CAUTION boxes - these are sometimes
@@ -86,13 +105,13 @@ for (const file of files) {
   }
   if (notes.length === 0) continue;
 
-  const rel = path.relative(root, file).split(path.sep).join('/');
-  const parts = rel.split('/');
-  const chapter = parts[0];
-  const title = path.basename(file).replace(new RegExp(`_${series}\\.html?$`, 'i'), '');
+  const rel = sec.contentFileUrl.replace(/^html\//i, '');
+  const chapter = rel.split('/')[0];
+  const title = sec.sectionTitle;
   const isEmpty = notes.length === 1 && notes[0].trim().toUpperCase() === 'CONTENT NOT CREATED';
 
   results.push({
+    sectionNumber: sec.sectionNumber,
     chapter,
     title,
     path: rel,
@@ -101,10 +120,17 @@ for (const file of files) {
   });
 }
 
+function sectionNumberKey(n) {
+  return String(n).split('.').map(p => p.padStart(6, '0')).join('.');
+}
+results.sort((a, b) => sectionNumberKey(a.sectionNumber).localeCompare(sectionNumberKey(b.sectionNumber)));
+
+const files = usedSections;
+
 const emptyCount = results.filter(r => r.severity === 'empty').length;
 const flaggedCount = results.length - emptyCount;
 
-console.log(`Series ${series}: scanned ${files.length} files, ${results.length} flagged (${emptyCount} not created, ${flaggedCount} partial/needs review).`);
+console.log(`Series ${series}: scanned ${files.length} sections wired into DocDef_${series}, ${results.length} flagged (${emptyCount} not created, ${flaggedCount} partial/needs review).${missingFileCount ? ` ${missingFileCount} referenced file(s) missing on disk (see warnings above).` : ''}`);
 
 fs.mkdirSync(reportsDir, { recursive: true });
 
@@ -116,7 +142,7 @@ const htmlOut = path.join(reportsDir, `incomplete_${series}_report.html`);
 const payload = {
   series,
   generatedAt: new Date().toISOString(),
-  totals: { files: files.length, flagged: results.length, empty: emptyCount, partial: flaggedCount },
+  totals: { files: files.length, flagged: results.length, empty: emptyCount, partial: flaggedCount, missingFiles: missingFileCount },
   sections: results,
 };
 
@@ -205,6 +231,7 @@ function buildHtmlReport(series, sections, emptyCount, flaggedCount) {
   .tag.empty{ background:var(--empty-bg); color:var(--empty); border:1px solid var(--empty-border); }
   .tag.flagged{ background:var(--flagged-bg); color:var(--flagged); border:1px solid var(--flagged-border); }
   .row-title{ font-size:15px; font-weight:600; margin:0 0 2px; }
+  .row-num{ color:var(--accent); font-size:12.5px; font-weight:700; margin-right:2px; }
   .row-path{ font-size:11.5px; color:var(--ink-faint); margin:0 0 8px; word-break:break-word; }
   .notes{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:5px; }
   .notes li{ font-size:13.5px; color:var(--ink-muted); padding-left:14px; position:relative; }
@@ -251,7 +278,7 @@ function buildHtmlReport(series, sections, emptyCount, flaggedCount) {
     var ca = chapterOrder.indexOf(a.chapter), cb = chapterOrder.indexOf(b.chapter);
     if (ca !== cb) return ca - cb;
     if (a.severity !== b.severity) return a.severity === 'empty' ? -1 : 1;
-    return a.title.localeCompare(b.title);
+    return String(a.sectionNumber).localeCompare(String(b.sectionNumber), undefined, { numeric: true });
   });
   var chapters = [];
   data.forEach(function(d){ if (chapters.indexOf(d.chapter) === -1) chapters.push(d.chapter); });
@@ -283,7 +310,7 @@ function buildHtmlReport(series, sections, emptyCount, flaggedCount) {
       if (sev !== 'all' && d.severity !== sev) return;
       if (ch !== 'all' && d.chapter !== ch) return;
       if (q){
-        var hay = (d.title + ' ' + d.path + ' ' + d.notes.join(' ')).toLowerCase();
+        var hay = (d.sectionNumber + ' ' + d.title + ' ' + d.path + ' ' + d.notes.join(' ')).toLowerCase();
         if (hay.indexOf(q) === -1) return;
       }
       if (!byChapter[d.chapter]) byChapter[d.chapter] = [];
@@ -309,7 +336,11 @@ function buildHtmlReport(series, sections, emptyCount, flaggedCount) {
         tagWrap.appendChild(tag);
         var body = document.createElement('div');
         var title = document.createElement('p');
-        title.className = 'row-title'; title.textContent = d.title;
+        title.className = 'row-title';
+        var numSpan = document.createElement('span');
+        numSpan.className = 'row-num mono'; numSpan.textContent = d.sectionNumber;
+        title.appendChild(numSpan);
+        title.appendChild(document.createTextNode(' ' + d.title));
         body.appendChild(title);
         var pathEl = document.createElement('p');
         pathEl.className = 'row-path mono'; pathEl.textContent = 'html/' + d.path;
