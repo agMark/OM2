@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.2.3",
+  "version": "0.3.1",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -92,6 +92,10 @@
             "title": "OM: Insert Caution/Warning Box..."
         },
         {
+            "command": "om.insertDataVar",
+            "title": "OM: Insert Data Var..."
+        },
+        {
             "command": "om.openImageInExternalEditor",
             "title": "OM: Reveal Image in File Explorer (for Open With...)"
         },
@@ -119,6 +123,21 @@
         {
             "command": "om.openCurrentImageSource",
             "title": "OM: Reveal Current Image's Source in File Explorer"
+        },
+        {
+            "command": "om.tagReleaseBaseline",
+            "title": "OM: Tag Release Baseline...",
+            "icon": "$(tag)"
+        },
+        {
+            "command": "om.generateChangeReport",
+            "title": "OM: Generate Change Report...",
+            "icon": "$(diff)"
+        },
+        {
+            "command": "om.exportChangeReport",
+            "title": "OM: Export Change Report...",
+            "icon": "$(export)"
         }
     ],
     "menus": {
@@ -136,6 +155,16 @@
             {
                 "command": "om.linkImageToSource",
                 "when": "view == imageSourceView",
+                "group": "navigation"
+            },
+            {
+                "command": "om.tagReleaseBaseline",
+                "when": "view == myTreeView",
+                "group": "navigation"
+            },
+            {
+                "command": "om.generateChangeReport",
+                "when": "view == myTreeView",
                 "group": "navigation"
             }
         ],
@@ -197,6 +226,11 @@
                 "group": "om"
             },
             {
+                "command": "om.insertDataVar",
+                "when": "resourceLangId == html",
+                "group": "om"
+            },
+            {
                 "command": "om.openImageInExternalEditor",
                 "when": "resourceLangId == html",
                 "group": "om"
@@ -216,6 +250,11 @@
             {
                 "command": "om.showPreviewToSide",
                 "when": "resourceLangId == html",
+                "group": "navigation"
+            },
+            {
+                "command": "om.exportChangeReport",
+                "when": "resourceFilename =~ /^changeReport_/",
                 "group": "navigation"
             }
         ]

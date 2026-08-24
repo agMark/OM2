@@ -22,7 +22,7 @@ function findExistingUsage(workspaceRoot: string, indexService: DocDefIndexServi
 		}
 		for (const fig of figureIndexCache.getAllFiguresForModel(workspaceRoot, model, modelIndex.docDef)) {
 			if (!usedElsewhere.has(fig.basename)) {
-				usedElsewhere.set(fig.basename, `${model} Figure ${fig.topSectionNumber}-${fig.figNum}`);
+				usedElsewhere.set(fig.basename, `${model} Figure ${fig.topSectionNumber}-${fig.figNum} in ${fig.fragmentFile}`);
 			}
 		}
 	}
