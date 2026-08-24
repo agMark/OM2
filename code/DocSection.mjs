@@ -494,7 +494,7 @@ export class DocSection {
                                     if (figureTargets && figureTargets.length > 0) {
                                         for (let j = 0; j < figureTargets.length; j++) {
                                             let srcParts = figureTargets[j].imgSrc.split(/[/\\]/); // Split by either / or \
-                                            let fName = srcParts.pop(); // Get the last element
+                                            let fName = decodeURIComponent(srcParts.pop()); // Get the last element, decoded since imgSrc is a resolved (percent-encoded) URL
 
                                             if (fName === fileTarget) {
                                                 figTargets.push(figureTargets[j]);
