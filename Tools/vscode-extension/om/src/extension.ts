@@ -6,9 +6,12 @@ import { insertStyleClassCommand, goToStyleClassCommand } from './cssHelper';
 import { insertXrefCommand, insertXrefForSection } from './xrefHelper';
 import { insertFigureCommand } from './figureHelper';
 import { insertBoxCommand } from './boxHelper';
+import { insertDataVarCommand } from './dataVarHelper';
 import { openImageInExternalEditorCommand } from './imageHelper';
 import { registerPreviewCommands } from './previewPanel';
+import { registerChangeReportCommands } from './changeReportCommands';
 import { FigureIndexCache } from './figureIndex';
+import { refreshFigureDiagnostics } from './figureDiagnostics';
 import { ImageSourceRegistry } from './imageSourceRegistry';
 import { ImageSourceTreeDataProvider, ImageSourceTreeItem } from './imageSourceTree';
 import { linkImageToSourceCommand, openImageSourceCommand, openCurrentImageSourceCommand, removeImageSourceLinkCommand, linkCurrentImageToSourceCommand } from './imageSourceCommands';
@@ -28,7 +31,19 @@ export function activate(context: vscode.ExtensionContext): void {
 	// Shared across the preview, the xref figure picker, and the insert-figure command, so all
 	// three see the same cached figure data and invalidate together on a single index refresh.
 	const figureIndexCache = new FigureIndexCache();
-	context.subscriptions.push(indexService.onDidChange(() => figureIndexCache.invalidate()));
+
+	// Warns on reused figure image basenames even when a <figure> was hand-typed/pasted rather than
+	// inserted via om.insertFigure (which already checks this at insert time) — a duplicate basename
+	// only surfaces as a render-time crash if some xref later happens to target it by filename, so
+	// this needs to be a standing check, not just an insert-time nudge.
+	const figureDiagnostics = vscode.languages.createDiagnosticCollection('om-figures');
+	context.subscriptions.push(figureDiagnostics);
+	const runFigureDiagnostics = () => refreshFigureDiagnostics(workspaceRoot, indexService, figureIndexCache, figureDiagnostics);
+
+	context.subscriptions.push(indexService.onDidChange(() => {
+		figureIndexCache.invalidate();
+		runFigureDiagnostics();
+	}));
 
 	// Figures are parsed from html/**/*.html fragment content, not docDefs/*.mjs, so the cache also
 	// needs to invalidate when a fragment file changes on disk (e.g. after inserting a new figure and
@@ -40,7 +55,10 @@ export function activate(context: vscode.ExtensionContext): void {
 		if (htmlDebounceTimer) {
 			clearTimeout(htmlDebounceTimer);
 		}
-		htmlDebounceTimer = setTimeout(() => { figureIndexCache.invalidate(); }, 300);
+		htmlDebounceTimer = setTimeout(() => {
+			figureIndexCache.invalidate();
+			runFigureDiagnostics();
+		}, 300);
 	};
 	htmlWatcher.onDidChange(scheduleFigureCacheInvalidate);
 	htmlWatcher.onDidCreate(scheduleFigureCacheInvalidate);
@@ -124,6 +142,12 @@ export function activate(context: vscode.ExtensionContext): void {
 	);
 
 	context.subscriptions.push(
+		vscode.commands.registerCommand('om.insertDataVar', async () => {
+			await insertDataVarCommand(workspaceRoot, indexService);
+		})
+	);
+
+	context.subscriptions.push(
 		vscode.commands.registerCommand('om.openImageInExternalEditor', async () => {
 			await openImageInExternalEditorCommand(workspaceRoot);
 		})
@@ -181,6 +205,7 @@ export function activate(context: vscode.ExtensionContext): void {
 	);
 
 	registerPreviewCommands(context, workspaceRoot, indexService, figureIndexCache);
+	registerChangeReportCommands(context, workspaceRoot, indexService);
 }
 
 export function deactivate(): void { }

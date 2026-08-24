@@ -47,6 +47,9 @@ def_Sec_5_6_11.CustomClass = "breakBefore";
 let def_Sec_5_6_12 = new DocSection().i(true, "5.6.12", true, "Front Section", true, "html/Repairs/Front Section.html");
 def_Sec_5_6_12.CustomClass = "breakBefore";
 
+let def_Sec_5_6_13 = new DocSection().i(true, "5.6.13", true, "Reserved", false, "");
+def_Sec_5_6_13.CustomClass = "breakBefore";
+
 let def_Sec_5_6_50 = new DocSection().i(true, "5.6.50", true, "Minor Skin Damage", true, "html/Repairs/Minor Skin Damage.html");
 def_Sec_5_6_50.CustomClass = "breakBefore";
 
@@ -67,6 +70,7 @@ def_Sec_5_6.s([
     def_Sec_5_6_10,
     def_Sec_5_6_11,
     def_Sec_5_6_12,
+    def_Sec_5_6_13,
     def_Sec_5_6_50,
     def_Sec_5_6_51
 ]);

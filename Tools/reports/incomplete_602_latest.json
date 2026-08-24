@@ -1,0 +1,1866 @@
+{
+  "series": "602",
+  "generatedAt": "2026-08-21T20:52:06.443Z",
+  "totals": {
+    "files": 328,
+    "flagged": 180,
+    "empty": 0,
+    "partial": 180,
+    "missingFiles": 0
+  },
+  "sections": [
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/802OM_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 and manual number changed"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/602 SERVICE LETTERS.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802--will need specific publication numbers for 602"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/ADDRESS AIR TRACTOR_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/MANUAL PT6A_45_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/ADDRESS PWC_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802. Canada changed to all caps (correct for addressing materials)"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/MANUAL PT6A_65_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/ADDRESS PWC_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802. Canada changed to all caps (correct for addressing materials)"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/MANUAL PT6A_67_602.html",
+      "severity": "flagged",
+      "notes": [
+        "-67 not approved for use on 602, however a location in the manual for the -60 series should be created"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/ADDRESS PWC_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802. Canada changed to all caps (correct for addressing materials)"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/MANUAL PT6A_67F_602.html",
+      "severity": "flagged",
+      "notes": [
+        "67F not approved for use on 602"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "",
+      "path": "Description/602/ADDRESS PWC_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802. Canada changed to all caps (correct for addressing materials)"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "Fuel Gauges",
+      "path": "Description/602/Fuel Gauges_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 with a few language revisions"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "ITT Gauge",
+      "path": "Description/602/ITT Gauge_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 with wording revisions"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "Gas Generator Tachometer",
+      "path": "Description/602/Gas Generator Tachometer_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 with changes in wording"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "Oil Pressure Gauge",
+      "path": "Description/602/Oil Pressure Gauge_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 and wording altered"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "Oil Temperature Gauge",
+      "path": "Description/602/Oil Temperature Gauge_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802...some hyphens removed"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "Propeller Tachometer",
+      "path": "Description/602/Propeller Tachometer_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802...hyphens removed"
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "Torque-Meter",
+      "path": "Description/602/Torque-Meter_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802, wording updated and hyphens removed. Torquemeter does not have a hyphen."
+      ]
+    },
+    {
+      "sectionNumber": "",
+      "chapter": "Description",
+      "title": "Volt-Ammeter and Voltmeter",
+      "path": "Description/602/Volt-Ammeter and Voltmeter_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied and modified from 602. It appears the 602 series doesn't have a voltammeter option. Voltammeter should not have a hyphen."
+      ]
+    },
+    {
+      "sectionNumber": "1.0",
+      "chapter": "Description",
+      "title": "GENERAL INFORMATION AND REFERENCES",
+      "path": "Description/602/GENERAL INFORMATION AND REFERENCES_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from current 602OM. Text slightly revised for ease of reading."
+      ]
+    },
+    {
+      "sectionNumber": "1.10",
+      "chapter": "Description",
+      "title": "AILERONS",
+      "path": "Description/602/AILERONS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from the current 602OM and slightly edited. Travel range changed."
+      ]
+    },
+    {
+      "sectionNumber": "1.20",
+      "chapter": "Description",
+      "title": "COCKPIT",
+      "path": "Description/602/COCKPIT_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 with some editing to provide more clarity"
+      ]
+    },
+    {
+      "sectionNumber": "1.25",
+      "chapter": "Description",
+      "title": "COCKPIT HEATER",
+      "path": "Description/602/COCKPIT HEATER_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 with some edits for grammar and clarity"
+      ]
+    },
+    {
+      "sectionNumber": "1.30.1",
+      "chapter": "Description",
+      "title": "Aileron and Elevator Controls",
+      "path": "Description/602/Aileron and Elevator Controls_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 and edited for clarity"
+      ]
+    },
+    {
+      "sectionNumber": "1.30.2",
+      "chapter": "Description",
+      "title": "Elevator Trim Controls",
+      "path": "Description/602/Elevator and Trim Controls_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 (602 doesn't have this portion in the current OM). \"Control cables\" was changed to \"push-pull tubes\". \"Horizontal stabilizer\" as changed to \"elevator\" since the HS isn't positionable. Some other wording altered."
+      ]
+    },
+    {
+      "sectionNumber": "1.30.4",
+      "chapter": "Description",
+      "title": "Rudder Controls",
+      "path": "Description/602/Rudder Controls_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 with a few tweaks"
+      ]
+    },
+    {
+      "sectionNumber": "1.30.6",
+      "chapter": "Description",
+      "title": "Aileron - Rudder Interconnect System",
+      "path": "Description/602/Aileron - Rudder Interconnect System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802"
+      ]
+    },
+    {
+      "sectionNumber": "1.30.7",
+      "chapter": "Description",
+      "title": "Elevator - Flap Interconnect System",
+      "path": "Description/602/Elevator - Flap Interconnect System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "I cannot find any evidence in the 602OM or IPC that the elevator-flap interconnect exists on the 602 series"
+      ]
+    },
+    {
+      "sectionNumber": "1.35",
+      "chapter": "Description",
+      "title": "DISPERSAL SYSTEM",
+      "path": "Description/602/Dispersal System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 and current 602 and then edited for clarity. Would suggest the elimantion of part numbers."
+      ]
+    },
+    {
+      "sectionNumber": "1.40.1",
+      "chapter": "Description",
+      "title": "Starter-Generator System",
+      "path": "Description/602/Starter Generator System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 and modified to match 602. References and figure to 300-amp system deleted"
+      ]
+    },
+    {
+      "sectionNumber": "1.40.2",
+      "chapter": "Description",
+      "title": "Batteries",
+      "path": "Description/602/Batteries_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 602"
+      ]
+    },
+    {
+      "sectionNumber": "1.50",
+      "chapter": "Description",
+      "title": "ENGINE",
+      "path": "Description/602/Engine_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 and 602--some edits made to remove hyphens and add clarity"
+      ]
+    },
+    {
+      "sectionNumber": "1.50.1",
+      "chapter": "Description",
+      "title": "Induction System",
+      "path": "Description/602/Induction System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from approved 802 and modified with 602 values. Some editing done for clarity"
+      ]
+    },
+    {
+      "sectionNumber": "1.50.2",
+      "chapter": "Description",
+      "title": "Exhaust System",
+      "path": "Description/602/Exhaust System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 602. Suggest part numbers be removed"
+      ]
+    },
+    {
+      "sectionNumber": "1.56.2",
+      "chapter": "Description",
+      "title": "MVP-50T Digital Instruments",
+      "path": "Description/602/MVP-50T_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802...torquemeter and voltammeter changed to single words. Np and Ng subscripts changed to lowercase."
+      ]
+    },
+    {
+      "sectionNumber": "1.56.3",
+      "chapter": "Description",
+      "title": "Low Fuel Warning Light System",
+      "path": "Description/602/Low Fuel Warning Light System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 with small tweaks. Is the 20 minute value correct for the 602 series?"
+      ]
+    },
+    {
+      "sectionNumber": "1.60",
+      "chapter": "Description",
+      "title": "FCU MANUAL OVERRIDE",
+      "path": "Description/602/FCU MANUAL OVERRIDE_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 and spelling corrected"
+      ]
+    },
+    {
+      "sectionNumber": "1.70",
+      "chapter": "Description",
+      "title": "FLAPS",
+      "path": "Description/602/FLAPS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Travel changed to 28 degrees per TCDS."
+      ]
+    },
+    {
+      "sectionNumber": "1.70.1",
+      "chapter": "Description",
+      "title": "Flap Actuator",
+      "path": "Description/602/Flap Actuator_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Copied from 802 and modified for specific 602 actuator."
+      ]
+    },
+    {
+      "sectionNumber": "1.75",
+      "chapter": "Description",
+      "title": "FUEL SYSTEM",
+      "path": "Description/602/Fuel System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 and values from 602OM inserted and some changes in wording structure. First full paragraph is straight from 602OM"
+      ]
+    },
+    {
+      "sectionNumber": "1.80",
+      "chapter": "Description",
+      "title": "FUSELAGE",
+      "path": "Description/602/FUSELAGE_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802. Some changes in language, including change from \"FAA-approved\" to \"FAA-acceptable\"."
+      ]
+    },
+    {
+      "sectionNumber": "1.95",
+      "chapter": "Description",
+      "title": "PROPELLER AND GOVERNOR",
+      "path": "Description/602/Propellor and Governor_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 602 and modified for grammar and clarity"
+      ]
+    },
+    {
+      "sectionNumber": "1.100",
+      "chapter": "Description",
+      "title": "WINGS",
+      "path": "Description/602/Wings_602.html",
+      "severity": "flagged",
+      "notes": [
+        "copied from 802 with 602 details inserted. Some wording has been changed."
+      ]
+    },
+    {
+      "sectionNumber": "2.0.1",
+      "chapter": "Maintenance",
+      "title": "Towing",
+      "path": "Maintenance/602/Towing_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Should the referenced tubes be square, or will round tubing suffice? The tubes are pinned together at one end with a loose 1/2-inch bolt and an attachment to join to the towing lug or ball on a vehicle. The 3/4-inch steel bar is bent at 90 degrees with 6 inches of bar extending in one direction and 3 inches in the other direction from the bend. These bent bars are welded to the free ends of the tubes. The 3-inch leg is pointed downward and the other is fillet-welded to the outside of the tube. These downward-projecting pintles fit loosely into the airplane landing gear towing rings. If desired, a hole may be drilled through the 3-inch leg 1/4-inch from the end for a spring pin.",
+        "Text copied from approved 802OM. Numbering method was modified for uniformity."
+      ]
+    },
+    {
+      "sectionNumber": "2.0.4",
+      "chapter": "Maintenance",
+      "title": "Lifting and Jacking",
+      "path": "Maintenance/602/Lifting and Jacking_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Some edits to improve readability and grammar."
+      ]
+    },
+    {
+      "sectionNumber": "2.0.5",
+      "chapter": "Maintenance",
+      "title": "Leveling",
+      "path": "Maintenance/602/Leveling_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Final paragraph inserted from 602OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.0.8",
+      "chapter": "Maintenance",
+      "title": "Special Tools and Equipment",
+      "path": "Maintenance/602/Special Tools and Equipment_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.0.10",
+      "chapter": "Maintenance",
+      "title": "Operational Best Practices",
+      "path": "Maintenance/602/Operational Best Practices_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.0.11",
+      "chapter": "Maintenance",
+      "title": "Emergency and Normal Procedures",
+      "path": "Maintenance/602/Emergency and Normal Procedures_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Reference to FRDS removed."
+      ]
+    },
+    {
+      "sectionNumber": "2.0.13",
+      "chapter": "Maintenance",
+      "title": "Qualification of Personnel",
+      "path": "Maintenance/602/Qualification of Personnel_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.10.3",
+      "chapter": "Maintenance",
+      "title": "Aileron and Flap Bellcranks and Supports",
+      "path": "Maintenance/602/Aileron and Flap Bellcranks and Supports_602.html",
+      "severity": "flagged",
+      "notes": [
+        "The lower aileron torque tube beneath the cockpit floor is p/n 70509-1 (for s/n 802-0001 thru 802-0076 and 802A-0003 thru 802A-0073) or p/n 71021-1 (for s/n 802-0077 and subs and 802A-0074 and subs) and is supported on each end by p/n 70721-1 housings, which contain the B1212 Torrington needle bearings. There is a grease fitting on each end of the torque tube to allow greasing the Torrington bearings with General Purpose grease. Pushrods from the lower torque tube to the Idlers are p/n 70554-1 and have Fafnir RE4F6-2 bearings that may be adjusted on each end. The two centering springs are p/n 40044-1.",
+        "I couldn't find a paragraph in the 602 manual that parallels this one about the lower torque tubes.",
+        "Text copied from approved 802OM and 602 info inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.15",
+      "chapter": "Maintenance",
+      "title": "AIR CONDITIONER",
+      "path": "Maintenance/602/ENGINE DRIVEN AIR CONDITIONER_602.html",
+      "severity": "flagged",
+      "notes": [
+        "PROPOSED -- \"We have found that some airplanes equipped with 61478 evaporator blower assemblies were installed with AN960 washers on the vibration isolators instead of AN970 washers. The small outside diameter of the AN960 washer may damage the vibration isolator and lead to excessive noise and vibration. Service Letter #417 provides additional details.\" -- PROPOSED",
+        "Text copied from approved 802OM. Additional paragraph inserted to reference SL417. Are values listed correct for 602?"
+      ]
+    },
+    {
+      "sectionNumber": "2.15.3",
+      "chapter": "Maintenance",
+      "title": "Approved Oil and Refrigerants",
+      "path": "Maintenance/602/Approved Oil and Refrigerants_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Does 602 use a dual condenser? Quantities should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.15.11",
+      "chapter": "Maintenance",
+      "title": "Service Procedures - Oiling",
+      "path": "Maintenance/602/Oiling_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Values and use of dual condenser on 602 should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.20.3",
+      "chapter": "Maintenance",
+      "title": "Cockpit Fire Extinguisher",
+      "path": "Maintenance/602/Cockpit Fire Extinguisher_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.20.4",
+      "chapter": "Maintenance",
+      "title": "Impact Risks and Sharp Edges",
+      "path": "Maintenance/602/Impact Risks and Sharp Edges_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.20.5",
+      "chapter": "Maintenance",
+      "title": "Cockpit Controls",
+      "path": "Maintenance/602/COCKPIT CONTROLS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text from 602 with a small amount of editing."
+      ]
+    },
+    {
+      "sectionNumber": "2.30",
+      "chapter": "Maintenance",
+      "title": "CONTROL SYSTEMS",
+      "path": "Maintenance/602/Control Systems_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.30.1",
+      "chapter": "Maintenance",
+      "title": "Aileron Rigging ",
+      "path": "Maintenance/602/Aileron Rigging_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and 602 info inserted. A few readability corrections also made."
+      ]
+    },
+    {
+      "sectionNumber": "2.30.2",
+      "chapter": "Maintenance",
+      "title": "Aileron - Rudder Interconnect System Rigging",
+      "path": "Maintenance/602/Aileron - Rudder Interconnect System Rigging_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Reference to SL 274 removed (n/a for 602). Drawing, serial and part numbers should be verified. No relevant information found in current 602OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.30.3",
+      "chapter": "Maintenance",
+      "title": "Aileron Boost Tab Trim and Rigging",
+      "path": "Maintenance/602/Aileron Boost Tab Trim and Rigging_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. No relevant information found in current 602OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.30.4",
+      "chapter": "Maintenance",
+      "title": "Elevator Controls",
+      "path": "Maintenance/602/Elevator Controls_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and part numbers changed in first paragraph to 602 values. Does all of the information regarding oscillations and friction apply to 602 series? If so, are all part numbers, steps and drawing numbers correct for 602 series?."
+      ]
+    },
+    {
+      "sectionNumber": "2.30.5",
+      "chapter": "Maintenance",
+      "title": "Elevator Trim Tab Controls",
+      "path": "Maintenance/602/Elevator Trim Tab Controls_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Paragraph copied from current 602OM.The adjustable pushrods from the trim bellcrank to the idler arm on the stabilizer rear spar are p/n 70153-1. The ends are AN486-4 clevis ends and AN316-4 check nuts. Attachments are with AN3-6 bolts, AN310-3 nuts, AN960-10 washers and MS24665-151 cotter pins. The pushrod going forward from the bellcrank is p/n 70498-1 with a Fafnir REB3N bearing, and is connected to the bellcrank with a AN3-7A bolt, AN960-10 washer under the bolt head, AN970-3 washer under the nut and a AN365-1032 nut.",
+        "Paragraph copied from current 602OM.Fairleads are p/n 70122-1 with 40081-00 snap rings. The forward end going into the cockpit connects to the top hole in the trim lever with the same hardware used connecting to the trim bellcrank.",
+        "Paragraph copied from current 602OM. Two p/n 70559-1 pushrods attach to the trim tab horn with AN3-7A bolts and AN365-1032 nuts; and to the idler arm in the stabilizer with AN3-6 bolts, AN310-3 nuts, AN960-10 washers and MS24665-151 cotter pins. Be sure the pushrod is positioned with the bend on the forward end approximately under the elevator spar tube. There is a Bunting P19-1 bushing at the forward joint which should be replaced if the tab free play is excessive. If there is still excessive free play check the bolts for wear and pushrod ends for wear. Install new pushrods if the holes are worn.",
+        "Paragraph copied from approved 802OM. Are these part numbers and description correct for 602s? This paragraph not present in current 602 manual.",
+        "XXX",
+        "Text copied from approved 802OM. References to 802 SLs and SILs removed. 602 paragraphs inserted from current manual. Tab free play value should be verified for 602s."
+      ]
+    },
+    {
+      "sectionNumber": "2.30.6",
+      "chapter": "Maintenance",
+      "title": "Elevator - Flap Interconnect System Rigging",
+      "path": "Maintenance/602/Elevator - Flap Interconnect System Rigging_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Does 602 use this interconnect? If so, all values should be reviewed/revised."
+      ]
+    },
+    {
+      "sectionNumber": "2.30.7",
+      "chapter": "Maintenance",
+      "title": "Rudder Controls",
+      "path": "Maintenance/602/Rudder Controls_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and part numbers changed for 602 series."
+      ]
+    },
+    {
+      "sectionNumber": "2.30.9",
+      "chapter": "Maintenance",
+      "title": "Rudder Trim Rigging",
+      "path": "Maintenance/602/Rudder Trim Rigging_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Values should be verified. References to WipAire removed."
+      ]
+    },
+    {
+      "sectionNumber": "2.31",
+      "chapter": "Maintenance",
+      "title": "CONTROL SURFACE UNBALANCE LIMITS",
+      "path": "Maintenance/602/CONTROL SURFACE UNBALANCE LIMITS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "XXX",
+        "Text copied from approved 802OM. 602 values should be inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.1",
+      "chapter": "Maintenance",
+      "title": "Hopper Tanks",
+      "path": "Maintenance/602/Hopper Tanks_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. References to dual hopper configuration removed."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.2",
+      "chapter": "Maintenance",
+      "title": "Hopper Gate Box and Adapter",
+      "path": "Maintenance/602/Hopper Gate Box and Adapter_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Gasket material part numbers and quantities should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.4",
+      "chapter": "Maintenance",
+      "title": "Gate Box Controls",
+      "path": "Maintenance/602/Gate Box Controls_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Part numbers for 602 inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.5",
+      "chapter": "Maintenance",
+      "title": "Spray Lever Controls",
+      "path": "Maintenance/602/Spray Lever Controls_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. 602 part numbers inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.6",
+      "chapter": "Maintenance",
+      "title": "Spray Pump",
+      "path": "Maintenance/602/Spray Pump_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Part numbers and quantities should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.7",
+      "chapter": "Maintenance",
+      "title": "Spray Plumbing",
+      "path": "Maintenance/602/Spray Plumbing_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. 602 Part numbers inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.8",
+      "chapter": "Maintenance",
+      "title": "Bottom- Load Plumbing",
+      "path": "Maintenance/602/Bottom - Load Plumbing_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from current 602OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.9",
+      "chapter": "Maintenance",
+      "title": "Spray Nozzles",
+      "path": "Maintenance/602/Spray Nozzles_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Values in table should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.10",
+      "chapter": "Maintenance",
+      "title": "Filling the Hopper Tanks",
+      "path": "Maintenance/602/Filling the Hopper Tanks_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. A few correction to grammar and readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.11",
+      "chapter": "Maintenance",
+      "title": "Minimizing Spray System Corrosion",
+      "path": "Maintenance/602/Minimizing Spray System Corrosion_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.12",
+      "chapter": "Maintenance",
+      "title": "Support Hangers and Straps",
+      "path": "Maintenance/602/Support Hangers and Straps_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.13",
+      "chapter": "Maintenance",
+      "title": "Hopper Rinse System",
+      "path": "Maintenance/602/Hopper Rinse System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.35.14",
+      "chapter": "Maintenance",
+      "title": "Automatic Flagman Installations",
+      "path": "Maintenance/602/Automatic Flagman Installations_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.40.16",
+      "chapter": "Maintenance",
+      "title": "Oil Cooler Blower",
+      "path": "Maintenance/602/Oil Cooler Blower_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and 602 info inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.45.1",
+      "chapter": "Maintenance",
+      "title": "Horizontal Stabilizers",
+      "path": "Maintenance/602/Horizontal Stabilizers_602.html",
+      "severity": "flagged",
+      "notes": [
+        "PROPOSED--\"Reports have been received of large birds striking the outboard end of the horizontal tail on various aircraft. In a few cases, the bird impacted near the gap between the elevator horn and the horizontal stabilizer. The damaged surface was pushed into the gap and caused the elevator horn to become obstructed. To help prevent the likelihood of jamming, Air Tractor is installing perforated ribs in the elevators and stabilizers of new aircraft.",
+        "Air Tractor recommends that all operators, especially those who operate in areas where impact with large birds are likely to have their aircraft modified to perforate the ribs of this area. The perforated ribs will allow the unsupported tip of the nose rib to break free if it becomes damaged and reduce the risk of binding. This change will also remove two non-structural closeout plates on those aircraft that have them installed. Refer to Service Letter #319 for additional information.\"--PROPOSED",
+        "These two paragraphs above have been inserted to reference SL#319.",
+        "XXX",
+        "Text copied from approved 802OM and was modified with 602 values. Special care should be taken to review all values to confirm part and serial numbers, torques, etc. A small amount of editing was done to increase readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.45.2",
+      "chapter": "Maintenance",
+      "title": "Horizontal Stabilizer Struts",
+      "path": "Maintenance/602/Horizontal Stabilizer Struts_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. A small amount of editing done. Reference to SL383 removed since it is n/a for 602s."
+      ]
+    },
+    {
+      "sectionNumber": "2.45.3",
+      "chapter": "Maintenance",
+      "title": "Horizontal Stabilizer Rigging",
+      "path": "Maintenance/602/Horizontal Stabilizer Rigging_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and edited for clarity."
+      ]
+    },
+    {
+      "sectionNumber": "2.45.4",
+      "chapter": "Maintenance",
+      "title": "Elevators ",
+      "path": "Maintenance/602/Elevators_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Some editing done for readability and clarity. Is down travel 14 or 16 degrees? TCDS shows 14 degrees."
+      ]
+    },
+    {
+      "sectionNumber": "2.45.5",
+      "chapter": "Maintenance",
+      "title": "Elevator Removal and Replacement ",
+      "path": "Maintenance/602/Elevator Removal_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.45.6",
+      "chapter": "Maintenance",
+      "title": "Elevator Trim Tabs",
+      "path": "Maintenance/602/Elevator Trim Tabs_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Part numbers for 602 inserted, but 602 IPC was very unclear re: the hinge and may need confirmation. Does tab lateral play use same values for 602?"
+      ]
+    },
+    {
+      "sectionNumber": "2.45.7",
+      "chapter": "Maintenance",
+      "title": "Vertical Fin",
+      "path": "Maintenance/602/Vertical Fin_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Bolt part numbers changed per current 602OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.45.8",
+      "chapter": "Maintenance",
+      "title": "Rudder",
+      "path": "Maintenance/602/Rudder_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM with rudder travel changed for 602."
+      ]
+    },
+    {
+      "sectionNumber": "2.45.9",
+      "chapter": "Maintenance",
+      "title": "Rudder Removal and Replacement",
+      "path": "Maintenance/602/Rudder Removal and Replacement_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.2",
+      "chapter": "Maintenance",
+      "title": "Fuel Requirements",
+      "path": "Maintenance/602/Fuel Requirements_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. A few edits were made for readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.4",
+      "chapter": "Maintenance",
+      "title": "Fuel Header Tank Sump Draining ",
+      "path": "Maintenance/602/Fuel Header Tank Sump Draining_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Last paragraph deleted since it references 802s and SL270 (n/a for 602s)."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.10",
+      "chapter": "Maintenance",
+      "title": "Air Filters",
+      "path": "Maintenance/602/Air Filters_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Filter part numbers and applications should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.15",
+      "chapter": "Maintenance",
+      "title": "Engine Removal",
+      "path": "Maintenance/602/Engine Removal_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. This section is too complex to allow for editing and revision for 602 series."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.16",
+      "chapter": "Maintenance",
+      "title": "Engine Build Up",
+      "path": "Maintenance/602/Engine Build Up_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. This section is too complex to allow for editing and revision for 602 series."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.17",
+      "chapter": "Maintenance",
+      "title": "Engine Replacement",
+      "path": "Maintenance/602/Engine Replacement_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.18",
+      "chapter": "Maintenance",
+      "title": "Engine Air Plenum",
+      "path": "Maintenance/602/Engine Air Plenum_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Dimensions should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.19",
+      "chapter": "Maintenance",
+      "title": "SCEET Flexible Duct Installation and Routing",
+      "path": "Maintenance/602/SCEET Flexible Duct Installation and Routing_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.50.21",
+      "chapter": "Maintenance",
+      "title": "Engine Driven Low Pressure Fuel Pump",
+      "path": "Maintenance/602/Engine Driven Low Pressure Fuel Pump_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Is anything shown here relevant for 602 series?"
+      ]
+    },
+    {
+      "sectionNumber": "2.55.1",
+      "chapter": "Maintenance",
+      "title": "Power Lever Rigging Procedures",
+      "path": "Maintenance/602/Power Lever Rigging Procedures_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Steps for -45R engine added."
+      ]
+    },
+    {
+      "sectionNumber": "2.55.2",
+      "chapter": "Maintenance",
+      "title": "Propeller Lever Rigging Procedures",
+      "path": "Maintenance/602/Propeller Lever Rigging Procedures_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Drawing number should verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.55.3",
+      "chapter": "Maintenance",
+      "title": "Start Control Lever Rigging Procedures",
+      "path": "Maintenance/602/Start Control Lever Rigging Procedures_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Ng speeds should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.55.4",
+      "chapter": "Maintenance",
+      "title": "Kawak Throttle Quadrant ",
+      "path": "Maintenance/602/Kawak Throttle Quadrant_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.56.4",
+      "chapter": "Maintenance",
+      "title": "Analog Engine Instrument Calibration",
+      "path": "Maintenance/602/Analog Engine Instrument Calibration_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Title changed to--with lead resistance / power not required--802 copied version may be incorrect at this location.",
+        "Formatting of ITT temps changed to have space between value and degrees/scale. A small amount of editing done in ITT section."
+      ]
+    },
+    {
+      "sectionNumber": "2.60.1",
+      "chapter": "Maintenance",
+      "title": "FCU Manual Override Rigging",
+      "path": "Maintenance/602/FCU Manual Override Rigging_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Applicable serial numbers revised."
+      ]
+    },
+    {
+      "sectionNumber": "2.70",
+      "chapter": "Maintenance",
+      "title": "FLAPS",
+      "path": "Maintenance/602/Flaps_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Changes inserted from current 602OM. Flap pushrod figure may need to be changed."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.1",
+      "chapter": "Maintenance",
+      "title": "Flap Removal",
+      "path": "Maintenance/602/Flap Removal_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Bolt diameters should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.2",
+      "chapter": "Maintenance",
+      "title": "Flap Installation",
+      "path": "Maintenance/602/Flap Installation_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.3",
+      "chapter": "Maintenance",
+      "title": "Flap Rigging",
+      "path": "Maintenance/602/Flap Rigging_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and 602 values inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.5",
+      "chapter": "Maintenance",
+      "title": "Flap Actuator Troubleshooting",
+      "path": "Maintenance/602/Flap Actuator Troubleshooting_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Paragraphs edited for clarity. Flap travel changed to 28 degrees (from 30 degrees in original approved 802OM)."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.6",
+      "chapter": "Maintenance",
+      "title": "Flap Motor Troubleshooting",
+      "path": "Maintenance/602/Flap Motor Troubleshooting_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Slight editing for clarity."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.9",
+      "chapter": "Maintenance",
+      "title": "Flap Actuator Installation Instructions",
+      "path": "Maintenance/602/Flap Actuator Installation Instructions_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. with flap travel changed to 28 degrees. Some editing for readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.10",
+      "chapter": "Maintenance",
+      "title": "C100168-4 Flap Actuator Maintenance",
+      "path": "Maintenance/602/Flap Actuator_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and 602 info inserted. Some editing done to improve readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.12",
+      "chapter": "Maintenance",
+      "title": "Flap Relay Upgrade",
+      "path": "Maintenance/602/Flap Relay Upgrade_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.51",
+      "chapter": "Maintenance",
+      "title": "Inspection of B100-6 Coupling used on C100168-4 Actuators",
+      "path": "Maintenance/602/Flap Motor Coupler and Inspection_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.52",
+      "chapter": "Maintenance",
+      "title": "Inspection of Flap Torque Tube Attachment (SL347 and AD 2021-05-14)",
+      "path": "Maintenance/602/Flap Torque Tube Attachment_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.70.53",
+      "chapter": "Maintenance",
+      "title": "Inspection of Flap Drive System Free Play Inspection",
+      "path": "Maintenance/602/Flap Drive System Free Play Inspection_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.2",
+      "chapter": "Maintenance",
+      "title": "Fuel Tank Sealing",
+      "path": "Maintenance/602/Fuel Tank Sealing_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Changed temperature format and a small amount of editing. Would suggest that the recommended cure times be increased to more than 6 hour drying time (per PPG tech data sheet)."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.6",
+      "chapter": "Maintenance",
+      "title": "Fuel System Screens and Filters",
+      "path": "Maintenance/602/Fuel System Screens and Filters_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Filter cap uses o-ring style fittings for better fitment. Standard on new airplanes after SN XXX",
+        "Text copied from approved 802OM. All part numbers should be verified. Use of CECO pump should be verified. Serial numbers listed under Notes should be checked."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.7",
+      "chapter": "Maintenance",
+      "title": "Airframe Electric Fuel Boost Pump",
+      "path": "Maintenance/602/Airframe Fuel Pump_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. A few changes made for grammar. Use of both CECO and Parker pumps on 602 series should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.8",
+      "chapter": "Maintenance",
+      "title": "Fuel Tank Placards",
+      "path": "Maintenance/602/Fuel Tank Placards_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.9",
+      "chapter": "Maintenance",
+      "title": "Ferry Fuel System",
+      "path": "Maintenance/602/Ferry Fuel System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "BROKEN CROSS REFERENCE",
+        "Text copied from approved 802OM. References to firefighting aircraft removed. Part numbers and values should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.10",
+      "chapter": "Maintenance",
+      "title": "Fuel Selector Valve",
+      "path": "Maintenance/602/Fuel Selector Valve_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. 602 IPC does not specify vendor of valve. SL #154 not applicable to 602. Not 100% sure any of this text is relevant to 602."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.20",
+      "chapter": "Maintenance",
+      "title": "Fuel Tank Quantity System Senders - Resistive",
+      "path": "Maintenance/602/Fuel Tank Senders_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. A small amount of editing done. Part numbers should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.22",
+      "chapter": "Maintenance",
+      "title": "Fuel Tank Quantity System Gauges - Analog",
+      "path": "Maintenance/602/Fuel Tank Receiver_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM with 602 part numbers inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.75.23",
+      "chapter": "Maintenance",
+      "title": "Fuel Tank Quantity System Gauges - MVP-50T",
+      "path": "Maintenance/602/MVP Fuel Gauges_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.80.1",
+      "chapter": "Maintenance",
+      "title": "Fuselage Removable Skins",
+      "path": "Maintenance/602/Fuselage Removable Skins_602.html",
+      "severity": "flagged",
+      "notes": [
+        "One-time Recessed Grab Handle Inspection",
+        "A recessed grab handle is installed in each left-hand and right-hand cockpit side skin with 4 machine screws. It has come to our attention that a recessed grab handle failed in service. A failed handle may lead to personal injury. Remove the handles and inspect the back side for a weld reinforcement in the areas where the handle “strap” attaches to the recessed pan. If the handles have been welded, reinstall the handles and side skins. If the handles have not been welded, contact Air Tractor Customer Service for a replacement. Refer to Service Letter #302 for additional details.",
+        "Text copied from approved 802OM. Last paragraph proposed to insert SL302."
+      ]
+    },
+    {
+      "sectionNumber": "2.80.3",
+      "chapter": "Maintenance",
+      "title": "Fuselage Cockpit Skins",
+      "path": "Maintenance/602/Fuselage Cockpit Skins_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. A few changes in grammar."
+      ]
+    },
+    {
+      "sectionNumber": "2.80.4",
+      "chapter": "Maintenance",
+      "title": "Fuselage Frame",
+      "path": "Maintenance/602/Fuselage Frame_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. References to SL 217/217A removed (n/a for 602). References of reported issues from SL 146 also removed (n/a for 602). SLs 213A/213B added."
+      ]
+    },
+    {
+      "sectionNumber": "2.80.5",
+      "chapter": "Maintenance",
+      "title": "Windshield",
+      "path": "Maintenance/602/Windshield_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Part number table for 602 series needs to be inserted here.",
+        "Weight and balance figures should be placed here.",
+        "Paragraphs that are specific to the 802 have been removed. Reference to SL#276 has been reinserted. Does 602 series parallel the history and steps of the 802?"
+      ]
+    },
+    {
+      "sectionNumber": "2.80.7",
+      "chapter": "Maintenance",
+      "title": "Seat",
+      "path": "Maintenance/602/Seat_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Part numbers should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "2.80.8",
+      "chapter": "Maintenance",
+      "title": "Engine Mount Inspection",
+      "path": "Maintenance/602/Engine Mount Inspection_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.80.9",
+      "chapter": "Maintenance",
+      "title": "Baggage Compartment",
+      "path": "Maintenance/602/Baggage Compartment_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.85.1",
+      "chapter": "Maintenance",
+      "title": "Altimeter / Static System",
+      "path": "Maintenance/602/Altimeter - Static System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Is this static line access correct for the 602?",
+        "Text copied from approved 802OM. Changes made to reference only the 602."
+      ]
+    },
+    {
+      "sectionNumber": "2.85.3",
+      "chapter": "Maintenance",
+      "title": "Compass",
+      "path": "Maintenance/602/Compass Calibration_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.5",
+      "chapter": "Maintenance",
+      "title": "Tail Wheel",
+      "path": "Maintenance/602/Tail Wheel_602.html",
+      "severity": "flagged",
+      "notes": [
+        "not seeing p/n in IPC",
+        "Figures and part numbers for 602 are needed.",
+        "p/n XXX",
+        "Text copied from 802OM. Figures and part numbers for 602 are needed. 602 IPC is somewhat confusing and not showing AT aluminum wheel (Cleveland part numbers only)."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.6",
+      "chapter": "Maintenance",
+      "title": "Tail Wheel Fork",
+      "path": "Maintenance/602/Tail Wheel Fork_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Some editing for clarity."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.7",
+      "chapter": "Maintenance",
+      "title": "Tail Wheel Fork Housing",
+      "path": "Maintenance/602/Tail Wheel Fork Housing_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Editing done for readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.8",
+      "chapter": "Maintenance",
+      "title": "Tail Wheel Lock Pin and Housing",
+      "path": "Maintenance/602/Tail Wheel Lock Pin and Housing_602.html",
+      "severity": "flagged",
+      "notes": [
+        "All of these part numbers and figures should be updated as needed for 602 series.",
+        "Text copied from approved 802OM. Editing done to improve readability and grammar. All part numbers and figures should be updated as needed for 602 series"
+      ]
+    },
+    {
+      "sectionNumber": "2.90.9",
+      "chapter": "Maintenance",
+      "title": "Tail Gear Spring",
+      "path": "Maintenance/602/Tail Gear Spring_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Editing done for better readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.10",
+      "chapter": "Maintenance",
+      "title": "Brake Removal and Replacement",
+      "path": "Maintenance/602/Brake Removal and Replacement_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM with 602 information inserted."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.11",
+      "chapter": "Maintenance",
+      "title": "Brake Discs",
+      "path": "Maintenance/602/Brake Discs_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and 602 info inserted. Some editing done for better readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.12",
+      "chapter": "Maintenance",
+      "title": "Brake Linings",
+      "path": "Maintenance/602/Brake Linings_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM and 602 info inserted. Note dimensional changes. Edited for better clarity."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.13",
+      "chapter": "Maintenance",
+      "title": "Brake Master-Cylinders",
+      "path": "Maintenance/602/Brake Master-Cylinders_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Finally, verify that the clevis and check nut on the master cylinder piston rod have been assembled with Loctite 242 (Blue). If not yet accomplished, the assembly is to be done according to Drawing 70007 and/or Service Letter #332.",
+        "Text copied from approved 802OM. Master cylinder p/n changed for 602."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.14",
+      "chapter": "Maintenance",
+      "title": "Brake Bleeding",
+      "path": "Maintenance/602/Brake Bleeding_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. References to \"man\" have been replaced to be more gender-neutral. Some steps have been edited to improve clarity."
+      ]
+    },
+    {
+      "sectionNumber": "2.90.15",
+      "chapter": "Maintenance",
+      "title": "Parking Brake",
+      "path": "Maintenance/602/Parking Brake_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM with editing to improve clarity and readability.Is there really a RH steel rivet as described 2 paragraphs above?"
+      ]
+    },
+    {
+      "sectionNumber": "2.95.3",
+      "chapter": "Maintenance",
+      "title": "Beta System",
+      "path": "Maintenance/602/Beta System_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.95.4",
+      "chapter": "Maintenance",
+      "title": "Propeller Grease",
+      "path": "Maintenance/602/Propeller Grease_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Edited for readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.100",
+      "chapter": "Maintenance",
+      "title": "WINGS",
+      "path": "Maintenance/602/WINGS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Some editing done to simplify text and better grammar."
+      ]
+    },
+    {
+      "sectionNumber": "2.100.1",
+      "chapter": "Maintenance",
+      "title": "Wing Attachment to Fuselage",
+      "path": "Maintenance/602/Wing Attachment to Fuselage_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Part numbers modified for 602. Edited for grammar."
+      ]
+    },
+    {
+      "sectionNumber": "2.100.2",
+      "chapter": "Maintenance",
+      "title": "Wing Center Splice Connection",
+      "path": "Maintenance/602/Wing Center Splice Connection_602.html",
+      "severity": "flagged",
+      "notes": [
+        "The current 602OM always references reaming to .375\" instead of the 802 values of .374\". I have left this dimension since it is slightly more conservative. Part numbers copied from current 602OM.",
+        "Paragraph copied from current 602OM.",
+        "Wing Centersplice Rework",
+        "PROPOSED - \"The fatigue safe-life limits of AT-602 serial numbers 602-0337 through 602-0584 has been reduced to 8,508 hours. Refer to Service Letter #204 for more information regarding those safe-life limits, the rework required upon reaching those limits and how to increase those limits.\" - PROPOSED",
+        "Third bullet copied from current 602OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.100.3",
+      "chapter": "Maintenance",
+      "title": "Wing Walk",
+      "path": "Maintenance/602/Wing Walk_602.html",
+      "severity": "flagged",
+      "notes": [
+        "The walk outboard of the main walk is p/n 20565-2. The trim plate on the forward edge of the walk is p/n 20231-1 and p/n 20718-1 is on the aft edge.",
+        "Not in current 6020M. Are the part numbers correct for 602?"
+      ]
+    },
+    {
+      "sectionNumber": "2.105.1",
+      "chapter": "Maintenance",
+      "title": "Stripping and Repainting Aluminum Parts",
+      "path": "Maintenance/602/Stripping and Repainting Aluminum Parts_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Edited for better readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.105.3",
+      "chapter": "Maintenance",
+      "title": "Stripping and Repainting Steel Parts",
+      "path": "Maintenance/602/Stripping and Repainting Steel Parts_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Some editing for grammar and readability."
+      ]
+    },
+    {
+      "sectionNumber": "2.105.5",
+      "chapter": "Maintenance",
+      "title": "Corrosion Inspection",
+      "path": "Maintenance/602/Corrosion Inspection_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "2.200",
+      "chapter": "Maintenance",
+      "title": "TIME LIMITED PARTS",
+      "path": "Maintenance/602/TIME LIMITED PARTS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Apostrophe removed from \"AD's\" since the term is not possessive but a plural."
+      ]
+    },
+    {
+      "sectionNumber": "2.200.1",
+      "chapter": "Maintenance",
+      "title": "Recommended Time Limits",
+      "path": "Maintenance/602/Recommended Time Limits_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. Landing gear and eyebolt part numbers inserted from current 602OM and SL129. Other part numbers and SIL references should be reviewed/revised. This section very similar to \"Suggested Time Limits\" section located elsewhere. Landing gear bolt P/Ns updated/verified 8-21-2026."
+      ]
+    },
+    {
+      "sectionNumber": "2.200.2",
+      "chapter": "Maintenance",
+      "title": "Suggested Time Limits",
+      "path": "Maintenance/602/Suggested Time Limits_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Service Letter #301",
+        "Text copied from approved 802OM. Landing gear part numbers inserted from current 602OM. Other part numbers should be reviewed/revised. Landing gear bolt P/Ns updated 8-21-2026."
+      ]
+    },
+    {
+      "sectionNumber": "3.1",
+      "chapter": "Inspection",
+      "title": "SCHEDULED INSPECTIONS",
+      "path": "Inspection/602/SCHEDULED INSPECTIONS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM. References to dates, service letters and SILs will need updating."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.2",
+      "chapter": "Inspection",
+      "title": "Engine and Mount",
+      "path": "Inspection/602/Insp_ENGINE AND MOUNT_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Torque values should be verified. SL298 added and SL335 removed (n/a on 602 series).",
+        "Changed serial numbers."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.5",
+      "chapter": "Inspection",
+      "title": "Oil System",
+      "path": "Inspection/602/Insp_OIL SYSTEM_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Removed reference to -67F engine. Does this apply to 602 series? SL305 references -11, -15 and -34 engines."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.7",
+      "chapter": "Inspection",
+      "title": "Induction System",
+      "path": "Inspection/602/Insp_INDUCTION SYSTEM_602.html",
+      "severity": "flagged",
+      "notes": [
+        "References to 802 engines deleted."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.8",
+      "chapter": "Inspection",
+      "title": "Main Landing Gear and Brakes",
+      "path": "Inspection/602/Insp_MAIN LANDING GEAR AND BRAKES_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Changed psi values."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.10",
+      "chapter": "Inspection",
+      "title": "Fuselage Frame",
+      "path": "Inspection/602/Insp_FUSELAGE FRAME_602.html",
+      "severity": "flagged",
+      "notes": [
+        "and #213A.",
+        "Reference to SL217A deleted (n/a to 602 series) and SL213A added."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.12",
+      "chapter": "Inspection",
+      "title": "Control System",
+      "path": "Inspection/602/Insp_CONTROL SYSTEM_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Reference to 802 deleted. Diameter of wear ring should be verified."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.13",
+      "chapter": "Inspection",
+      "title": "Wings",
+      "path": "Inspection/602/Insp_WINGS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Is the 300 hour interval listed equivalent to the SL387 referenced 12-month interval, or should there be two intervals (300/12 Months) listed in the checklist?",
+        "Reference to SL284 deleted (n/a on 602 series). Serial numbers changed. 600-2,200 hour intervals should be verified--SL215 requires inspection at 2,300 hours.",
+        "Diameter of bolts should be verified.",
+        "Deleted. SL275 n/a for 602 series.",
+        "Deleted. SL188 n/a for 602 series.",
+        "XXX"
+      ]
+    },
+    {
+      "sectionNumber": "3.1.14",
+      "chapter": "Inspection",
+      "title": "Ailerons",
+      "path": "Inspection/602/Insp_AILERONS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Surface travel range revised for 602."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.15",
+      "chapter": "Inspection",
+      "title": "Flaps",
+      "path": "Inspection/602/Insp_FLAPS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "SL390 deleted (n/a for 602 series).",
+        "F202",
+        "(400)",
+        "PROPOSED--\"Inspect flap actuator shaft, bushing, and bearing for wear per SIL #602-0004. Significant wear requires replacement of parts or the complete actuator and is defined as 1/2\" or more of flap trailing edge movement with moderate hand pressure on the trailing edge.\"\" PROPOSED--Copied from current 602 checklist.",
+        "per Service Letter #421",
+        "Does 602 series use the 71112-1 actuator? Not illustrated in 602 IPC. \"per Service Letter #421\" added to FS504."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.16",
+      "chapter": "Inspection",
+      "title": "Empennage",
+      "path": "Inspection/602/Insp_EMPENNAGE_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Verify torque values.",
+        "SL235 added.",
+        "Deleted. SL266 n/a for 602 series.",
+        "Deleted. SL232 n/a for 602 series.",
+        "Verify torque value.",
+        "References to SL198 and SL383 deleted (n/a for 602 series). Actual inspection of struts and fittings left as is.",
+        "Diameters, part numbers and torque values should be verified. Is 30774-1 eyebolt torque supposed to be in foot-pounds?",
+        "Travel values changed for 602 series.",
+        "Travel values changed for 602 series. Reference to State Department aircraft deleted."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.18",
+      "chapter": "Inspection",
+      "title": "Dispersal Equipment",
+      "path": "Inspection/602/Insp_DISPERSAL EQUIPMENT_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Deleted. SL248 n/a for 602 series."
+      ]
+    },
+    {
+      "sectionNumber": "3.1.19",
+      "chapter": "Inspection",
+      "title": "Air Conditioning System",
+      "path": "Inspection/602/Insp_AIR CONDITIONING SYSTEM_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Deleted. SL309 n/a for 602 series."
+      ]
+    },
+    {
+      "sectionNumber": "3.2",
+      "chapter": "Inspection",
+      "title": "UNSCHEDULED INSPECTIONS",
+      "path": "Inspection/602/Insp_UNSCHEDULED INSPECTIONS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "3.2.1",
+      "chapter": "Inspection",
+      "title": "Hard / Heavy Landing Inspection",
+      "path": "Inspection/602/Insp_HARD OR HEAVY LANDING INSPECTION_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "3.2.2",
+      "chapter": "Inspection",
+      "title": "Flight Into Turbulent Air and Post Flight Inspections",
+      "path": "Inspection/602/Insp_FLIGHT INTO TURBULENT AIR AND POST FLIGHT INSPECTIONS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "3.2.3",
+      "chapter": "Inspection",
+      "title": "Flight Into Thunderstorms and Post Flight Inspections",
+      "path": "Inspection/602/Insp_FLIGHT INTO THUNDERSTORMS AND POST FLIGHT INSPECTIONS_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "3.2.4",
+      "chapter": "Inspection",
+      "title": "Obstacle Collision",
+      "path": "Inspection/602/Insp_Obstacle Collision_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "3.2.5",
+      "chapter": "Inspection",
+      "title": "Propeller Strike / Sudden Stoppage",
+      "path": "Inspection/602/Insp_Propeller Strike or Sudden Stoppage_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "3.2.6",
+      "chapter": "Inspection",
+      "title": "Starter-Generator Malfunction",
+      "path": "Inspection/602/Insp_Starter-Generator Malfunction_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "3.2.7",
+      "chapter": "Inspection",
+      "title": "Engine Oil Metal Contamination",
+      "path": "Inspection/602/Insp_Engine Oil Metal Contamination_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    },
+    {
+      "sectionNumber": "3.2.8",
+      "chapter": "Inspection",
+      "title": "Propeller and Engine Damage",
+      "path": "Inspection/602/Insp_Propeller and Engine Damage_602.html",
+      "severity": "flagged",
+      "notes": [
+        "Text copied from approved 802OM."
+      ]
+    }
+  ]
+}
