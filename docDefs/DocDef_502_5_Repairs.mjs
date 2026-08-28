@@ -11,13 +11,13 @@ let def_Sec_5_4 = new DocSection().i(true, "5.4", true, "MAIN LANDING GEAR SPRIN
 
 let def_Sec_5_5 = new DocSection().i(true, "5.5", true, "WATER IMMERSION", true, "html/Repairs/502/WATER IMMERSION_502.html");
 
-let def_Sec_5_6_1 = new DocSection().i(true, "5.6.1", true, "Horizontal Stabilizer Strut Fitting", true, "html/Repairs/502/Horizontal Stabilizer Strut Fitting_502.html");
+let def_Sec_5_6_1 = new DocSection().i(true, "5.6.1", true, "Horizontal Stabilizer Strut Fitting", true, "html/Repairs/Horizontal Stabilizer Strut Fitting.html");
 def_Sec_5_6_1.CustomClass = "breakBefore";
 
 let def_Sec_5_6_2 = new DocSection().i(true, "5.6.2", true, "Main Gear Attach Tube Cracks", true, "html/Repairs/502/Main Gear Attach Tube Cracks_502.html");
 def_Sec_5_6_2.CustomClass = "breakBefore";
 
-let def_Sec_5_6_3 = new DocSection().i(true, "5.6.3", true, "Forward Lower Longeron", true, "html/Repairs/502/Forward Lower Longeron_502.html");
+let def_Sec_5_6_3 = new DocSection().i(true, "5.6.3", true, "Reserved", false, "");
 def_Sec_5_6_3.CustomClass = "breakBefore";
 
 let def_Sec_5_6_4 = new DocSection().i(true, "5.6.4", true, "Fuselage Frame Aft Section", true, "html/Repairs/502/Fuselage Frame Aft Section_502.html");
@@ -26,10 +26,10 @@ def_Sec_5_6_4.CustomClass = "breakBefore";
 let def_Sec_5_6_5 = new DocSection().i(true, "5.6.5", true, "Wing Main Spar Splice", true, "html/Repairs/502/Wing Main Spar Splice_502.html");
 def_Sec_5_6_5.CustomClass = "breakBefore";
 
-let def_Sec_5_6_6 = new DocSection().i(true, "5.6.6", true, "Leading Edge Rib", true, "html/Repairs/502/Leading Edge Rib_502.html");
+let def_Sec_5_6_6 = new DocSection().i(true, "5.6.6", true, "Reserved", false, "");
 def_Sec_5_6_6.CustomClass = "breakBefore";
 
-let def_Sec_5_6_7 = new DocSection().i(true, "5.6.7", true, "Additional Wing Inspection Holes", true, "html/Repairs/502/Additional Wing Inspection Holes_502.html");
+let def_Sec_5_6_7 = new DocSection().i(true, "5.6.7", true, "Reserved", false, "");
 def_Sec_5_6_7.CustomClass = "breakBefore";
 
 let def_Sec_5_6_8 = new DocSection().i(true, "5.6.8", true, "Oversized Horizontal Stabilizer Attach Holes", true, "html/Repairs/502/Oversized Horizontal Stabilizer Attach Holes_502.html");
