@@ -571,11 +571,11 @@ def_Sec_2_100
     ]);
 
 
-let defSec_2_105_1 = new DocSection().i(true, "2.105.1", true, "Stripping and Repainting Aluminum Parts", true, "html/Maintenance/402/Stripping and Repainting Aluminum Parts_402.html");
-let defSec_2_105_2 = new DocSection().i(true, "2.105.2", true, "Priming Aluminum Parts with Chromated Alkyd Primer", true, "html/Maintenance/402/Priming Aluminum Parts with Chromated Alkyd Primer_402.html");
-let defSec_2_105_3 = new DocSection().i(true, "2.105.3", true, "Stripping and Repainting Steel Parts", true, "html/Maintenance/402/Stripping and Repainting Steel Parts_402.html");
-let defSec_2_105_4 = new DocSection().i(true, "2.105.4", true, "Materials Used for Stripping Painting and Preservation", true, "html/Maintenance/402/Materials Used for Stripping Painting and Preservation_402.html");
-let defSec_2_105_5 = new DocSection().i(true, "2.105.5", true, "Corrosion Inspection", true, "html/Maintenance/402/Corrosion Inspection_402.html");
+let defSec_2_105_1 = new DocSection().i(true, "2.105.1", true, "Stripping and Repainting Aluminum Parts", true, "html/Maintenance/Stripping and Repainting Aluminum Parts.html");
+let defSec_2_105_2 = new DocSection().i(true, "2.105.2", true, "Priming Aluminum Parts with Chromated Alkyd Primer", true, "html/Maintenance/Priming Aluminum Parts with Chromated Alkyd Primer.html");
+let defSec_2_105_3 = new DocSection().i(true, "2.105.3", true, "Stripping and Repainting Steel Parts", true, "html/Maintenance/Stripping and Repainting Steel Parts.html");
+let defSec_2_105_4 = new DocSection().i(true, "2.105.4", true, "Materials Used for Stripping Painting and Preservation", true, "html/Maintenance/Materials Used for Stripping Painting and Preservation.html");
+let defSec_2_105_5 = new DocSection().i(true, "2.105.5", true, "Corrosion Inspection", true, "html/Maintenance/Corrosion Inspection.html");
 let def_Sec_2_105 = new DocSection();
 def_Sec_2_105
     .i(true, "2.105", true, "PAINT AND FINISHES", false, "")
