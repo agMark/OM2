@@ -41,10 +41,10 @@ def_Sec_5_6_9.CustomClass = "breakBefore";
 let def_Sec_5_6_10 = new DocSection().i(true, "5.6.10", true, "Tail Wheel Lock Bushing", true, "html/Repairs/502/Tail Wheel Lock Bushing_502.html");
 def_Sec_5_6_10.CustomClass = "breakBefore";
 
-let def_Sec_5_6_11 = new DocSection().i(true, "5.6.11", true, "Hopper Brace", true, "html/Repairs/502/Hopper Brace_502.html");
+let def_Sec_5_6_11 = new DocSection().i(true, "5.6.11", true, "Reserved", false, "");
 def_Sec_5_6_11.CustomClass = "breakBefore";
 
-let def_Sec_5_6_12 = new DocSection().i(true, "5.6.12", true, "Front Section", true, "html/Repairs/502/Front Section_502.html");
+let def_Sec_5_6_12 = new DocSection().i(true, "5.6.12", true, "Reserved", false, "");
 def_Sec_5_6_12.CustomClass = "breakBefore";
 
 let def_Sec_5_6_13 = new DocSection().i(true, "5.6.13", true, "Wing Attach Angle Replacement", true, "html/Repairs/502/Wing Attach Angle Replacement.html");

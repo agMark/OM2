@@ -294,9 +294,9 @@ let defSec_2_50_17 = new DocSection().i(true, "2.50.17", true, "Engine Replaceme
 let defSec_2_50_18 = new DocSection().i(true, "2.50.18", true, "Engine Air Plenum", true, "html/Maintenance/502/Engine Air Plenum_502.html");
 let defSec_2_50_19 = new DocSection().i(true, "2.50.19", true, "SCEET Flexible Duct Installation and Routing", true, "html/Maintenance/502/SCEET Flexible Duct Installation and Routing_502.html");
 let defSec_2_50_20 = new DocSection().i(true, "2.50.20", true, "Reserved", false, "");
-let defSec_2_50_21 = new DocSection().i(true, "2.50.21", true, "Engine Driven Low Pressure Fuel Pump", true, "html/Maintenance/502/Engine Driven Low Pressure Fuel Pump_502.html");
-let defSec_2_50_22 = new DocSection().i(true, "2.50.22", true, "Reserved", true, "");
-let defSec_2_50_23 = new DocSection().i(true, "2.50.23", true, "Reserved", true, ""); // Was "P3 Air Pressure Tube_502.html"
+let defSec_2_50_21 = new DocSection().i(true, "2.50.21", true, "Reserved", false, "");
+let defSec_2_50_22 = new DocSection().i(true, "2.50.22", true, "Reserved", false, "");
+let defSec_2_50_23 = new DocSection().i(true, "2.50.23", true, "Reserved", false, ""); // Was "P3 Air Pressure Tube_502.html"
 let defSec_2_50_24 = new DocSection().i(true, "2.50.24", true, "Exhaust Pipe Repair", true, "html/Maintenance/Exhaust Pipe Repair.html");
 let defSec_2_50_40 = new DocSection().i(true, "2.50.40", true, "Air Conditioner Drive Pad",true,"html/Maintenance/Air Conditioner Drive Pad.html");
 let defSec_2_50_41 = new DocSection().i(true, "2.50.41", true, "Air Conditioner Drive Pad Inspection",true,"html/Maintenance/Air Conditioner Drive Pad Inspection.html");
@@ -571,11 +571,11 @@ def_Sec_2_100
     ]);
 
 
-let defSec_2_105_1 = new DocSection().i(true, "2.105.1", true, "Stripping and Repainting Aluminum Parts", true, "html/Maintenance/502/Stripping and Repainting Aluminum Parts_502.html");
-let defSec_2_105_2 = new DocSection().i(true, "2.105.2", true, "Priming Aluminum Parts with Chromated Alkyd Primer", true, "html/Maintenance/502/Priming Aluminum Parts with Chromated Alkyd Primer_502.html");
-let defSec_2_105_3 = new DocSection().i(true, "2.105.3", true, "Stripping and Repainting Steel Parts", true, "html/Maintenance/502/Stripping and Repainting Steel Parts_502.html");
-let defSec_2_105_4 = new DocSection().i(true, "2.105.4", true, "Materials Used for Stripping Painting and Preservation", true, "html/Maintenance/502/Materials Used for Stripping Painting and Preservation_502.html");
-let defSec_2_105_5 = new DocSection().i(true, "2.105.5", true, "Corrosion Inspection", true, "html/Maintenance/502/Corrosion Inspection_502.html");
+let defSec_2_105_1 = new DocSection().i(true, "2.105.1", true, "Stripping and Repainting Aluminum Parts", true, "html/Maintenance/Stripping and Repainting Aluminum Parts.html");
+let defSec_2_105_2 = new DocSection().i(true, "2.105.2", true, "Priming Aluminum Parts with Chromated Alkyd Primer", true, "html/Maintenance/Priming Aluminum Parts with Chromated Alkyd Primer.html");
+let defSec_2_105_3 = new DocSection().i(true, "2.105.3", true, "Stripping and Repainting Steel Parts", true, "html/Maintenance/Stripping and Repainting Steel Parts.html");
+let defSec_2_105_4 = new DocSection().i(true, "2.105.4", true, "Materials Used for Stripping Painting and Preservation", true, "html/Maintenance/Materials Used for Stripping Painting and Preservation.html");
+let defSec_2_105_5 = new DocSection().i(true, "2.105.5", true, "Corrosion Inspection", true, "html/Maintenance/Corrosion Inspection.html");
 let def_Sec_2_105 = new DocSection();
 def_Sec_2_105
     .i(true, "2.105", true, "PAINT AND FINISHES", false, "")

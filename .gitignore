@@ -2,3 +2,6 @@
 *.dwl2
 *.bak
 *.log
+
+# Generated tool reports
+Tools/reports/
