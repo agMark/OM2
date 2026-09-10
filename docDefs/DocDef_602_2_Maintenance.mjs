@@ -149,7 +149,7 @@ let def_Sec_2_31 = new DocSection().i(true, "2.31", true, "CONTROL SURFACE UNBAL
 
 
 let defSec_2_35_1 = new DocSection().i(true, "2.35.1", true, "Hopper Tanks", true, "html/Maintenance/602/Hopper Tanks_602.html");
-let defSec_2_35_2 = new DocSection().i(true, "2.35.2", true, "Hopper Gate Box and Adapter", true, "html/Maintenance/602/Hopper Gate Box and Adapter_602.html");
+let defSec_2_35_2 = new DocSection().i(true, "2.35.2", true, "Hopper Gate Box", true, "html/Maintenance/602/Hopper Gate Box and Adapter_602.html");
 let defSec_2_35_3 = new DocSection().i(true, "2.35.3", true, "Hopper Lid", true, "html/Maintenance/602/Hopper Lid_602.html");
 let defSec_2_35_4 = new DocSection().i(true, "2.35.4", true, "Gate Box Controls", true, "html/Maintenance/602/Gate Box Controls_602.html");
 let defSec_2_35_5 = new DocSection().i(true, "2.35.5", true, "Spray Lever Controls", true, "html/Maintenance/602/Spray Lever Controls_602.html");
