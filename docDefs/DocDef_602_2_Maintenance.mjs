@@ -433,7 +433,7 @@ let defSec_2_75_8 = new DocSection().i(true, "2.75.8", true, "Fuel Tank Placards
 let defSec_2_75_9 = new DocSection().i(true, "2.75.9", true, "Ferry Fuel System", true, "html/Maintenance/602/Ferry Fuel System_602.html");
 let defSec_2_75_10 = new DocSection().i(true, "2.75.10", true, "Fuel Selector Valve", true, "html/Maintenance/602/Fuel Selector Valve_602.html");
 let defSec_2_75_20 = new DocSection().i(true, "2.75.20", true, "Fuel Tank Quantity System Senders - Resistive", true, "html/Maintenance/602/Fuel Tank Senders_602.html");
-let defSec_2_75_21 = new DocSection().i(true, "2.75.21", true, "Reserved", false, "");
+let defSec_2_75_21 = new DocSection().i(true, "2.75.21", true, "Fuel Tank Quantity System Senders - CiES", true, "html/Maintenance/602/CiES Fuel Tank Senders_602.html");
 let defSec_2_75_22 = new DocSection().i(true, "2.75.22", true, "Fuel Tank Quantity System Gauges - Analog", true, "html/Maintenance/602/Fuel Tank Receiver_602.html");
 let defSec_2_75_23 = new DocSection().i(true, "2.75.23", true, "Fuel Tank Quantity System Gauges - MVP-50T", true, "html/Maintenance/602/MVP Fuel Gauges_602.html");
 let def_Sec_2_75 = new DocSection();
@@ -547,7 +547,7 @@ def_Sec_2_90
 let defSec_2_95_1 = new DocSection().i(true, "2.95.1", true, "Propeller Removal", true, "html/Maintenance/602/Propeller Removal_602.html");
 let defSec_2_95_2 = new DocSection().i(true, "2.95.2", true, "Propeller Replacement", true, "html/Maintenance/602/Propeller Replacement_602.html");
 let defSec_2_95_3 = new DocSection().i(true, "2.95.3", true, "Beta System", true, "html/Maintenance/602/Beta System_602.html");
-let defSec_2_95_4 = new DocSection().i(true, "2.95.4", true, "Propeller Grease", true, "html/Maintenance/602/Propeller Grease_602.html");
+let defSec_2_95_4 = new DocSection().i(true, "2.95.4", true, "Propeller Grease", true, "html/Maintenance/Propeller Grease.html");
 let def_Sec_2_95 = new DocSection();
 def_Sec_2_95
     .i(true, "2.95", true, "PROPELLER MAINTENANCE", true, "html/Maintenance/602/PROPELLER MAINTENANCE_602.html")
