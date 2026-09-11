@@ -595,7 +595,7 @@ let defSec_2_200_1 = new DocSection().i(true, "2.200.1", true, "Recommended Time
 let defSec_2_200_2 = new DocSection().i(true, "2.200.2", true, "Suggested Time Limits", true, "html/Maintenance/502/Suggested Time Limits_502.html");
 let def_Sec_2_200 = new DocSection();
 def_Sec_2_200
-    .i(true, "2.200", true, "TIME LIMITED PARTS", true, "html/Maintenance/502/TIME LIMITED PARTS_502.html")
+    .i(true, "2.200", true, "TIME LIMITED PARTS", true, "html/Maintenance/TIME LIMITED PARTS.html")
     .s([
         defSec_2_200_1,
         defSec_2_200_2
