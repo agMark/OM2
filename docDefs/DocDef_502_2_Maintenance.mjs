@@ -401,12 +401,13 @@ let defSec_2_70_6 = new DocSection().i(true, "2.70.6", true, "Flap Motor Trouble
 let defSec_2_70_7 = new DocSection().i(true, "2.70.7", true, "Flap Relay Troubleshooting", true, "html/Maintenance/502/Flap Relay Troubleshooting_502.html");
 let defSec_2_70_8 = new DocSection().i(true, "2.70.8", true, "Flap Actuator Removal Instructions", true, "html/Maintenance/502/Flap Actuator Removal Instructions_502.html");
 let defSec_2_70_9 = new DocSection().i(true, "2.70.9", true, "Flap Actuator Installation Instructions", true, "html/Maintenance/502/Flap Actuator Installation Instructions_502.html");
-let defSec_2_70_10 = new DocSection().i(true, "2.70.10", true, "C100168-4 Flap Actuator Maintenance", true, "html/Maintenance/502/Flap Actuator_502.html");
+let defSec_2_70_10 = new DocSection().i(true, "2.70.10", true, "Reserved", false, "");
 let defSec_2_70_11 = new DocSection().i(true, "2.70.11", true, "Reserved", false, "");
 let defSec_2_70_12 = new DocSection().i(true, "2.70.12", true, "Flap Relay Upgrade", true, "html/Maintenance/502/Flap Relay Upgrade_502.html");
-let defSec_2_70_51 = new DocSection().i(true, "2.70.51", true, "Inspection of B100-6 Coupling used on C100168-4 Actuators", true, "html/Maintenance/502/Flap Motor Coupler and Inspection_502.html");
+let defSec_2_70_51 = new DocSection().i(true, "2.70.51", true, "Reserved", false, "");
 let defSec_2_70_52 = new DocSection().i(true, "2.70.52", true, "Inspection of Flap Torque Tube Attachment (SL347 and AD 2021-05-14)", true, "html/Maintenance/502/Flap Torque Tube Attachment_502.html");
-let defSec_2_70_53 = new DocSection().i(true, "2.70.53", true, "Inspection of Flap Drive System Free Play Inspection", true, "html/Maintenance/502/Flap Drive System Free Play Inspection_502.html");
+let defSec_2_70_53 = new DocSection().i(true, "2.70.53", true, "Reserved", false, "");
+let defSec_2_70_54 = new DocSection().i(true, "2.70.54", true, "Flap Actuator Inspection and Maintenance", true, "html/Maintenance/502/Flap Actuator Maintenance.html");
 let def_Sec_2_70 = new DocSection();
 def_Sec_2_70
     .i(true, "2.70", true, "FLAPS", true, "html/Maintenance/502/Flaps_502.html")
@@ -425,7 +426,8 @@ def_Sec_2_70
         defSec_2_70_12,
         defSec_2_70_51,
         defSec_2_70_52,
-        defSec_2_70_53
+        defSec_2_70_53,
+        defSec_2_70_54
     ]);
 
 let defSec_2_75_1 = new DocSection().i(true, "2.75.1", true, "Fuel Tanks", true, "html/Maintenance/502/Fuel Tanks_502.html");
