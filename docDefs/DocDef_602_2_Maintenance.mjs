@@ -300,6 +300,7 @@ let defSec_2_50_21 = new DocSection().i(true, "2.50.21", true, "Engine Driven Lo
 let defSec_2_50_22 = new DocSection().i(true, "2.50.22", true, "Reserved", true, "");
 let defSec_2_50_23 = new DocSection().i(true, "2.50.23", true, "Reserved", true, ""); // Was "P3 Air Pressure Tube_602.html"
 let defSec_2_50_24 = new DocSection().i(true, "2.50.24", true, "Exhaust Pipe Repair", true, "html/Maintenance/Exhaust Pipe Repair.html");
+let defSec_2_50_25 = new DocSection().i(true, "2.50.25", true, "Propeller Overspeed Governor", true, "html/Maintenance/Propeller Overspeed Governor.html");
 let defSec_2_50_40 = new DocSection().i(true, "2.50.40", true, "Air Conditioner Drive Pad",true,"html/Maintenance/Air Conditioner Drive Pad.html");
 let defSec_2_50_41 = new DocSection().i(true, "2.50.41", true, "Air Conditioner Drive Pad Inspection",true,"html/Maintenance/Air Conditioner Drive Pad Inspection.html");
 let defSec_2_50_42 = new DocSection().i(true, "2.50.42", true, "Air Conditioner Drive Pad Overhaul",true,"html/Maintenance/Air Conditioner Drive Pad Overhaul.html");
@@ -332,6 +333,7 @@ def_Sec_2_50
         defSec_2_50_22,
         defSec_2_50_23,
         defSec_2_50_24,
+        defSec_2_50_25,
         defSec_2_50_40,
         defSec_2_50_41,
         defSec_2_50_42,
@@ -595,7 +597,7 @@ let defSec_2_200_1 = new DocSection().i(true, "2.200.1", true, "Recommended Time
 let defSec_2_200_2 = new DocSection().i(true, "2.200.2", true, "Suggested Time Limits", true, "html/Maintenance/602/Suggested Time Limits_602.html");
 let def_Sec_2_200 = new DocSection();
 def_Sec_2_200
-    .i(true, "2.200", true, "TIME LIMITED PARTS", true, "html/Maintenance/602/TIME LIMITED PARTS_602.html")
+    .i(true, "2.200", true, "TIME LIMITED PARTS", true, "html/Maintenance/TIME LIMITED PARTS.html")
     .s([
         defSec_2_200_1,
         defSec_2_200_2
