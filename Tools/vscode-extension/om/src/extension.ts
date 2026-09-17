@@ -15,6 +15,7 @@ import { refreshFigureDiagnostics } from './figureDiagnostics';
 import { ImageSourceRegistry } from './imageSourceRegistry';
 import { ImageSourceTreeDataProvider, ImageSourceTreeItem } from './imageSourceTree';
 import { linkImageToSourceCommand, openImageSourceCommand, openCurrentImageSourceCommand, removeImageSourceLinkCommand, linkCurrentImageToSourceCommand } from './imageSourceCommands';
+import { openManualInLiveServerCommand } from './liveServerHelper';
 
 export function activate(context: vscode.ExtensionContext): void {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
@@ -201,6 +202,12 @@ export function activate(context: vscode.ExtensionContext): void {
 				return;
 			}
 			await insertXrefForSection(editor, item.element.node.sectionNumber);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.openLiveServer', async () => {
+			await openManualInLiveServerCommand(workspaceRoot);
 		})
 	);
 

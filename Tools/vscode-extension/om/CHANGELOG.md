@@ -4,6 +4,10 @@ All notable changes to the "om" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.3]
+
+- Added `OM: Open Manual in Live Server...` (view/title button + command palette): pick a model (402/502/602/802) and a browser (only browsers actually detected on this machine, plus "Default Browser"), and it starts/reuses Live Server and opens the manual — replaces hunting for the right `indexNNN.html` in the Explorer and right-clicking "Open with Live Server".
+
 ## [0.3.2]
 
 - Fixed the unnumbered "Intro" block (title page + OVERVIEW/MANUAL DISTRIBUTION/TOC fragments, each model's `docDefs/DocDef_*_0_Intro.mjs`) being silently dropped from the tree — it has no numbered ancestor to attach to, so it never appeared as a root or as a flat child of anything. Now synthesized as a "0 - INTRO" root node.

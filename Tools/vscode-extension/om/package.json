@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -40,6 +40,11 @@
             "command": "om.refresh",
             "title": "OM: Refresh",
             "icon": "$(refresh)"
+        },
+        {
+            "command": "om.openLiveServer",
+            "title": "OM: Open Manual in Live Server...",
+            "icon": "$(globe)"
         },
         {
             "command": "om.compareModelFiles",
@@ -144,6 +149,11 @@
         "view/title": [
             {
                 "command": "om.refresh",
+                "when": "view == myTreeView",
+                "group": "navigation"
+            },
+            {
+                "command": "om.openLiveServer",
                 "when": "view == myTreeView",
                 "group": "navigation"
             },
