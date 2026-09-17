@@ -4,6 +4,10 @@ All notable changes to the "om" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.2]
+
+- Fixed the unnumbered "Intro" block (title page + OVERVIEW/MANUAL DISTRIBUTION/TOC fragments, each model's `docDefs/DocDef_*_0_Intro.mjs`) being silently dropped from the tree — it has no numbered ancestor to attach to, so it never appeared as a root or as a flat child of anything. Now synthesized as a "0 - INTRO" root node.
+
 ## [0.2.0]
 
 - Added the Image Source Tracking tool: a new "Image Sources" view (Unlinked / Linked / Unreferenced Source Files) backed by `Tools/imageSourceRegistry.json`, linking `img/*` files to their `imgSrc/*` CAD/source files (many-to-many). Commands: `OM: Link Image to Source File...`, `OM: Open Source in File Explorer`, `OM: Remove Source Link...`, `OM: Link Current Image to Source File...` (from an open fragment), `OM: Refresh Image Sources`.
