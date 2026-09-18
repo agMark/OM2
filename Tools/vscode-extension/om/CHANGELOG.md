@@ -4,6 +4,27 @@ All notable changes to the "om" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.6]
+
+- Added `OM: Find Where Data Var Is Used...`: right-click a variable (or one of its per-model values) in the "Data Vars" view. Scans `html/**/*.html` for `data-vars="X"` and lists every use as `file:line` with the models whose docDefs reference that fragment (or "not referenced by any docDef"); pick one to jump to it. Reports when a variable isn't used anywhere.
+- The index now also refreshes when `code/data_vars.mjs` is saved, so adding a variable to the `DocVars` class shows up in the "Data Vars" view (and the Insert Data Var picker) without a manual refresh.
+
+## [0.3.5]
+
+- Added a "Data Vars" view (activity bar → "My Custom Explorer", between the section tree and Image Sources): lists every docVar from `code/data_vars.mjs` (DOCNUM, SHORTDATE, ...) with a per-model child (`402: 03-0105`, ...). Clicking a model's value opens that model's `docDefs/DocDef_<model>.mjs` at the `docVars.vars.X = "..."` line with the value selected, ready to retype; a var not yet set for a model shows a warning icon and jumps to the `new DocVars()` line instead. Refreshes automatically when a docDef is saved.
+
+## [0.3.4]
+
+- Added `OM: Insert Figure from Clipboard...` (command palette + editor context menu on `.html`): saves the image currently on the clipboard (e.g. a Win+Shift+S capture) into `img/` as a PNG under a name you enter, and inserts the same `<figure>` markup as `OM: Insert Figure...` in one step. Rejects names that already exist in `img/` or are already used as a figure in the model; all prompts run before anything is written, so cancelling leaves `img/` untouched. Windows only (reads the clipboard via PowerShell, since VS Code's clipboard API is text-only).
+
+## [0.3.3]
+
+- Added `OM: Open Manual in Live Server...` (view/title button + command palette): pick a model (402/502/602/802) and a browser (only browsers actually detected on this machine, plus "Default Browser"), and it starts/reuses Live Server and opens the manual — replaces hunting for the right `indexNNN.html` in the Explorer and right-clicking "Open with Live Server".
+
+## [0.3.2]
+
+- Fixed the unnumbered "Intro" block (title page + OVERVIEW/MANUAL DISTRIBUTION/TOC fragments, each model's `docDefs/DocDef_*_0_Intro.mjs`) being silently dropped from the tree — it has no numbered ancestor to attach to, so it never appeared as a root or as a flat child of anything. Now synthesized as a "0 - INTRO" root node.
+
 ## [0.2.0]
 
 - Added the Image Source Tracking tool: a new "Image Sources" view (Unlinked / Linked / Unreferenced Source Files) backed by `Tools/imageSourceRegistry.json`, linking `img/*` files to their `imgSrc/*` CAD/source files (many-to-many). Commands: `OM: Link Image to Source File...`, `OM: Open Source in File Explorer`, `OM: Remove Source Link...`, `OM: Link Current Image to Source File...` (from an open fragment), `OM: Refresh Image Sources`.

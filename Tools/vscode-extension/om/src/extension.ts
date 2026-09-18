@@ -4,9 +4,11 @@ import { DocDefIndexService } from './modelIndex';
 import { MergedTreeDataProvider, CustomTreeItem, compareModelFiles, revealInDocDef } from './mergedTree';
 import { insertStyleClassCommand, goToStyleClassCommand } from './cssHelper';
 import { insertXrefCommand, insertXrefForSection } from './xrefHelper';
-import { insertFigureCommand } from './figureHelper';
+import { insertFigureCommand, insertFigureFromClipboardCommand } from './figureHelper';
 import { insertBoxCommand } from './boxHelper';
-import { insertDataVarCommand } from './dataVarHelper';
+import { insertDataVarCommand, goToDataVarCommand, findDataVarUsagesCommand } from './dataVarHelper';
+import { DataVarTreeDataProvider, DataVarTreeItem } from './dataVarTree';
+import type { ModelId } from './modelIndex';
 import { openImageInExternalEditorCommand } from './imageHelper';
 import { registerPreviewCommands } from './previewPanel';
 import { registerChangeReportCommands } from './changeReportCommands';
@@ -15,6 +17,7 @@ import { refreshFigureDiagnostics } from './figureDiagnostics';
 import { ImageSourceRegistry } from './imageSourceRegistry';
 import { ImageSourceTreeDataProvider, ImageSourceTreeItem } from './imageSourceTree';
 import { linkImageToSourceCommand, openImageSourceCommand, openCurrentImageSourceCommand, removeImageSourceLinkCommand, linkCurrentImageToSourceCommand } from './imageSourceCommands';
+import { openManualInLiveServerCommand } from './liveServerHelper';
 
 export function activate(context: vscode.ExtensionContext): void {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
@@ -73,6 +76,9 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(imageSourceRegistry.startWatching());
 	const imageSourceTreeDataProvider = new ImageSourceTreeDataProvider(workspaceRoot, imageSourceRegistry);
 	context.subscriptions.push(vscode.window.registerTreeDataProvider('imageSourceView', imageSourceTreeDataProvider));
+
+	const dataVarTreeDataProvider = new DataVarTreeDataProvider(indexService);
+	context.subscriptions.push(vscode.window.registerTreeDataProvider('dataVarView', dataVarTreeDataProvider));
 
 	void indexService.refresh();
 
@@ -136,6 +142,12 @@ export function activate(context: vscode.ExtensionContext): void {
 	);
 
 	context.subscriptions.push(
+		vscode.commands.registerCommand('om.insertFigureFromClipboard', async () => {
+			await insertFigureFromClipboardCommand(workspaceRoot, indexService, figureIndexCache);
+		})
+	);
+
+	context.subscriptions.push(
 		vscode.commands.registerCommand('om.insertBox', async () => {
 			await insertBoxCommand(workspaceRoot);
 		})
@@ -144,6 +156,21 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('om.insertDataVar', async () => {
 			await insertDataVarCommand(workspaceRoot, indexService);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.goToDataVar', async (model: ModelId, varName: string) => {
+			await goToDataVarCommand(workspaceRoot, model, varName);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.findDataVarUsages', async (item?: DataVarTreeItem) => {
+			if (!item) {
+				return;
+			}
+			await findDataVarUsagesCommand(workspaceRoot, indexService, item.element.varName);
 		})
 	);
 
@@ -201,6 +228,12 @@ export function activate(context: vscode.ExtensionContext): void {
 				return;
 			}
 			await insertXrefForSection(editor, item.element.node.sectionNumber);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.openLiveServer', async () => {
+			await openManualInLiveServerCommand(workspaceRoot);
 		})
 	);
 

@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.3.1",
+  "version": "0.3.6",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -29,6 +29,11 @@
                 "icon": "resources/my-icon.svg"
             },
             {
+                "id": "dataVarView",
+                "name": "Data Vars",
+                "icon": "resources/my-icon.svg"
+            },
+            {
                 "id": "imageSourceView",
                 "name": "Image Sources",
                 "icon": "resources/my-icon.svg"
@@ -40,6 +45,11 @@
             "command": "om.refresh",
             "title": "OM: Refresh",
             "icon": "$(refresh)"
+        },
+        {
+            "command": "om.openLiveServer",
+            "title": "OM: Open Manual in Live Server...",
+            "icon": "$(globe)"
         },
         {
             "command": "om.compareModelFiles",
@@ -88,12 +98,24 @@
             "title": "OM: Insert Figure..."
         },
         {
+            "command": "om.insertFigureFromClipboard",
+            "title": "OM: Insert Figure from Clipboard..."
+        },
+        {
             "command": "om.insertBox",
             "title": "OM: Insert Caution/Warning Box..."
         },
         {
             "command": "om.insertDataVar",
             "title": "OM: Insert Data Var..."
+        },
+        {
+            "command": "om.goToDataVar",
+            "title": "OM: Go to Data Var"
+        },
+        {
+            "command": "om.findDataVarUsages",
+            "title": "OM: Find Where Data Var Is Used..."
         },
         {
             "command": "om.openImageInExternalEditor",
@@ -141,9 +163,24 @@
         }
     ],
     "menus": {
+        "commandPalette": [
+            {
+                "command": "om.goToDataVar",
+                "when": "false"
+            },
+            {
+                "command": "om.findDataVarUsages",
+                "when": "false"
+            }
+        ],
         "view/title": [
             {
                 "command": "om.refresh",
+                "when": "view == myTreeView",
+                "group": "navigation"
+            },
+            {
+                "command": "om.openLiveServer",
                 "when": "view == myTreeView",
                 "group": "navigation"
             },
@@ -187,6 +224,10 @@
                 "when": "view == myTreeView && viewItem =~ /^(merged|divergentSection)$/"
             },
             {
+                "command": "om.findDataVarUsages",
+                "when": "view == dataVarView && viewItem =~ /^(dataVar|dataVarValue)$/"
+            },
+            {
                 "command": "om.linkImageToSource",
                 "when": "view == imageSourceView && viewItem =~ /^(unlinkedImage|linkedImage|sourceFile)$/"
             },
@@ -217,6 +258,11 @@
             },
             {
                 "command": "om.insertFigure",
+                "when": "resourceLangId == html",
+                "group": "om"
+            },
+            {
+                "command": "om.insertFigureFromClipboard",
                 "when": "resourceLangId == html",
                 "group": "om"
             },
