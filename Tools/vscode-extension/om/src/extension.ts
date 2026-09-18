@@ -6,7 +6,9 @@ import { insertStyleClassCommand, goToStyleClassCommand } from './cssHelper';
 import { insertXrefCommand, insertXrefForSection } from './xrefHelper';
 import { insertFigureCommand, insertFigureFromClipboardCommand } from './figureHelper';
 import { insertBoxCommand } from './boxHelper';
-import { insertDataVarCommand } from './dataVarHelper';
+import { insertDataVarCommand, goToDataVarCommand } from './dataVarHelper';
+import { DataVarTreeDataProvider } from './dataVarTree';
+import type { ModelId } from './modelIndex';
 import { openImageInExternalEditorCommand } from './imageHelper';
 import { registerPreviewCommands } from './previewPanel';
 import { registerChangeReportCommands } from './changeReportCommands';
@@ -74,6 +76,9 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(imageSourceRegistry.startWatching());
 	const imageSourceTreeDataProvider = new ImageSourceTreeDataProvider(workspaceRoot, imageSourceRegistry);
 	context.subscriptions.push(vscode.window.registerTreeDataProvider('imageSourceView', imageSourceTreeDataProvider));
+
+	const dataVarTreeDataProvider = new DataVarTreeDataProvider(indexService);
+	context.subscriptions.push(vscode.window.registerTreeDataProvider('dataVarView', dataVarTreeDataProvider));
 
 	void indexService.refresh();
 
@@ -151,6 +156,12 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('om.insertDataVar', async () => {
 			await insertDataVarCommand(workspaceRoot, indexService);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.goToDataVar', async (model: ModelId, varName: string) => {
+			await goToDataVarCommand(workspaceRoot, model, varName);
 		})
 	);
 

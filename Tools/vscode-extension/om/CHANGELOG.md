@@ -4,6 +4,10 @@ All notable changes to the "om" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.5]
+
+- Added a "Data Vars" view (activity bar → "My Custom Explorer", between the section tree and Image Sources): lists every docVar from `code/data_vars.mjs` (DOCNUM, SHORTDATE, ...) with a per-model child (`402: 03-0105`, ...). Clicking a model's value opens that model's `docDefs/DocDef_<model>.mjs` at the `docVars.vars.X = "..."` line with the value selected, ready to retype; a var not yet set for a model shows a warning icon and jumps to the `new DocVars()` line instead. Refreshes automatically when a docDef is saved.
+
 ## [0.3.4]
 
 - Added `OM: Insert Figure from Clipboard...` (command palette + editor context menu on `.html`): saves the image currently on the clipboard (e.g. a Win+Shift+S capture) into `img/` as a PNG under a name you enter, and inserts the same `<figure>` markup as `OM: Insert Figure...` in one step. Rejects names that already exist in `img/` or are already used as a figure in the model; all prompts run before anything is written, so cancelling leaves `img/` untouched. Windows only (reads the clipboard via PowerShell, since VS Code's clipboard API is text-only).

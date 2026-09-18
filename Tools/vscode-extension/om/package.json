@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -26,6 +26,11 @@
             {
                 "id": "myTreeView",
                 "name": "My Tree View",
+                "icon": "resources/my-icon.svg"
+            },
+            {
+                "id": "dataVarView",
+                "name": "Data Vars",
                 "icon": "resources/my-icon.svg"
             },
             {
@@ -105,6 +110,10 @@
             "title": "OM: Insert Data Var..."
         },
         {
+            "command": "om.goToDataVar",
+            "title": "OM: Go to Data Var"
+        },
+        {
             "command": "om.openImageInExternalEditor",
             "title": "OM: Reveal Image in File Explorer (for Open With...)"
         },
@@ -150,6 +159,12 @@
         }
     ],
     "menus": {
+        "commandPalette": [
+            {
+                "command": "om.goToDataVar",
+                "when": "false"
+            }
+        ],
         "view/title": [
             {
                 "command": "om.refresh",

@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
 import { DocDefIndexService, ModelId, toContentFileUrl } from './modelIndex';
 
 interface DataVarPickItem extends vscode.QuickPickItem {
@@ -72,4 +74,53 @@ export async function insertDataVarCommand(workspaceRoot: string, indexService: 
 	snippet.appendPlaceholder(picked.varName);
 	snippet.appendText(`</${tagName}>`);
 	await editor.insertSnippet(snippet);
+}
+
+function escapeRegExp(text: string): string {
+	return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Jumps to where a data var's value is assigned in a model's `docDefs/DocDef_<model>.mjs`
+ * (`docVars.vars.NAME = "value";`) and selects the value literal so it can be retyped directly. Like
+ * revealInDocDef (mergedTree.ts), this is a textual scan — the imported `docVars` object carries no
+ * source-location info. A var that exists in the DocVars class but was never assigned for this model
+ * has no line to find, so it falls back to the `new DocVars()` declaration where the assignment belongs.
+ */
+export async function goToDataVarCommand(workspaceRoot: string, model: ModelId, varName: string): Promise<void> {
+	const filePath = path.join(workspaceRoot, 'docDefs', `DocDef_${model}.mjs`);
+	let lines: string[];
+	try {
+		lines = fs.readFileSync(filePath, 'utf-8').split(/\r?\n/);
+	} catch {
+		vscode.window.showWarningMessage(`OM: could not read docDefs/DocDef_${model}.mjs.`);
+		return;
+	}
+
+	const assignment = new RegExp(String.raw`^\s*docVars\.vars\.${escapeRegExp(varName)}\s*=\s*("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')`);
+	const declaration = /\bnew\s+DocVars\s*\(/;
+	let target: vscode.Range | undefined;
+	let declarationLine: number | undefined;
+	for (let i = 0; i < lines.length && !target; i++) {
+		const m = assignment.exec(lines[i]);
+		if (m) {
+			const start = m[0].length - m[1].length;
+			target = new vscode.Range(i, start, i, m[0].length);
+		} else if (declarationLine === undefined && declaration.test(lines[i])) {
+			declarationLine = i;
+		}
+	}
+	if (!target) {
+		if (declarationLine === undefined) {
+			vscode.window.showWarningMessage(`OM: could not find "${varName}" in docDefs/DocDef_${model}.mjs.`);
+			return;
+		}
+		target = new vscode.Range(declarationLine, 0, declarationLine, 0);
+		vscode.window.showInformationMessage(`OM: ${varName} is not set in DocDef_${model}.mjs — add "docVars.vars.${varName} = ..." below the "new DocVars()" line.`);
+	}
+
+	const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(filePath));
+	const editor = await vscode.window.showTextDocument(doc);
+	editor.selection = new vscode.Selection(target.start, target.end);
+	editor.revealRange(target, vscode.TextEditorRevealType.InCenter);
 }
