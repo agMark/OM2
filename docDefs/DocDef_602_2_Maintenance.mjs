@@ -8,7 +8,7 @@ let defSec_2_0_3 = new DocSection().i(true, "2.0.3", true, "Storage", true, "htm
 let defSec_2_0_4 = new DocSection().i(true, "2.0.4", true, "Lifting and Jacking", true, "html/Maintenance/602/Lifting and Jacking_602.html");
 let defSec_2_0_5 = new DocSection().i(true, "2.0.5", true, "Leveling", true, "html/Maintenance/602/Leveling_602.html");
 let defSec_2_0_6 = new DocSection().i(true, "2.0.6", true, "Weight and Balance", true, "html/Maintenance/602/Weight and Balance_602.html");
-let defSec_2_0_7 = new DocSection().i(true, "2.0.7", true, "Standard Torque and Bolt Installation", true, "html/Maintenance/602/TORQUE VALUES AND GUIDANCE FOR BOLT INSTALLATION_602.html");
+let defSec_2_0_7 = new DocSection().i(true, "2.0.7", true, "Standard Torque and Bolt Installation", true, "html/Maintenance/TORQUE VALUES AND GUIDANCE FOR BOLT INSTALLATION.html");
 let defSec_2_0_8 = new DocSection().i(true, "2.0.8", true, "Special Tools and Equipment", true, "html/Maintenance/602/Special Tools and Equipment_602.html");
 let defSec_2_0_9 = new DocSection().i(true, "2.0.9", true, "Unapproved Parts", true, "html/Maintenance/602/Unapproved Parts_602.html");
 let defSec_2_0_10 = new DocSection().i(true, "2.0.10", true, "Operational Best Practices", true, "html/Maintenance/602/Operational Best Practices_602.html");
@@ -346,6 +346,7 @@ let defSec_2_55_2 = new DocSection().i(true, "2.55.2", true, "Propeller Lever Ri
 let defSec_2_55_3 = new DocSection().i(true, "2.55.3", true, "Start Control Lever Rigging Procedures", true, "html/Maintenance/602/Start Control Lever Rigging Procedures_602.html");
 let defSec_2_55_4 = new DocSection().i(true, "2.55.4", true, "Kawak Throttle Quadrant ", true, "html/Maintenance/602/Kawak Throttle Quadrant_602.html");
 let defSec_2_55_5 = new DocSection().i(true, "2.55.5", true, "Air Tractor Quadrant Friction", true, "html/Maintenance/Air Tractor Quadrant Friction.html");
+let defSec_2_55_6 = new DocSection().i(true, "2.55.6", true, "Engine Control Cable Clamp", true, "html/Maintenance/Engine Control Cable Clamp.html");
 let def_Sec_2_55 = new DocSection();
 def_Sec_2_55
     .i(true, "2.55", true, "ENGINE CONTROLS", false, "")
@@ -354,7 +355,8 @@ def_Sec_2_55
         defSec_2_55_2,
         defSec_2_55_3,
         defSec_2_55_4,
-        defSec_2_55_5
+        defSec_2_55_5,
+        defSec_2_55_6
     ]);
 
 

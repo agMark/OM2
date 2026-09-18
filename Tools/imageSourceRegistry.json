@@ -110,6 +110,11 @@
       "sources": [
         "imgSrc/LandingGearBolts.dwg"
       ]
+    },
+    "img/img_engineControlCableClampTorqueing.png": {
+      "sources": [
+        "imgSrc/engineControlCableClampTorqueing.dwg"
+      ]
     }
   }
 }
