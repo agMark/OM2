@@ -4,6 +4,7 @@ import * as path from 'path';
 import { DocDefIndexService, toContentFileUrl } from './modelIndex';
 import { FigureIndexCache } from './figureIndex';
 import { parseElementStylingCss } from './cssHelper';
+import { readClipboardImageToTemp, disposeClipboardImage } from './clipboardImage';
 
 interface ImagePickItem extends vscode.QuickPickItem {
 	relPath?: string;
@@ -70,6 +71,21 @@ export async function insertFigureCommand(workspaceRoot: string, indexService: D
 		}
 	}
 
+	const options = await promptFigureOptions(workspaceRoot);
+	if (!options) {
+		return;
+	}
+	await editor.insertSnippet(buildFigureSnippet(basename, options));
+}
+
+interface FigureOptions {
+	className: string;
+	caption?: string;
+}
+
+/** Asks for the image size class and caption — the part of the flow shared by every way of inserting
+ *  a figure. Returns undefined if the user cancelled at the size-class step. */
+async function promptFigureOptions(workspaceRoot: string): Promise<FigureOptions | undefined> {
 	let imageClasses: { className: string; detail?: string }[] = [];
 	try {
 		const cssText = fs.readFileSync(path.join(workspaceRoot, 'css', 'elementStyling.css'), 'utf-8');
@@ -82,22 +98,100 @@ export async function insertFigureCommand(workspaceRoot: string, indexService: D
 		{ placeHolder: 'Pick an image size class' }
 	);
 	if (!pickedClass) {
-		return;
+		return undefined;
 	}
 
 	const caption = await vscode.window.showInputBox({ prompt: 'Figure caption text', placeHolder: 'e.g. Cockpit - Forward and Panel' });
+	return { className: pickedClass.label, caption };
+}
 
+function buildFigureSnippet(basename: string, options: FigureOptions): vscode.SnippetString {
 	const snippet = new vscode.SnippetString();
 	snippet.appendText('<figure>\n    <img class="');
-	snippet.appendText(pickedClass.label);
+	snippet.appendText(options.className);
 	snippet.appendText('" src="img/');
 	snippet.appendText(basename);
 	snippet.appendText('">\n    <figcaption class="centerText">');
-	if (caption) {
-		snippet.appendText(caption);
+	if (options.caption) {
+		snippet.appendText(options.caption);
 	} else {
 		snippet.appendPlaceholder('Caption');
 	}
 	snippet.appendText('</figcaption>\n</figure>');
-	await editor.insertSnippet(snippet);
+	return snippet;
+}
+
+const INVALID_FILENAME_CHARS = /[\\/:*?"<>|]/;
+
+/**
+ * Like insertFigureCommand, but the image comes from the system clipboard instead of an existing file
+ * in img/: the clipboard image is saved into img/ as a PNG under a name you choose, and the figure
+ * markup pointing at it is inserted at the cursor in one step. All prompts happen before anything is
+ * written, so cancelling at any point leaves img/ untouched.
+ */
+export async function insertFigureFromClipboardCommand(workspaceRoot: string, indexService: DocDefIndexService, figureIndexCache: FigureIndexCache): Promise<void> {
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) {
+		vscode.window.showWarningMessage('Open an HTML fragment and place your cursor where the figure should go.');
+		return;
+	}
+
+	// Read the clipboard first so "nothing to paste" fails fast, before any prompts.
+	const clip = await readClipboardImageToTemp();
+	if (clip.error) {
+		vscode.window.showErrorMessage(`OM: could not read the clipboard image: ${clip.error}`);
+		return;
+	}
+	if (!clip.tempFile) {
+		vscode.window.showWarningMessage('OM: the clipboard does not contain an image. Copy or capture one first (e.g. Win+Shift+S), then run this again.');
+		return;
+	}
+	const tempFile = clip.tempFile;
+
+	try {
+		const imgDir = path.join(workspaceRoot, 'img');
+		const currentUrl = toContentFileUrl(workspaceRoot, editor.document.uri.fsPath);
+		const usedElsewhere = findExistingUsage(workspaceRoot, indexService, figureIndexCache, currentUrl);
+		// Windows filenames are case-insensitive, so compare lowercased to catch "Fig.png" vs "fig.png".
+		const existingLower = new Set(fs.existsSync(imgDir) ? fs.readdirSync(imgDir).map((f) => f.toLowerCase()) : []);
+
+		const enteredName = await vscode.window.showInputBox({
+			prompt: 'File name for the pasted image (saved in img/ as PNG; ".png" is added for you)',
+			placeHolder: 'e.g. img_502_AileronBellcrank',
+			validateInput: (value) => {
+				const name = value.trim().replace(/\.png$/i, '');
+				if (!name) {
+					return 'Enter a file name.';
+				}
+				if (INVALID_FILENAME_CHARS.test(name) || name.startsWith('.') || name.endsWith('.')) {
+					return 'File name cannot contain \\ / : * ? " < > | or start/end with a dot.';
+				}
+				const candidate = `${name}.png`;
+				if (existingLower.has(candidate.toLowerCase())) {
+					return `img/${candidate} already exists — pick a different name.`;
+				}
+				const usedNote = usedElsewhere.get(candidate);
+				if (usedNote) {
+					return `"${candidate}" is already used as ${usedNote} — figure filenames must be unique within a model.`;
+				}
+				return undefined;
+			}
+		});
+		if (!enteredName) {
+			return;
+		}
+		const basename = `${enteredName.trim().replace(/\.png$/i, '')}.png`;
+
+		const options = await promptFigureOptions(workspaceRoot);
+		if (!options) {
+			return;
+		}
+
+		fs.mkdirSync(imgDir, { recursive: true });
+		fs.copyFileSync(tempFile, path.join(imgDir, basename), fs.constants.COPYFILE_EXCL);
+		await editor.insertSnippet(buildFigureSnippet(basename, options));
+		vscode.window.setStatusBarMessage(`OM: saved img/${basename} and inserted figure`, 3000);
+	} finally {
+		disposeClipboardImage(tempFile);
+	}
 }

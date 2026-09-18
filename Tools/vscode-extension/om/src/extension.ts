@@ -4,7 +4,7 @@ import { DocDefIndexService } from './modelIndex';
 import { MergedTreeDataProvider, CustomTreeItem, compareModelFiles, revealInDocDef } from './mergedTree';
 import { insertStyleClassCommand, goToStyleClassCommand } from './cssHelper';
 import { insertXrefCommand, insertXrefForSection } from './xrefHelper';
-import { insertFigureCommand } from './figureHelper';
+import { insertFigureCommand, insertFigureFromClipboardCommand } from './figureHelper';
 import { insertBoxCommand } from './boxHelper';
 import { insertDataVarCommand } from './dataVarHelper';
 import { openImageInExternalEditorCommand } from './imageHelper';
@@ -133,6 +133,12 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('om.insertFigure', async () => {
 			await insertFigureCommand(workspaceRoot, indexService, figureIndexCache);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.insertFigureFromClipboard', async () => {
+			await insertFigureFromClipboardCommand(workspaceRoot, indexService, figureIndexCache);
 		})
 	);
 

@@ -2,7 +2,7 @@
   "name": "om",
   "displayName": "OM",
   "description": "Navigation, cross-model comparison, and authoring helpers for the Air Tractor Owner's Manual repo",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "engines": {
     "vscode": "^1.105.0"
   },
@@ -91,6 +91,10 @@
         {
             "command": "om.insertFigure",
             "title": "OM: Insert Figure..."
+        },
+        {
+            "command": "om.insertFigureFromClipboard",
+            "title": "OM: Insert Figure from Clipboard..."
         },
         {
             "command": "om.insertBox",
@@ -227,6 +231,11 @@
             },
             {
                 "command": "om.insertFigure",
+                "when": "resourceLangId == html",
+                "group": "om"
+            },
+            {
+                "command": "om.insertFigureFromClipboard",
                 "when": "resourceLangId == html",
                 "group": "om"
             },

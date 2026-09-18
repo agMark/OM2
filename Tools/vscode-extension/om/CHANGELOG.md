@@ -4,6 +4,10 @@ All notable changes to the "om" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.4]
+
+- Added `OM: Insert Figure from Clipboard...` (command palette + editor context menu on `.html`): saves the image currently on the clipboard (e.g. a Win+Shift+S capture) into `img/` as a PNG under a name you enter, and inserts the same `<figure>` markup as `OM: Insert Figure...` in one step. Rejects names that already exist in `img/` or are already used as a figure in the model; all prompts run before anything is written, so cancelling leaves `img/` untouched. Windows only (reads the clipboard via PowerShell, since VS Code's clipboard API is text-only).
+
 ## [0.3.3]
 
 - Added `OM: Open Manual in Live Server...` (view/title button + command palette): pick a model (402/502/602/802) and a browser (only browsers actually detected on this machine, plus "Default Browser"), and it starts/reuses Live Server and opens the manual — replaces hunting for the right `indexNNN.html` in the Explorer and right-clicking "Open with Live Server".
