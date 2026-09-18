@@ -150,16 +150,23 @@ export class DocDefIndexService implements vscode.Disposable {
 		this._watcher = vscode.workspace.createFileSystemWatcher(
 			new vscode.RelativePattern(this.workspaceRoot, 'docDefs/**/*.mjs')
 		);
+		// The DocVars class declares which data vars exist, so adding one there must refresh too, even
+		// though the file lives outside docDefs/.
+		const dataVarsWatcher = vscode.workspace.createFileSystemWatcher(
+			new vscode.RelativePattern(this.workspaceRoot, 'code/data_vars.mjs')
+		);
 		const scheduleRefresh = () => {
 			if (this._debounceTimer) {
 				clearTimeout(this._debounceTimer);
 			}
 			this._debounceTimer = setTimeout(() => { void this.refresh(); }, 300);
 		};
-		this._watcher.onDidChange(scheduleRefresh);
-		this._watcher.onDidCreate(scheduleRefresh);
-		this._watcher.onDidDelete(scheduleRefresh);
-		return this._watcher;
+		for (const watcher of [this._watcher, dataVarsWatcher]) {
+			watcher.onDidChange(scheduleRefresh);
+			watcher.onDidCreate(scheduleRefresh);
+			watcher.onDidDelete(scheduleRefresh);
+		}
+		return vscode.Disposable.from(this._watcher, dataVarsWatcher);
 	}
 
 	/** All section numbers appearing in any model, numerically sorted. */

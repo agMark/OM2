@@ -124,3 +124,72 @@ export async function goToDataVarCommand(workspaceRoot: string, model: ModelId, 
 	editor.selection = new vscode.Selection(target.start, target.end);
 	editor.revealRange(target, vscode.TextEditorRevealType.InCenter);
 }
+
+interface UsagePickItem extends vscode.QuickPickItem {
+	uri: vscode.Uri;
+	range: vscode.Range;
+	relPath: string;
+}
+
+/**
+ * "Where used" for a data var: scans every `html/**\/*.html` fragment for `data-vars="X"` and lists each
+ * occurrence as file:line, annotated with the models whose docDefs actually reference that fragment
+ * (fragments are shared and reused, so "which manuals does this affect" is the real question). Pick one
+ * to jump to it. A fragment no docDef points at (e.g. PageDecoration/headers.html, which the page
+ * templates pull in directly) is labelled as such rather than implying it's unused.
+ */
+export async function findDataVarUsagesCommand(workspaceRoot: string, indexService: DocDefIndexService, varName: string): Promise<void> {
+	const uris = await vscode.workspace.findFiles(new vscode.RelativePattern(workspaceRoot, 'html/**/*.html'));
+	const usage = new RegExp(String.raw`data-vars\s*=\s*(["'])${escapeRegExp(varName)}\1`, 'g');
+
+	const items: UsagePickItem[] = [];
+	for (const uri of uris) {
+		let text: string;
+		try {
+			text = fs.readFileSync(uri.fsPath, 'utf-8');
+		} catch {
+			continue;
+		}
+		if (!text.includes(varName)) {
+			continue;
+		}
+		const relPath = toContentFileUrl(workspaceRoot, uri.fsPath);
+		const models = Array.from(new Set(indexService.findByContentFileUrl(relPath).map((e) => e.model))).sort();
+		const modelNote = models.length > 0 ? `used by ${models.join(', ')}` : 'not referenced by any docDef';
+		text.split(/\r?\n/).forEach((line, i) => {
+			usage.lastIndex = 0;
+			let match: RegExpExecArray | null;
+			while ((match = usage.exec(line)) !== null) {
+				items.push({
+					label: `${relPath}:${i + 1}`,
+					description: modelNote,
+					detail: line.trim(),
+					uri,
+					range: new vscode.Range(i, match.index, i, match.index + match[0].length),
+					relPath
+				});
+			}
+		});
+	}
+
+	if (items.length === 0) {
+		vscode.window.showInformationMessage(`OM: ${varName} is not used in any html/ fragment.`);
+		return;
+	}
+	items.sort((a, b) => a.relPath.localeCompare(b.relPath) || a.range.start.line - b.range.start.line);
+
+	const fileCount = new Set(items.map((item) => item.relPath)).size;
+	const picked = await vscode.window.showQuickPick(items, {
+		title: `${varName}: ${items.length} use${items.length === 1 ? '' : 's'} in ${fileCount} file${fileCount === 1 ? '' : 's'}`,
+		placeHolder: 'Pick a use to jump to it',
+		matchOnDescription: true,
+		matchOnDetail: true
+	});
+	if (!picked) {
+		return;
+	}
+	const doc = await vscode.workspace.openTextDocument(picked.uri);
+	const editor = await vscode.window.showTextDocument(doc);
+	editor.selection = new vscode.Selection(picked.range.start, picked.range.end);
+	editor.revealRange(picked.range, vscode.TextEditorRevealType.InCenter);
+}

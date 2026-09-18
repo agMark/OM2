@@ -4,6 +4,11 @@ All notable changes to the "om" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.6]
+
+- Added `OM: Find Where Data Var Is Used...`: right-click a variable (or one of its per-model values) in the "Data Vars" view. Scans `html/**/*.html` for `data-vars="X"` and lists every use as `file:line` with the models whose docDefs reference that fragment (or "not referenced by any docDef"); pick one to jump to it. Reports when a variable isn't used anywhere.
+- The index now also refreshes when `code/data_vars.mjs` is saved, so adding a variable to the `DocVars` class shows up in the "Data Vars" view (and the Insert Data Var picker) without a manual refresh.
+
 ## [0.3.5]
 
 - Added a "Data Vars" view (activity bar → "My Custom Explorer", between the section tree and Image Sources): lists every docVar from `code/data_vars.mjs` (DOCNUM, SHORTDATE, ...) with a per-model child (`402: 03-0105`, ...). Clicking a model's value opens that model's `docDefs/DocDef_<model>.mjs` at the `docVars.vars.X = "..."` line with the value selected, ready to retype; a var not yet set for a model shows a warning icon and jumps to the `new DocVars()` line instead. Refreshes automatically when a docDef is saved.

@@ -6,8 +6,8 @@ import { insertStyleClassCommand, goToStyleClassCommand } from './cssHelper';
 import { insertXrefCommand, insertXrefForSection } from './xrefHelper';
 import { insertFigureCommand, insertFigureFromClipboardCommand } from './figureHelper';
 import { insertBoxCommand } from './boxHelper';
-import { insertDataVarCommand, goToDataVarCommand } from './dataVarHelper';
-import { DataVarTreeDataProvider } from './dataVarTree';
+import { insertDataVarCommand, goToDataVarCommand, findDataVarUsagesCommand } from './dataVarHelper';
+import { DataVarTreeDataProvider, DataVarTreeItem } from './dataVarTree';
 import type { ModelId } from './modelIndex';
 import { openImageInExternalEditorCommand } from './imageHelper';
 import { registerPreviewCommands } from './previewPanel';
@@ -162,6 +162,15 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('om.goToDataVar', async (model: ModelId, varName: string) => {
 			await goToDataVarCommand(workspaceRoot, model, varName);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('om.findDataVarUsages', async (item?: DataVarTreeItem) => {
+			if (!item) {
+				return;
+			}
+			await findDataVarUsagesCommand(workspaceRoot, indexService, item.element.varName);
 		})
 	);
 
