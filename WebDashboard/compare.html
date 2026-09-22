@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- See viewer.html for why <base href="../"> is here and what it means for path prefixes below. -->
+    <base href="../">
+    <meta charset="utf-8">
+    <title>Compare Manuals | Air Tractor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="WebDashboard/css/dashboard.css" rel="stylesheet">
+    <link href="css/elementStyling.css" rel="stylesheet">
+</head>
+
+<body class="omdb-root">
+
+    <header class="omdb-header">
+        <div class="omdb-header-inner">
+            <a class="omdb-brand" href="WebDashboard/index.html">
+                <img src="img/AT-Logo1.png" alt="Air Tractor">
+                AIR TRACTOR
+            </a>
+            <nav class="omdb-nav">
+                <a href="WebDashboard/index.html">Document Library</a>
+                <a href="WebDashboard/compare.html" class="omdb-active">Compare Manuals</a>
+            </nav>
+            <div class="omdb-header-right" id="omdb-header-right"></div>
+        </div>
+    </header>
+
+    <main class="omdb-main">
+        <div class="omdb-section-title">Compare Manual Sections</div>
+
+        <div class="omdb-compare-controls">
+            <div class="omdb-field">
+                <label>Models</label>
+                <div id="omdb-model-checks" style="display:flex; gap:12px;"></div>
+            </div>
+            <div class="omdb-field" style="min-width:320px;">
+                <label for="omdb-section-select">Section</label>
+                <select class="omdb-select" id="omdb-section-select"></select>
+            </div>
+            <div class="omdb-field">
+                <label>&nbsp;</label>
+                <button class="omdb-btn" id="omdb-compare-render" type="button">Compare</button>
+            </div>
+            <div class="omdb-field" style="margin-left:auto;">
+                <label>&nbsp;</label>
+                <label class="omdb-checkbox-field">
+                    <input type="checkbox" id="omdb-diff-toggle">
+                    Highlight differences (experimental, text-only)
+                </label>
+            </div>
+        </div>
+
+        <div id="omdb-compare-panes" class="omdb-compare-panes">
+            <div class="omdb-compare-empty" style="grid-column:1/-1;">Pick two or more models and a section above,
+                then click Compare.</div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { requireAuth, isDevBypass } from "./WebDashboard/js/auth.js";
+        import { MODELS, buildSectionIndex, findSection } from "./WebDashboard/manualIndex.mjs";
+        import { installFragmentNav } from "./WebDashboard/js/toc-nav.js";
+        import { diffText } from "./WebDashboard/js/compareDiff.js";
+
+        requireAuth("img/AT-Logo1.png");
+        installFragmentNav();
+
+        const headerRight = document.getElementById("omdb-header-right");
+        if (isDevBypass()) {
+            const pill = document.createElement("span");
+            pill.className = "omdb-pill omdb-pill-dev";
+            pill.textContent = "DEV BYPASS";
+            headerRight.appendChild(pill);
+        }
+
+        const params = new URLSearchParams(location.search);
+        const defaultA = params.get("modelA") || "402";
+        const defaultB = params.get("modelB") || (defaultA === "802" ? "402" : "802");
+
+        // ---- Model checkboxes ----
+        const checksWrap = document.getElementById("omdb-model-checks");
+        MODELS.forEach((m) => {
+            const label = document.createElement("label");
+            label.className = "omdb-checkbox-field";
+            const checked = m.id === defaultA || m.id === defaultB;
+            label.innerHTML = `<input type="checkbox" value="${m.id}" ${checked ? "checked" : ""}> ${m.label}`;
+            checksWrap.appendChild(label);
+        });
+
+        function selectedModels() {
+            return [...checksWrap.querySelectorAll("input:checked")].map((i) => i.value);
+        }
+
+        // ---- Section picker: unique (number, title) pairs across all models, in doc order ----
+        const sectionSelect = document.getElementById("omdb-section-select");
+        const seen = new Set();
+        buildSectionIndex().forEach((row) => {
+            const key = row.number;
+            if (seen.has(key)) return;
+            seen.add(key);
+            const opt = document.createElement("option");
+            opt.value = row.number;
+            opt.textContent = "  ".repeat(row.depth) + row.number + " — " + row.title;
+            sectionSelect.appendChild(opt);
+        });
+        const presetSection = params.get("section");
+        if (presetSection && seen.has(presetSection)) sectionSelect.value = presetSection;
+
+        // ---- Render ----
+        const panesWrap = document.getElementById("omdb-compare-panes");
+        const diffToggle = document.getElementById("omdb-diff-toggle");
+        let lastRender = []; // [{modelId, label, richHtml, plainText, el}]
+
+        // manualIndex.mjs's DocSection objects are page-lifetime singletons (imported
+        // once, reused on every findSection() call). GetContent() appends fetched html
+        // to an internal array rather than replacing it, so re-fetching the same
+        // section a second time (e.g. flipping back to a previously compared section)
+        // would duplicate its content. Track what's already been fetched and skip re-fetching.
+        const loadedSections = new WeakSet();
+        function markLoaded(section) {
+            loadedSections.add(section);
+            section.Sections.forEach(markLoaded);
+        }
+        async function ensureContent(section) {
+            if (loadedSections.has(section)) return;
+            await section.GetContent();
+            markLoaded(section);
+        }
+
+        async function renderCompare() {
+            const models = selectedModels();
+            const sectionNumber = sectionSelect.value;
+            if (models.length < 2) {
+                panesWrap.innerHTML = `<div class="omdb-compare-empty" style="grid-column:1/-1;">Select at least two models.</div>`;
+                return;
+            }
+            panesWrap.style.gridTemplateColumns = `repeat(${models.length}, 1fr)`;
+            panesWrap.innerHTML = "";
+            lastRender = [];
+
+            for (const modelId of models) {
+                const model = MODELS.find((m) => m.id === modelId);
+                const pane = document.createElement("div");
+                pane.className = "omdb-compare-pane";
+                pane.innerHTML = `
+                    <div class="omdb-compare-pane-header">${model.label}</div>
+                    <div class="omdb-compare-pane-body">
+                        <div class="omdb-rich-view"></div>
+                        <div class="omdb-diff-view" style="display:none; white-space:pre-wrap; font-family:monospace; font-size:0.85rem;"></div>
+                    </div>
+                `;
+                panesWrap.appendChild(pane);
+                const richView = pane.querySelector(".omdb-rich-view");
+                const diffView = pane.querySelector(".omdb-diff-view");
+
+                const section = findSection(modelId, sectionNumber);
+                if (!section) {
+                    richView.innerHTML = `<p class="omdb-note">This section does not exist in ${model.label}.</p>`;
+                    lastRender.push({ modelId, label: model.label, plainText: "", diffView, richView });
+                    continue;
+                }
+
+                await ensureContent(section);
+                section.RenderContent(true, richView);
+
+                lastRender.push({
+                    modelId,
+                    label: model.label,
+                    plainText: richView.textContent.replace(/\s+/g, " ").trim(),
+                    diffView,
+                    richView,
+                });
+            }
+
+            applyDiffState();
+        }
+
+        function applyDiffState() {
+            const on = diffToggle.checked;
+            if (!on) {
+                lastRender.forEach((p) => {
+                    p.richView.style.display = "";
+                    p.diffView.style.display = "none";
+                });
+                return;
+            }
+            if (lastRender.length !== 2) {
+                lastRender.forEach((p) => {
+                    p.diffView.style.display = "block";
+                    p.diffView.innerHTML = `<span class="omdb-note">Diff highlighting only supports exactly two models at a time.</span>`;
+                    p.richView.style.display = "none";
+                });
+                return;
+            }
+            const [a, b] = lastRender;
+            const { htmlA, htmlB } = diffText(a.plainText, b.plainText);
+            a.richView.style.display = "none";
+            b.richView.style.display = "none";
+            a.diffView.style.display = "block";
+            b.diffView.style.display = "block";
+            a.diffView.innerHTML = htmlA;
+            b.diffView.innerHTML = htmlB;
+        }
+
+        document.getElementById("omdb-compare-render").addEventListener("click", renderCompare);
+        diffToggle.addEventListener("change", applyDiffState);
+        checksWrap.addEventListener("change", () => {
+            const models = selectedModels();
+            document.getElementById("omdb-compare-render").disabled = models.length < 2;
+        });
+
+        // Auto-render once on load with the defaults.
+        renderCompare();
+    </script>
+</body>
+
+</html>

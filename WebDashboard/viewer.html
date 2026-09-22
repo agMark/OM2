@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!--
+      This page lives in WebDashboard/ (one folder below the project root) but
+      reuses the root-level RenderDoc.mjs / docDefs / css / html pipeline
+      unmodified. <base href="../"> makes all of that pipeline's existing
+      relative fetch()/href paths (e.g. "css/elementStyling.css",
+      "html/Inspection/GENERAL.html") resolve against the project root exactly
+      as they do for web802.html today. Because of that, references to this
+      page's OWN assets below are written as "WebDashboard/..." -- see
+      WebDashboard/README.md for the full explanation.
+    -->
+    <base href="../">
+    <meta charset="utf-8">
+    <title data-vars="DOCNUM">Owner's Manual</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="WebDashboard/css/dashboard.css" rel="stylesheet">
+    <link href="css/elementStyling.css" rel="stylesheet">
+</head>
+
+<body class="omdb-root omdb-fixed-shell">
+
+    <header class="omdb-header">
+        <div class="omdb-header-inner">
+            <a class="omdb-brand" href="WebDashboard/index.html">
+                <img src="img/AT-Logo1.png" alt="Air Tractor">
+                AIR TRACTOR
+            </a>
+            <nav class="omdb-nav">
+                <a href="WebDashboard/index.html">Document Library</a>
+                <a href="WebDashboard/compare.html">Compare Manuals</a>
+            </nav>
+            <div class="omdb-header-right" id="omdb-header-right"></div>
+        </div>
+    </header>
+
+    <div class="omdb-viewer-topbar">
+        <div class="omdb-breadcrumb"><a href="WebDashboard/index.html">Document Library</a> / <span
+                id="omdb-model-label">...</span></div>
+
+        <select class="omdb-select" id="omdb-model-switch"></select>
+
+        <div class="omdb-search" style="max-width:280px; display:flex; gap:6px; align-items:center;">
+            <input class="omdb-input" id="omdb-doc-search" placeholder="Search within this manual..."
+                style="width:100%;">
+        </div>
+        <span id="omdb-doc-search-count" style="font-size:0.8rem; color:var(--omdb-gray-600); white-space:nowrap;"></span>
+        <button class="omdb-btn omdb-btn-secondary" id="omdb-doc-search-prev" type="button" style="padding:6px 10px;">&uarr;</button>
+        <button class="omdb-btn omdb-btn-secondary" id="omdb-doc-search-next" type="button" style="padding:6px 10px;">&darr;</button>
+
+        <div style="flex:1;"></div>
+        <a class="omdb-btn omdb-btn-secondary" id="omdb-compare-link" href="WebDashboard/compare.html">Compare this
+            manual</a>
+    </div>
+
+    <div class="omdb-viewer-body">
+        <aside class="omdb-toc" id="omdb-toc">
+            <div class="omdb-toc-resizer" id="omdb-toc-resizer"></div>
+            <h4>Contents</h4>
+            <button class="omdb-btn" id="omdb-reset-view-btn" style="width:100%; margin-bottom:0.75rem; display:none;"
+                type="button">Show Full Manual</button>
+            <ul id="webToc"></ul>
+        </aside>
+
+        <section class="omdb-content-shell">
+            <div class="omdb-content-paper" id="contentTarget"></div>
+        </section>
+    </div>
+
+    <script type="module">
+        import { requireAuth, isDevBypass } from "./WebDashboard/js/auth.js";
+        import { MODELS } from "./WebDashboard/manualIndex.mjs";
+        import { installFragmentNav } from "./WebDashboard/js/toc-nav.js";
+        import { resetManualView } from "./WebDashboard/js/IsolationManager.mjs";
+        import { buildToc, revealInToc } from "./WebDashboard/js/tocBuilder.mjs";
+        import { markSections } from "./WebDashboard/js/sectionMarkers.mjs";
+        import { renderDoc } from "./RenderDoc.mjs";
+
+        requireAuth("img/AT-Logo1.png");
+
+        const headerRight = document.getElementById("omdb-header-right");
+        if (isDevBypass()) {
+            const pill = document.createElement("span");
+            pill.className = "omdb-pill omdb-pill-dev";
+            pill.textContent = "DEV BYPASS";
+            headerRight.appendChild(pill);
+        }
+
+        document.getElementById("omdb-reset-view-btn").addEventListener("click", () => resetManualView());
+
+        installFragmentNav();
+
+        // ---- Resolve which model to render ----
+        const params = new URLSearchParams(location.search);
+        const modelId = params.get("model") || "802";
+        const model = MODELS.find((m) => m.id === modelId) || MODELS[MODELS.length - 1];
+
+        document.getElementById("omdb-model-label").textContent = model.label;
+        document.title = model.label + " Owner's Manual";
+
+        const modelSwitch = document.getElementById("omdb-model-switch");
+        MODELS.forEach((m) => {
+            const opt = document.createElement("option");
+            opt.value = m.id;
+            opt.textContent = m.label;
+            if (m.id === model.id) opt.selected = true;
+            modelSwitch.appendChild(opt);
+        });
+        modelSwitch.addEventListener("change", () => {
+            location.href = `WebDashboard/viewer.html?model=${modelSwitch.value}`;
+        });
+        document.getElementById("omdb-compare-link").href = `WebDashboard/compare.html?modelA=${model.id}`;
+
+        // ---- Sidebar resize (same behavior as web802.html's drag handle) ----
+        const toc = document.getElementById("omdb-toc");
+        const resizer = document.getElementById("omdb-toc-resizer");
+        let resizing = false;
+        resizer.addEventListener("mousedown", () => { resizing = true; document.body.style.userSelect = "none"; });
+        window.addEventListener("mousemove", (e) => {
+            if (!resizing) return;
+            let w = e.clientX;
+            if (w < 220) w = 220;
+            if (w > 520) w = 520;
+            toc.style.width = w + "px";
+        });
+        window.addEventListener("mouseup", () => { resizing = false; document.body.style.userSelect = ""; });
+
+        // ---- TOC: built synchronously from the docDef tree (no need to wait for
+        // content to load) via our own builder -- see tocBuilder.mjs for why this
+        // dashboard doesn't use DocSection.CreateWebToc directly. ----
+        const contentTarget = document.getElementById("contentTarget");
+        const tocDiv = document.getElementById("webToc");
+        buildToc(model.docDef, tocDiv);
+
+        // ---- Render the manual content (reuses the existing pipeline unmodified).
+        // Pass null for the toc target so RenderDoc.mjs doesn't also try to build
+        // one via CreateWebToc on top of ours. ----
+        renderDoc(true, `./docDefs/DocDef_${model.id}.mjs`, contentTarget, null);
+
+        // Content loads asynchronously inside RenderDoc.mjs with no completion
+        // callback exposed -- watch for it to actually populate instead of
+        // modifying that shared file.
+        const readyObserver = new MutationObserver(() => {
+            if (contentTarget.children.length > 0) {
+                readyObserver.disconnect();
+                onContentReady();
+            }
+        });
+        readyObserver.observe(contentTarget, { childList: true });
+
+        function onContentReady() {
+            markSections(model.docDef, contentTarget);
+
+            const goto = params.get("goto");
+            if (goto) {
+                const el = document.getElementById(goto);
+                if (el) {
+                    revealInToc(tocDiv, goto);
+                    setTimeout(() => {
+                        el.scrollIntoView({ behavior: "smooth", block: "start" });
+                        el.style.transition = "background 0.3s";
+                        el.style.background = "#fff3c4";
+                        setTimeout(() => { el.style.background = ""; }, 1600);
+                    }, 50);
+                }
+            }
+            setupDocSearch();
+        }
+
+        // ---- Search within this manual ----
+        function setupDocSearch() {
+            const input = document.getElementById("omdb-doc-search");
+            const countLabel = document.getElementById("omdb-doc-search-count");
+            const btnPrev = document.getElementById("omdb-doc-search-prev");
+            const btnNext = document.getElementById("omdb-doc-search-next");
+            let hits = [];
+            let current = -1;
+            let debounceTimer = null;
+
+            function clearHits() {
+                contentTarget.querySelectorAll("mark.omdb-hit").forEach((m) => {
+                    const parent = m.parentNode;
+                    parent.replaceChild(document.createTextNode(m.textContent), m);
+                    parent.normalize();
+                });
+                hits = [];
+                current = -1;
+                countLabel.textContent = "";
+            }
+
+            function highlight(query) {
+                clearHits();
+                if (!query.trim()) return;
+                const q = query.toLowerCase();
+                const walker = document.createTreeWalker(contentTarget, NodeFilter.SHOW_TEXT, {
+                    acceptNode: (node) =>
+                        node.nodeValue.toLowerCase().includes(q) && node.parentElement.offsetParent !== null
+                            ? NodeFilter.FILTER_ACCEPT
+                            : NodeFilter.FILTER_REJECT,
+                });
+                const textNodes = [];
+                let n;
+                while ((n = walker.nextNode())) textNodes.push(n);
+
+                textNodes.forEach((node) => {
+                    const text = node.nodeValue;
+                    const lower = text.toLowerCase();
+                    const frag = document.createDocumentFragment();
+                    let last = 0;
+                    let idx = lower.indexOf(q);
+                    while (idx !== -1) {
+                        frag.appendChild(document.createTextNode(text.slice(last, idx)));
+                        const mark = document.createElement("mark");
+                        mark.className = "omdb-hit";
+                        mark.style.background = "#ffe58a";
+                        mark.textContent = text.slice(idx, idx + q.length);
+                        frag.appendChild(mark);
+                        hits.push(mark);
+                        last = idx + q.length;
+                        idx = lower.indexOf(q, last);
+                    }
+                    frag.appendChild(document.createTextNode(text.slice(last)));
+                    node.parentNode.replaceChild(frag, node);
+                });
+
+                if (hits.length) {
+                    current = 0;
+                    goToHit();
+                }
+                countLabel.textContent = hits.length ? `${current + 1}/${hits.length}` : "No matches";
+            }
+
+            function goToHit() {
+                hits.forEach((h) => (h.style.outline = ""));
+                if (current < 0 || current >= hits.length) return;
+                const hit = hits[current];
+                hit.style.outline = "2px solid var(--omdb-navy)";
+                hit.scrollIntoView({ behavior: "smooth", block: "center" });
+                countLabel.textContent = `${current + 1}/${hits.length}`;
+            }
+
+            input.addEventListener("input", () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => highlight(input.value), 200);
+            });
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    if (!hits.length) return;
+                    current = (current + 1) % hits.length;
+                    goToHit();
+                }
+            });
+            btnNext.addEventListener("click", () => {
+                if (!hits.length) return;
+                current = (current + 1) % hits.length;
+                goToHit();
+            });
+            btnPrev.addEventListener("click", () => {
+                if (!hits.length) return;
+                current = (current - 1 + hits.length) % hits.length;
+                goToHit();
+            });
+        }
+    </script>
+</body>
+
+</html>

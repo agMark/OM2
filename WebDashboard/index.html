@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Document Library | Air Tractor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/dashboard.css" rel="stylesheet">
+</head>
+
+<body class="omdb-root">
+
+    <header class="omdb-header">
+        <div class="omdb-header-inner">
+            <a class="omdb-brand" href="index.html">
+                <img src="../img/AT-Logo1.png" alt="Air Tractor">
+                AIR TRACTOR
+            </a>
+            <nav class="omdb-nav">
+                <a href="index.html" class="omdb-active">Document Library</a>
+                <a href="compare.html">Compare Manuals</a>
+            </nav>
+            <div class="omdb-header-right" id="omdb-header-right"></div>
+        </div>
+    </header>
+
+    <main class="omdb-main">
+
+        <section class="omdb-hero">
+            <div>
+                <h1 id="omdb-hero-title">Owner's Manual &amp; Service Letter Library</h1>
+                <p id="omdb-hero-sub">Enter your aircraft's serial number to jump straight to its manual, or browse
+                    every model below.</p>
+                <div style="margin-top:1rem; display:flex; gap:8px; flex-wrap:wrap;">
+                    <input class="omdb-input" id="omdb-sn-input" placeholder="Serial number, e.g. 802-1234"
+                        style="min-width:220px;">
+                    <button class="omdb-btn" id="omdb-sn-go">Find my aircraft</button>
+                </div>
+            </div>
+            <div class="omdb-search">
+                <input class="omdb-input" id="omdb-search-input" placeholder="Search any manual by section title or number...">
+                <div class="omdb-search-results" id="omdb-search-results"></div>
+            </div>
+        </section>
+
+        <div class="omdb-section-title" id="omdb-your-aircraft-title" style="display:none;">Your Aircraft</div>
+        <div class="omdb-grid" id="omdb-your-aircraft" style="display:none; margin-bottom:1rem;"></div>
+
+        <div class="omdb-section-title">All Owner's Manuals</div>
+        <div class="omdb-grid" id="omdb-model-grid"></div>
+
+        <div class="omdb-section-title">
+            Compare Manuals
+        </div>
+        <a class="omdb-card" href="compare.html" style="max-width:480px;">
+            <span class="omdb-card-eyebrow">For maintenance shops</span>
+            <h3>Compare sections across models</h3>
+            <p>View the same manual section side by side for two or more models -- useful when you service
+                more than one Air Tractor model and want to see what differs.</p>
+            <span class="omdb-card-footer">Open compare tool &rarr;</span>
+        </a>
+
+        <div class="omdb-section-title">Recent Changes</div>
+        <div class="omdb-panel">
+            <div id="omdb-changelog"></div>
+            <p class="omdb-note">Sample data for this prototype -- not a real revision feed yet. A future pass
+                should generate this from actual docDef/html revisions.</p>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import { requireAuth, isDevBypass } from "./js/auth.js";
+        import { resolveSerial } from "./js/serials.js";
+        import { MODELS, searchSections } from "./manualIndex.mjs";
+
+        if (!requireAuth("../img/AT-Logo1.png")) {
+            // gate is blocking; still wire up the dev pill state below in case of bypass
+        }
+
+        const headerRight = document.getElementById("omdb-header-right");
+        if (isDevBypass()) {
+            const pill = document.createElement("span");
+            pill.className = "omdb-pill omdb-pill-dev";
+            pill.textContent = "DEV BYPASS";
+            headerRight.appendChild(pill);
+        }
+
+        // ---- Model grid ----
+        const grid = document.getElementById("omdb-model-grid");
+        MODELS.forEach((m) => {
+            const a = document.createElement("a");
+            a.className = "omdb-card";
+            a.href = `viewer.html?model=${m.id}`;
+            a.innerHTML = `
+                <span class="omdb-card-eyebrow">Owner's Manual</span>
+                <h3>${m.label}</h3>
+                <p>Full owner's manual: description, maintenance, inspections, lubrication, repairs,
+                and airworthiness limitations.</p>
+                <span class="omdb-card-footer">View manual &rarr;</span>
+            `;
+            grid.appendChild(a);
+        });
+
+        // ---- Serial number lookup ----
+        const params = new URLSearchParams(location.search);
+        const snFromUrl = params.get("sn");
+
+        function showAircraft(sn) {
+            const resolved = resolveSerial(sn);
+            const title = document.getElementById("omdb-your-aircraft-title");
+            const wrap = document.getElementById("omdb-your-aircraft");
+            wrap.innerHTML = "";
+            if (!resolved) {
+                document.getElementById("omdb-hero-sub").textContent =
+                    `Couldn't match serial "${sn}" to a model (stub lookup -- see WebDashboard/js/serials.js).`;
+                title.style.display = "none";
+                wrap.style.display = "none";
+                return;
+            }
+            title.style.display = "";
+            wrap.style.display = "";
+            document.getElementById("omdb-hero-sub").textContent =
+                `Showing results for serial ${resolved.serial} (${resolved.label}).`;
+            const a = document.createElement("a");
+            a.className = "omdb-card";
+            a.href = `viewer.html?model=${resolved.model}&sn=${encodeURIComponent(resolved.serial)}`;
+            a.innerHTML = `
+                <span class="omdb-badge omdb-badge-new">This aircraft</span>
+                <h3>${resolved.label}</h3>
+                <p>Serial ${resolved.serial}</p>
+                <span class="omdb-card-footer">View your manual &rarr;</span>
+            `;
+            wrap.appendChild(a);
+        }
+
+        if (snFromUrl) {
+            document.getElementById("omdb-sn-input").value = snFromUrl;
+            showAircraft(snFromUrl);
+        }
+
+        document.getElementById("omdb-sn-go").addEventListener("click", () => {
+            const sn = document.getElementById("omdb-sn-input").value.trim();
+            if (!sn) return;
+            const url = new URL(location.href);
+            url.searchParams.set("sn", sn);
+            history.replaceState(null, "", url);
+            showAircraft(sn);
+        });
+        document.getElementById("omdb-sn-input").addEventListener("keydown", (e) => {
+            if (e.key === "Enter") document.getElementById("omdb-sn-go").click();
+        });
+
+        // ---- Search ----
+        const searchInput = document.getElementById("omdb-search-input");
+        const resultsBox = document.getElementById("omdb-search-results");
+
+        function renderResults(rows, query) {
+            if (!rows.length) {
+                resultsBox.innerHTML = `<div class="omdb-search-empty">No section titles match "${query}".</div>`;
+                resultsBox.classList.add("omdb-open");
+                return;
+            }
+            resultsBox.innerHTML = rows
+                .map((r) => {
+                    const model = MODELS.find((m) => m.id === r.modelId);
+                    return `<a class="omdb-search-result" href="viewer.html?model=${r.modelId}&goto=${encodeURIComponent(r.elementId)}">
+                        <span class="omdb-search-result-model">${model ? model.label : r.modelId}</span>
+                        ${r.number} &mdash; ${r.title}
+                    </a>`;
+                })
+                .join("");
+            resultsBox.classList.add("omdb-open");
+        }
+
+        searchInput.addEventListener("input", () => {
+            const q = searchInput.value;
+            if (!q.trim()) {
+                resultsBox.classList.remove("omdb-open");
+                return;
+            }
+            renderResults(searchSections(q, 25), q);
+        });
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".omdb-search")) resultsBox.classList.remove("omdb-open");
+        });
+
+        // ---- Changelog (sample data) ----
+        const CHANGELOG = [
+            { date: "2026-09-01", model: "AT-802/802A", text: "Limitation revision record updated to current revision." },
+            { date: "2026-08-14", model: "All models", text: "Corrected grease mil-spec typo." },
+            { date: "2026-07-30", model: "AT-802/802A", text: "Clarified section applicable only to 802 variant." },
+        ];
+        document.getElementById("omdb-changelog").innerHTML = CHANGELOG.map(
+            (c) => `<div class="omdb-changelog-item">
+                <div class="omdb-changelog-date">${c.date}</div>
+                <div class="omdb-changelog-body"><strong>${c.model}</strong><p>${c.text}</p></div>
+            </div>`
+        ).join("");
+    </script>
+</body>
+
+</html>
