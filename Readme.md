@@ -231,7 +231,7 @@ Either way, the extension needs the `OM2` repo (or any folder containing `docDef
 - **Data Vars view** (activity bar): every `data-vars="X"` placeholder from `code/data_vars.mjs` with its per-model value; jump straight to an assignment, or use **OM: Find Where Data Var Is Used...** / **OM: Insert Data Var...** to work in the other direction.
 - **Image Sources view** (activity bar): tracks which `img/*` files are linked to their `imgSrc/*` CAD/source file(s) (backed by `Tools/imageSourceRegistry.json`), with commands to link/unlink and jump to the source file.
 - **Figure diagnostics**: flags figure images reused more than once within the same model as warnings in the Problems panel.
-- **Change reports**: **OM: Tag Release Baseline...** tags the current state per model in git; **OM: Generate Change Report...** / **OM: Export Change Report...** diff a model against a tagged baseline (or the working tree) and produce a reviewable, then exportable HTML report of what changed section-by-section.
+- **Change reports**: **OM: Tag Release Baseline...** tags the current state per model in git (tag names can't contain spaces — use hyphens, e.g. `502-20260901-FAA-Submission-1`); **OM: Generate Change Report...** / **OM: Export Change Report...** diff a model against a tagged baseline (or the working tree) and produce a reviewable, then exportable HTML report of what changed section-by-section.
 
 The full, version-by-version command list is kept current in [`Tools/vscode-extension/om/README.md`](Tools/vscode-extension/om/README.md) and [`Tools/vscode-extension/om/changelog.md`](Tools/vscode-extension/om/changelog.md) — check those for anything not covered above.
 
