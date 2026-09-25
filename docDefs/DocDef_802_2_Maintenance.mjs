@@ -299,8 +299,8 @@ let defSec_2_50_18 = new DocSection().i(true, "2.50.18", true, "Engine Air Plenu
 let defSec_2_50_19 = new DocSection().i(true, "2.50.19", true, "SCEET Flexible Duct Installation and Routing", true, "html/Maintenance/SCEET Flexible Duct Installation and Routing.html");
 let defSec_2_50_20 = new DocSection().i(true, "2.50.20", true, "PT6A-67F engines that are subject to modification by PWC SB14505", true, "html/Maintenance/PT6A-67F engines that are subject to modification by PWC SB14505.html");
 let defSec_2_50_21 = new DocSection().i(true, "2.50.21", true, "Engine Driven Low Pressure Fuel Pump", true, "html/Maintenance/Engine Driven Low Pressure Fuel Pump.html");
-let defSec_2_50_22 = new DocSection().i(true, "2.50.22", true, "Reserved", true, "");
-let defSec_2_50_23 = new DocSection().i(true, "2.50.23", true, "Reserved", true, ""); // Was "P3 Air Pressure Tube.html"
+let defSec_2_50_22 = new DocSection().i(true, "2.50.22", true, "Reserved", false, "");
+let defSec_2_50_23 = new DocSection().i(true, "2.50.23", true, "Reserved", false, ""); // Was "P3 Air Pressure Tube.html"
 let defSec_2_50_24 = new DocSection().i(true, "2.50.24", true, "Exhaust Pipe Repair", true, "html/Maintenance/Exhaust Pipe Repair.html");
 let defSec_2_50_25 = new DocSection().i(true, "2.50.25", true, "Propeller Overspeed Governor", true, "html/Maintenance/Propeller Overspeed Governor.html");
 let defSec_2_50_40 = new DocSection().i(true, "2.50.40", true, "Air Conditioner Drive Pad",true,"html/Maintenance/Air Conditioner Drive Pad.html");
@@ -408,9 +408,10 @@ let defSec_2_70_9 = new DocSection().i(true, "2.70.9", true, "Flap Actuator Inst
 let defSec_2_70_10 = new DocSection().i(true, "2.70.10", true, "C100168-4 Flap Actuator Maintenance", true, "html/Maintenance/Flap Actuator.html");
 let defSec_2_70_11 = new DocSection().i(true, "2.70.11", true, "71112-1 Flap Actuator Maintenance", true, "html/Maintenance/71112 Flap Actuator.html");
 let defSec_2_70_12 = new DocSection().i(true, "2.70.12", true, "Flap Relay Upgrade", true, "html/Maintenance/Flap Relay Upgrade.html");
-let defSec_2_70_51 = new DocSection().i(true, "2.70.51", true, "Inspection of B100-6 Coupling used on C100168-4 Actuators", true, "html/Maintenance/Flap Motor Coupler and Inspection.html");
+let defSec_2_70_51 = new DocSection().i(true, "2.70.51", true, "Reserved", false, "");
 let defSec_2_70_52 = new DocSection().i(true, "2.70.52", true, "Inspection of Flap Torque Tube Attachment (SL347 and AD 2021-05-14)", true, "html/Maintenance/Flap Torque Tube Attachment.html");
-let defSec_2_70_53 = new DocSection().i(true, "2.70.53", true, "Inspection of Flap Drive System Free Play Inspection", true, "html/Maintenance/Flap Drive System Free Play Inspection.html");
+let defSec_2_70_53 = new DocSection().i(true, "2.70.53", true, "Reserved", false, "");
+let defSec_2_70_54 = new DocSection().i(true, "2.70.54", true, "Flap Actuator Maintenance", true, "html/Maintenance/Flap Actuator Maintenance_802.html");
 let def_Sec_2_70 = new DocSection();
 def_Sec_2_70
     .i(true, "2.70", true, "FLAPS", true, "html/Maintenance/Flaps.html")
@@ -429,7 +430,8 @@ def_Sec_2_70
         defSec_2_70_12,
         defSec_2_70_51,
         defSec_2_70_52,
-        defSec_2_70_53
+        defSec_2_70_53,
+        defSec_2_70_54
     ]);
 
 let defSec_2_75_1 = new DocSection().i(true, "2.75.1", true, "Fuel Tanks", true, "html/Maintenance/Fuel Tanks.html");

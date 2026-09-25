@@ -25,16 +25,24 @@ export function toggleIsolate(targetId, iconElement) {
     if (isActivating) {
         // 2. Activate Isolation
         iconElement.classList.add('active');
+        document.body.classList.add('omdb-isolating');
 
-        // Find all top-level sections (IDs starting with Sec_)
-        const allSections = contentContainer.querySelectorAll('[id^="Sec_"]');
+        // Find every rendered section wrapper, numbered or not (see
+        // sectionMarkers.mjs -- unnumbered sections like the Intro chapter
+        // have no "Sec_" id, so they're tagged separately).
+        const allSections = contentContainer.querySelectorAll('[data-omdb-section="true"]');
 
         allSections.forEach(section => {
-            // Logic: Hide if it's NOT the target AND the target isn't inside it
-            if (section.id !== cleanId && !section.contains(targetElement)) {
-                section.classList.add('hidden-section');
-            } else {
+            // Keep visible: the target itself, its ancestors (for context), and
+            // its own descendants (they're part of "that section"). Everything
+            // else -- siblings, cousins, unrelated chapters -- gets hidden.
+            const isTarget = section === targetElement;
+            const isAncestor = section.contains(targetElement);
+            const isDescendant = targetElement.contains(section);
+            if (isTarget || isAncestor || isDescendant) {
                 section.classList.remove('hidden-section');
+            } else {
+                section.classList.add('hidden-section');
             }
         });
 
@@ -59,4 +67,5 @@ export function resetManualView() {
     });
     document.querySelectorAll('.isolate-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('#webToc li').forEach(li => li.classList.remove('toc-inactive'));
+    document.body.classList.remove('omdb-isolating');
 }
