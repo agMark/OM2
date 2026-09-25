@@ -51,8 +51,7 @@ with zero changes to `RenderDoc.mjs`, `DocSection.mjs`, or any docDef.
 Side effect: with `<base>` set, plain in-page anchors (`href="#Sec_3_1"`,
 used throughout the TOC and cross-references) would otherwise trigger a real
 navigation instead of a same-page scroll. `js/toc-nav.js` intercepts all
-`a[href^="#"]` clicks and does the scroll manually, expanding any ancestor
-`<details>` first.
+`a[href^="#"]` clicks and does the scroll manually.
 
 Because of `<base>`, every reference to this app's *own* assets on those two
 pages -- including `WebDashboard/js/IsolationManager.mjs`, even though it has
@@ -68,15 +67,15 @@ its own asset paths are plain relative paths as usual.
 | Area | Status |
 |---|---|
 | Model manual rendering (viewer.html) | Real -- reuses `RenderDoc.mjs`/`docDefs` unmodified |
-| TOC + isolate-a-section | Real -- `js/IsolationManager.mjs` logic unmodified, reskinned |
+| TOC + isolate-a-section | Real -- dashboard-only TOC builder (every section can be isolated, carets fold/unfold branches); isolation keeps the target, its ancestors and its subsections visible |
 | Compare view (side-by-side) | Real -- fetches/renders the matching section from each selected model |
-| Compare view diff highlighting | Real but experimental -- word-level, **text only** (loses tables/figures/formatting), off by default |
-| Section search (landing page + within a manual) | Real, but section-*title* search only on the landing page (built from docDef section numbers/titles, not full body text); within a manual it searches the already-rendered text |
+| Compare view diff highlighting | **Removed** -- an early word-level text diff wasn't useful enough to keep; side-by-side viewing only for now |
+| Section search (landing page + within a manual) | Real, but section-*title* search only on the landing page (built from docDef section numbers/titles, not full body text); within a manual it searches the already-rendered text and shows a scrollable results panel with a context snippet and section label per hit |
 | Cross-model full-text body search | **Not implemented.** Would need a build-time index of actual fetched `html/*.html` content across all models; flagged as a follow-on |
 | Serial number -> model lookup | **Stubbed** (`js/serials.js`) -- fake prefix matching, not the real production data. Per current scope, SN is only used to pick the *model*, not a specific manual revision |
 | Manual revision effectivity by aircraft age | **Not in scope for this pass** -- always shows the current/latest revision |
 | Login | **Stubbed gate + dev bypass**, see above |
-| Changelog on landing page | **Sample/placeholder data**, not generated from real revisions |
+| Changelog on landing page | Real -- reads `../webChangeLog.json` (repo root), hand-edited by content authors; see the root Readme's "Recent Changes panel" section. Expected to be replaced later by the upload portal's registry (see packaging plan) |
 | Service letters | **Not built** -- out of scope for this pass; the manual-viewing dashboard is the focus |
 
 ## Structure
@@ -84,16 +83,17 @@ its own asset paths are plain relative paths as usual.
 ```
 WebDashboard/
   README.md
-  index.html        Landing page: model grid, SN lookup, search, changelog stub
+  index.html        Landing page: model grid, SN lookup, search, recent changes (from ../webChangeLog.json)
   viewer.html        Single-model manual viewer (redesigned nav around the existing renderer)
-  compare.html        Side-by-side section compare across 2+ models, optional text diff
+  compare.html        Side-by-side section compare across 2+ models
   manualIndex.mjs    Reads docDefs/* (unmodified) to build a section index for search/compare pickers
   css/dashboard.css  Shell design system, tokens pulled from airtractor.com's live theme
   js/auth.js               Stub auth gate + dev bypass
   js/serials.js            Stub serial number -> model lookup
-  js/toc-nav.js            Fragment-link click interceptor (see <base> note above)
-  js/compareDiff.js        Word-level LCS text diff for the compare view
-  js/IsolationManager.mjs  Section isolate / "Show Full Manual" logic (moved here from the repo root; only viewer.html uses it)
+  js/toc-nav.js            Fragment-link click interceptor (see <base> note above); also leaves isolation when a manual cross-reference is clicked
+  js/tocBuilder.mjs        Builds the viewer's TOC (fold/unfold carets, isolate button on every section) from the docDef tree
+  js/sectionMarkers.mjs    Tags rendered section wrappers (incl. unnumbered ones like the Intro) so isolation and search can find them
+  js/IsolationManager.mjs  Section isolate / "Show Full Manual" logic (moved here from the repo root and since fixed/extended; only viewer.html uses it)
 ```
 
 ## Design tokens

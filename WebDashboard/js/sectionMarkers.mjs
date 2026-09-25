@@ -18,6 +18,10 @@
  * wrapper divs, however many header/content nodes precede them -- and tags
  * every wrapper (numbered or not) with a data attribute the isolate logic
  * can select on uniformly.
+ *
+ * Also tags each wrapper with its section number/title (when it has one) --
+ * the in-manual search results panel uses this to label which part of the
+ * manual a hit came from, similar to a file/line breadcrumb.
  */
 export function markSections(docDef, contentTarget) {
     const rootDiv = contentTarget.firstElementChild;
@@ -26,6 +30,10 @@ export function markSections(docDef, contentTarget) {
     function walk(section, div) {
         if (!div) return;
         div.dataset.omdbSection = "true";
+        if (section.DisplayTitle && section.SectionTitle) {
+            div.dataset.omdbTitle = section.SectionTitle;
+            if (section.IsNumbered) div.dataset.omdbNumber = section.SectionNumber;
+        }
         const n = section.Sections.length;
         if (n === 0) return;
         const children = Array.from(div.children);

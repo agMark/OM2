@@ -1,0 +1,16 @@
+{
+    "_readme": "Feeds the 'Recent Changes' panel on the dashboard (WebDashboard/index.html). Add a new entry to the TOP of 'entries' for each published revision. Fields: date (YYYY-MM-DD, required), models (list of model names to display, e.g. [\"AT-802\", \"AT-802A\"]; the numbers 402 / 502 / 602 / 802 are expanded to the full model name; [\"all\"] shows 'All models'), text (what changed, written for owners, required), link (optional: a URL, or a path relative to this file, e.g. a change report PDF), linkLabel (optional text for the link, defaults to 'Change report'). Entries missing a date or text are skipped; the dashboard shows the 10 newest. Keep it valid JSON: double quotes, commas between entries, none after the last one.",
+    "entries": [
+        {
+            "date": "2026-09-23",
+            "models": ["AT-802","AT-802A"],
+            "text": "Owner's Manual updated to 9/1/2026 version."
+        },
+        {
+            "date": "2026-09-23",
+            "models": ["AT-502A","AT-502B","AT-504"],
+            "text": "Owner's Manual updated to 9/1/2026 version."
+        }
+
+    ]
+}

@@ -55,8 +55,15 @@ export function toggleIsolate(targetId, iconElement) {
 
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
-        // 4. Deactivate: Show All
+        // 4. Deactivate: Show All. Un-hiding everything above the target
+        // shifts it far down the page while scrollTop stays the same, which
+        // would dump the user near the top of the manual. Keep the section
+        // at the same on-screen position instead.
+        const scroller = contentContainer.parentElement;
+        const before = targetElement.getBoundingClientRect().top;
         resetManualView();
+        const after = targetElement.getBoundingClientRect().top;
+        scroller.scrollTop += after - before;
     }
 }
 

@@ -19,6 +19,8 @@
  * cases -- e.g. jumping in from a search result -- where the target's own
  * TOC entry might be hidden inside a collapsed branch.)
  */
+import { resetManualView } from "./IsolationManager.mjs";
+
 export function installFragmentNav(root = document) {
     root.addEventListener(
         "click",
@@ -31,6 +33,20 @@ export function installFragmentNav(root = document) {
             if (!target) return;
 
             e.preventDefault();
+
+            // A cross-reference inside the manual text while a section is
+            // isolated: the target is probably hidden, so leave isolation
+            // first. Jump instantly in that case -- a smooth scroll across
+            // the whole re-expanded manual is just distracting.
+            const content = document.getElementById("contentTarget");
+            const wasIsolating = document.body.classList.contains("omdb-isolating");
+            const fromContent = !!content && content.contains(a);
+            if (wasIsolating && fromContent) {
+                resetManualView();
+                target.scrollIntoView({ behavior: "auto", block: "start" });
+                return;
+            }
+
             target.scrollIntoView({ behavior: "smooth", block: "start" });
         },
         true
