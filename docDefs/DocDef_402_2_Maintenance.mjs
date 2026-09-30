@@ -347,6 +347,7 @@ let defSec_2_55_3 = new DocSection().i(true, "2.55.3", true, "Start Control Leve
 let defSec_2_55_4 = new DocSection().i(true, "2.55.4", true, "Kawak Throttle Quadrant ", true, "html/Maintenance/402/Kawak Throttle Quadrant_402.html");
 let defSec_2_55_5 = new DocSection().i(true, "2.55.5", true, "Air Tractor Quadrant Friction", true, "html/Maintenance/Air Tractor Quadrant Friction.html");
 let defSec_2_55_6 = new DocSection().i(true, "2.55.6", true, "Reserved", false, "");
+let defSec_2_55_7 = new DocSection().i(true, "2.55.7", true, "Engine Mounted FCU Control", true, "html/Maintenance/Engine Mounted FCU Control.html");
 let def_Sec_2_55 = new DocSection();
 def_Sec_2_55
     .i(true, "2.55", true, "ENGINE CONTROLS", false, "")
@@ -356,7 +357,8 @@ def_Sec_2_55
         defSec_2_55_3,
         defSec_2_55_4,
         defSec_2_55_5,
-        defSec_2_55_6
+        defSec_2_55_6,
+        defSec_2_55_7
     ]);
 
 
