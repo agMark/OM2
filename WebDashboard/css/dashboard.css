@@ -393,11 +393,18 @@ a.omdb-card:hover {
 
 .omdb-search-result {
     display: block;
+    width: 100%;
     padding: 9px 12px;
     text-decoration: none;
     color: var(--omdb-ink);
     font-size: 0.86rem;
+    border: none;
     border-bottom: 1px solid var(--omdb-gray-100);
+    border-left: 3px solid transparent;
+    background: none;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
 }
 
 .omdb-search-result:last-child {
@@ -408,17 +415,42 @@ a.omdb-card:hover {
     background: var(--omdb-gray-100);
 }
 
+.omdb-search-result.omdb-active-result {
+    background: var(--omdb-gray-100);
+    border-left-color: var(--omdb-navy);
+}
+
 .omdb-search-result-model {
     font-size: 0.7rem;
     font-weight: 700;
     color: var(--omdb-navy);
     display: block;
+    margin-bottom: 2px;
+}
+
+.omdb-search-result-snippet {
+    display: block;
+    color: var(--omdb-gray-700);
+    line-height: 1.4;
+}
+
+.omdb-search-result-snippet mark {
+    background: #ffe58a;
+    color: inherit;
+    padding: 0 1px;
 }
 
 .omdb-search-empty {
     padding: 12px;
     font-size: 0.85rem;
     color: var(--omdb-gray-600);
+}
+
+/* In-manual search matches highlighted directly in the rendered content
+   (see viewer.html's setupDocSearch) -- distinct from the .omdb-search-result-snippet
+   mark above, which lives inside the results panel instead. */
+#contentTarget mark.omdb-hit {
+    background: #ffe58a;
 }
 
 /* ---------------- Auth gate ---------------- */
@@ -683,6 +715,16 @@ body.omdb-isolating #omdb-reset-view-btn {
     min-height: 100%;
 }
 
+/* Manual content keeps the authored font from css/elementStyling.css
+   (body { font-family: Helvetica, sans-serif }), same as the PDF. The
+   dashboard font is set on <body> via .omdb-root, which would otherwise
+   win over that plain `body` rule and restyle the manual text. Only the
+   content areas get this; menus, buttons and the TOC keep the site font. */
+.omdb-content-paper,
+.omdb-compare-pane-body .omdb-rich-view {
+    font-family: Helvetica, sans-serif;
+}
+
 .hidden-section {
     display: none !important;
 }
@@ -747,21 +789,6 @@ body.omdb-isolating #omdb-reset-view-btn {
     font-size: 0.85rem;
     padding: 2rem;
     text-align: center;
-}
-
-.omdb-diff-add {
-    background: #d9f2e0;
-    color: var(--omdb-green);
-    padding: 0 2px;
-    border-radius: 2px;
-}
-
-.omdb-diff-del {
-    background: #fbdedb;
-    color: var(--omdb-red);
-    padding: 0 2px;
-    border-radius: 2px;
-    text-decoration: line-through;
 }
 
 .omdb-note {

@@ -43,13 +43,6 @@
                 <label>&nbsp;</label>
                 <button class="omdb-btn" id="omdb-compare-render" type="button">Compare</button>
             </div>
-            <div class="omdb-field" style="margin-left:auto;">
-                <label>&nbsp;</label>
-                <label class="omdb-checkbox-field">
-                    <input type="checkbox" id="omdb-diff-toggle">
-                    Highlight differences (experimental, text-only)
-                </label>
-            </div>
         </div>
 
         <div id="omdb-compare-panes" class="omdb-compare-panes">
@@ -62,7 +55,6 @@
         import { requireAuth, isDevBypass } from "./WebDashboard/js/auth.js";
         import { MODELS, buildSectionIndex, findSection } from "./WebDashboard/manualIndex.mjs";
         import { installFragmentNav } from "./WebDashboard/js/toc-nav.js";
-        import { diffText } from "./WebDashboard/js/compareDiff.js";
 
         requireAuth("img/AT-Logo1.png");
         installFragmentNav();
@@ -110,8 +102,6 @@
 
         // ---- Render ----
         const panesWrap = document.getElementById("omdb-compare-panes");
-        const diffToggle = document.getElementById("omdb-diff-toggle");
-        let lastRender = []; // [{modelId, label, richHtml, plainText, el}]
 
         // manualIndex.mjs's DocSection objects are page-lifetime singletons (imported
         // once, reused on every findSection() call). GetContent() appends fetched html
@@ -138,7 +128,6 @@
             }
             panesWrap.style.gridTemplateColumns = `repeat(${models.length}, 1fr)`;
             panesWrap.innerHTML = "";
-            lastRender = [];
 
             for (const modelId of models) {
                 const model = MODELS.find((m) => m.id === modelId);
@@ -148,64 +137,23 @@
                     <div class="omdb-compare-pane-header">${model.label}</div>
                     <div class="omdb-compare-pane-body">
                         <div class="omdb-rich-view"></div>
-                        <div class="omdb-diff-view" style="display:none; white-space:pre-wrap; font-family:monospace; font-size:0.85rem;"></div>
                     </div>
                 `;
                 panesWrap.appendChild(pane);
                 const richView = pane.querySelector(".omdb-rich-view");
-                const diffView = pane.querySelector(".omdb-diff-view");
 
                 const section = findSection(modelId, sectionNumber);
                 if (!section) {
                     richView.innerHTML = `<p class="omdb-note">This section does not exist in ${model.label}.</p>`;
-                    lastRender.push({ modelId, label: model.label, plainText: "", diffView, richView });
                     continue;
                 }
 
                 await ensureContent(section);
                 section.RenderContent(true, richView);
-
-                lastRender.push({
-                    modelId,
-                    label: model.label,
-                    plainText: richView.textContent.replace(/\s+/g, " ").trim(),
-                    diffView,
-                    richView,
-                });
             }
-
-            applyDiffState();
-        }
-
-        function applyDiffState() {
-            const on = diffToggle.checked;
-            if (!on) {
-                lastRender.forEach((p) => {
-                    p.richView.style.display = "";
-                    p.diffView.style.display = "none";
-                });
-                return;
-            }
-            if (lastRender.length !== 2) {
-                lastRender.forEach((p) => {
-                    p.diffView.style.display = "block";
-                    p.diffView.innerHTML = `<span class="omdb-note">Diff highlighting only supports exactly two models at a time.</span>`;
-                    p.richView.style.display = "none";
-                });
-                return;
-            }
-            const [a, b] = lastRender;
-            const { htmlA, htmlB } = diffText(a.plainText, b.plainText);
-            a.richView.style.display = "none";
-            b.richView.style.display = "none";
-            a.diffView.style.display = "block";
-            b.diffView.style.display = "block";
-            a.diffView.innerHTML = htmlA;
-            b.diffView.innerHTML = htmlB;
         }
 
         document.getElementById("omdb-compare-render").addEventListener("click", renderCompare);
-        diffToggle.addEventListener("change", applyDiffState);
         checksWrap.addEventListener("change", () => {
             const models = selectedModels();
             document.getElementById("omdb-compare-render").disabled = models.length < 2;

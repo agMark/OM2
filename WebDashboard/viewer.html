@@ -40,19 +40,12 @@
         <div class="omdb-breadcrumb"><a href="WebDashboard/index.html">Document Library</a> / <span
                 id="omdb-model-label">...</span></div>
 
-        <select class="omdb-select" id="omdb-model-switch"></select>
-
-        <div class="omdb-search" style="max-width:280px; display:flex; gap:6px; align-items:center;">
+        <div class="omdb-search" id="omdb-doc-search-wrap" style="max-width:340px;">
             <input class="omdb-input" id="omdb-doc-search" placeholder="Search within this manual..."
                 style="width:100%;">
+            <div class="omdb-search-results" id="omdb-doc-search-results"></div>
         </div>
         <span id="omdb-doc-search-count" style="font-size:0.8rem; color:var(--omdb-gray-600); white-space:nowrap;"></span>
-        <button class="omdb-btn omdb-btn-secondary" id="omdb-doc-search-prev" type="button" style="padding:6px 10px;">&uarr;</button>
-        <button class="omdb-btn omdb-btn-secondary" id="omdb-doc-search-next" type="button" style="padding:6px 10px;">&darr;</button>
-
-        <div style="flex:1;"></div>
-        <a class="omdb-btn omdb-btn-secondary" id="omdb-compare-link" href="WebDashboard/compare.html">Compare this
-            manual</a>
     </div>
 
     <div class="omdb-viewer-body">
@@ -100,18 +93,6 @@
         document.getElementById("omdb-model-label").textContent = model.label;
         document.title = model.label + " Owner's Manual";
 
-        const modelSwitch = document.getElementById("omdb-model-switch");
-        MODELS.forEach((m) => {
-            const opt = document.createElement("option");
-            opt.value = m.id;
-            opt.textContent = m.label;
-            if (m.id === model.id) opt.selected = true;
-            modelSwitch.appendChild(opt);
-        });
-        modelSwitch.addEventListener("change", () => {
-            location.href = `WebDashboard/viewer.html?model=${modelSwitch.value}`;
-        });
-        document.getElementById("omdb-compare-link").href = `WebDashboard/compare.html?modelA=${model.id}`;
 
         // ---- Sidebar resize (same behavior as web802.html's drag handle) ----
         const toc = document.getElementById("omdb-toc");
@@ -173,11 +154,24 @@
         function setupDocSearch() {
             const input = document.getElementById("omdb-doc-search");
             const countLabel = document.getElementById("omdb-doc-search-count");
-            const btnPrev = document.getElementById("omdb-doc-search-prev");
-            const btnNext = document.getElementById("omdb-doc-search-next");
-            let hits = [];
+            const resultsBox = document.getElementById("omdb-doc-search-results");
+            const CONTEXT_CHARS = 45;
+
+            let hits = []; // { mark: <mark> element, snippetHtml, label }
             let current = -1;
             let debounceTimer = null;
+
+            function escapeHtml(s) {
+                return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            }
+
+            function labelFor(el) {
+                const sec = el.closest('[data-omdb-section="true"]');
+                if (!sec || !sec.dataset.omdbTitle) return "";
+                return sec.dataset.omdbNumber
+                    ? `${sec.dataset.omdbNumber} — ${sec.dataset.omdbTitle}`
+                    : sec.dataset.omdbTitle;
+            }
 
             function clearHits() {
                 contentTarget.querySelectorAll("mark.omdb-hit").forEach((m) => {
@@ -188,15 +182,18 @@
                 hits = [];
                 current = -1;
                 countLabel.textContent = "";
+                resultsBox.innerHTML = "";
+                resultsBox.classList.remove("omdb-open");
             }
 
             function highlight(query) {
                 clearHits();
-                if (!query.trim()) return;
-                const q = query.toLowerCase();
+                const q = query.trim();
+                if (!q) return;
+                const qLower = q.toLowerCase();
                 const walker = document.createTreeWalker(contentTarget, NodeFilter.SHOW_TEXT, {
                     acceptNode: (node) =>
-                        node.nodeValue.toLowerCase().includes(q) && node.parentElement.offsetParent !== null
+                        node.nodeValue.toLowerCase().includes(qLower) && node.parentElement.offsetParent !== null
                             ? NodeFilter.FILTER_ACCEPT
                             : NodeFilter.FILTER_REJECT,
                 });
@@ -207,38 +204,80 @@
                 textNodes.forEach((node) => {
                     const text = node.nodeValue;
                     const lower = text.toLowerCase();
+                    const label = labelFor(node.parentElement);
                     const frag = document.createDocumentFragment();
                     let last = 0;
-                    let idx = lower.indexOf(q);
+                    let idx = lower.indexOf(qLower);
                     while (idx !== -1) {
                         frag.appendChild(document.createTextNode(text.slice(last, idx)));
                         const mark = document.createElement("mark");
                         mark.className = "omdb-hit";
-                        mark.style.background = "#ffe58a";
                         mark.textContent = text.slice(idx, idx + q.length);
                         frag.appendChild(mark);
-                        hits.push(mark);
+
+                        const before = text.slice(Math.max(0, idx - CONTEXT_CHARS), idx);
+                        const after = text.slice(idx + q.length, idx + q.length + CONTEXT_CHARS);
+                        const snippetHtml =
+                            (idx > CONTEXT_CHARS ? "…" : "") +
+                            escapeHtml(before) +
+                            `<mark>${escapeHtml(text.slice(idx, idx + q.length))}</mark>` +
+                            escapeHtml(after) +
+                            (idx + q.length + CONTEXT_CHARS < text.length ? "…" : "");
+
+                        hits.push({ mark, snippetHtml, label });
+
                         last = idx + q.length;
-                        idx = lower.indexOf(q, last);
+                        idx = lower.indexOf(qLower, last);
                     }
                     frag.appendChild(document.createTextNode(text.slice(last)));
                     node.parentNode.replaceChild(frag, node);
                 });
 
-                if (hits.length) {
-                    current = 0;
-                    goToHit();
+                renderResultsPanel();
+                countLabel.textContent = hits.length
+                    ? `${hits.length} match${hits.length === 1 ? "" : "es"}`
+                    : "No matches";
+            }
+
+            function renderResultsPanel() {
+                if (!hits.length) {
+                    resultsBox.innerHTML = `<div class="omdb-search-empty">No matches in this manual.</div>`;
+                    resultsBox.classList.add("omdb-open");
+                    return;
                 }
-                countLabel.textContent = hits.length ? `${current + 1}/${hits.length}` : "No matches";
+                resultsBox.innerHTML = hits
+                    .map(
+                        (h, i) => `
+                        <button type="button" class="omdb-search-result" data-hit-index="${i}">
+                            ${h.label ? `<span class="omdb-search-result-model">${escapeHtml(h.label)}</span>` : ""}
+                            <span class="omdb-search-result-snippet">${h.snippetHtml}</span>
+                        </button>`
+                    )
+                    .join("");
+                resultsBox.classList.add("omdb-open");
+                resultsBox.querySelectorAll("[data-hit-index]").forEach((el) => {
+                    el.addEventListener("click", () => {
+                        current = Number(el.dataset.hitIndex);
+                        goToHit();
+                    });
+                });
             }
 
             function goToHit() {
-                hits.forEach((h) => (h.style.outline = ""));
+                hits.forEach((h) => (h.mark.style.outline = ""));
+                resultsBox.querySelectorAll(".omdb-search-result.omdb-active-result").forEach((el) =>
+                    el.classList.remove("omdb-active-result")
+                );
                 if (current < 0 || current >= hits.length) return;
                 const hit = hits[current];
-                hit.style.outline = "2px solid var(--omdb-navy)";
-                hit.scrollIntoView({ behavior: "smooth", block: "center" });
+                hit.mark.style.outline = "2px solid var(--omdb-navy)";
+                hit.mark.scrollIntoView({ behavior: "smooth", block: "center" });
                 countLabel.textContent = `${current + 1}/${hits.length}`;
+                const row = resultsBox.querySelector(`[data-hit-index="${current}"]`);
+                if (row) {
+                    row.classList.add("omdb-active-result");
+                    row.scrollIntoView({ block: "nearest" });
+                }
             }
 
             input.addEventListener("input", () => {
@@ -250,17 +289,15 @@
                     if (!hits.length) return;
                     current = (current + 1) % hits.length;
                     goToHit();
+                } else if (e.key === "Escape") {
+                    resultsBox.classList.remove("omdb-open");
                 }
             });
-            btnNext.addEventListener("click", () => {
-                if (!hits.length) return;
-                current = (current + 1) % hits.length;
-                goToHit();
+            input.addEventListener("focus", () => {
+                if (hits.length) resultsBox.classList.add("omdb-open");
             });
-            btnPrev.addEventListener("click", () => {
-                if (!hits.length) return;
-                current = (current - 1 + hits.length) % hits.length;
-                goToHit();
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest("#omdb-doc-search-wrap")) resultsBox.classList.remove("omdb-open");
             });
         }
     </script>

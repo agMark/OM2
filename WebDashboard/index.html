@@ -62,9 +62,7 @@
 
         <div class="omdb-section-title">Recent Changes</div>
         <div class="omdb-panel">
-            <div id="omdb-changelog"></div>
-            <p class="omdb-note">Sample data for this prototype -- not a real revision feed yet. A future pass
-                should generate this from actual docDef/html revisions.</p>
+            <div id="omdb-changelog">Loading...</div>
         </div>
 
     </main>
@@ -185,18 +183,69 @@
             if (!e.target.closest(".omdb-search")) resultsBox.classList.remove("omdb-open");
         });
 
-        // ---- Changelog (sample data) ----
-        const CHANGELOG = [
-            { date: "2026-09-01", model: "AT-802/802A", text: "Limitation revision record updated to current revision." },
-            { date: "2026-08-14", model: "All models", text: "Corrected grease mil-spec typo." },
-            { date: "2026-07-30", model: "AT-802/802A", text: "Clarified section applicable only to 802 variant." },
-        ];
-        document.getElementById("omdb-changelog").innerHTML = CHANGELOG.map(
-            (c) => `<div class="omdb-changelog-item">
-                <div class="omdb-changelog-date">${c.date}</div>
-                <div class="omdb-changelog-body"><strong>${c.model}</strong><p>${c.text}</p></div>
-            </div>`
-        ).join("");
+        // ---- Recent changes: read from webChangeLog.json at the repo root (edited by
+        // hand by content authors -- see the _readme field inside that file). ----
+        const MAX_CHANGES = 10;
+        const changelogBox = document.getElementById("omdb-changelog");
+
+        function modelNames(ids) {
+            if (!Array.isArray(ids) || ids.length === 0 || ids.includes("all")) return "All models";
+            return ids.map((id) => (MODELS.find((m) => m.id === String(id)) || { label: String(id) }).label).join(", ");
+        }
+
+        async function loadChangelog() {
+            const url = new URL("../webChangeLog.json", location.href);
+            let entries = [];
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(res.status + " " + res.statusText);
+                const data = await res.json();
+                entries = Array.isArray(data.entries) ? data.entries : [];
+            } catch (err) {
+                console.warn("Could not load webChangeLog.json:", err);
+            }
+
+            entries = entries
+                .filter((e) => e && typeof e.date === "string" && typeof e.text === "string" && e.date && e.text)
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .slice(0, MAX_CHANGES);
+
+            if (entries.length === 0) {
+                changelogBox.textContent = "No recent changes to show.";
+                return;
+            }
+
+            changelogBox.innerHTML = "";
+            entries.forEach((e) => {
+                const item = document.createElement("div");
+                item.className = "omdb-changelog-item";
+
+                const date = document.createElement("div");
+                date.className = "omdb-changelog-date";
+                date.textContent = e.date;
+
+                const body = document.createElement("div");
+                body.className = "omdb-changelog-body";
+                const who = document.createElement("strong");
+                who.textContent = modelNames(e.models);
+                const text = document.createElement("p");
+                text.textContent = e.text;
+                body.append(who, text);
+
+                if (typeof e.link === "string" && e.link) {
+                    const a = document.createElement("a");
+                    a.href = new URL(e.link, url).href;
+                    a.textContent = e.linkLabel || "Change report";
+                    a.target = "_blank";
+                    a.rel = "noopener";
+                    text.append(" ", a);
+                }
+
+                item.append(date, body);
+                changelogBox.appendChild(item);
+            });
+        }
+        loadChangelog();
     </script>
 </body>
 

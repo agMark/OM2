@@ -16,6 +16,29 @@ function sanitizeRefForFilename(ref: string): string {
 	return ref.replace(/[^a-zA-Z0-9._-]/g, '-');
 }
 
+/** Mirrors the rules of `git check-ref-format` for a tag name, so the input box can reject a bad
+ *  name (e.g. one containing spaces) before git does. Returns an error message, or undefined if OK. */
+function tagNameProblem(name: string): string | undefined {
+	if (!name) {
+		return 'Enter a tag name.';
+	}
+	const suggestion = name.trim().replace(/\s+/g, '-').replace(/[~^:?*[\\#]/g, '').replace(/\.{2,}/g, '.');
+	const hint = suggestion && suggestion !== name ? ` Try: ${suggestion}` : '';
+	if (/\s/.test(name)) {
+		return `Tag names can't contain spaces.${hint}`;
+	}
+	if (/[~^:?*[\\\x00-\x1f\x7f]/.test(name)) {
+		return `Tag names can't contain ~ ^ : ? * [ \\ or control characters.${hint}`;
+	}
+	if (name.includes('..') || name.includes('@{') || name.includes('//') || name === '@') {
+		return `Tag names can't contain "..", "@{", or "//".${hint}`;
+	}
+	if (/^[-/]|[/.]$|\.lock$|(^|\/)\./.test(name)) {
+		return 'Tag names can\'t start with "-", "/" or ".", or end with "/", "." or ".lock".';
+	}
+	return undefined;
+}
+
 function escapeHtml(s: string): string {
 	return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -34,7 +57,8 @@ async function tagReleaseBaselineCommand(workspaceRoot: string): Promise<void> {
 	for (const p of picks) {
 		const name = await vscode.window.showInputBox({
 			prompt: `Tag name for ${p.label}`,
-			value: `${p.label}-rev-${dateStamp}`
+			value: `${p.label}-rev-${dateStamp}`,
+			validateInput: tagNameProblem
 		});
 		if (name) {
 			tagNames.push(name);

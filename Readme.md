@@ -231,7 +231,7 @@ Either way, the extension needs the `OM2` repo (or any folder containing `docDef
 - **Data Vars view** (activity bar): every `data-vars="X"` placeholder from `code/data_vars.mjs` with its per-model value; jump straight to an assignment, or use **OM: Find Where Data Var Is Used...** / **OM: Insert Data Var...** to work in the other direction.
 - **Image Sources view** (activity bar): tracks which `img/*` files are linked to their `imgSrc/*` CAD/source file(s) (backed by `Tools/imageSourceRegistry.json`), with commands to link/unlink and jump to the source file.
 - **Figure diagnostics**: flags figure images reused more than once within the same model as warnings in the Problems panel.
-- **Change reports**: **OM: Tag Release Baseline...** tags the current state per model in git; **OM: Generate Change Report...** / **OM: Export Change Report...** diff a model against a tagged baseline (or the working tree) and produce a reviewable, then exportable HTML report of what changed section-by-section.
+- **Change reports**: **OM: Tag Release Baseline...** tags the current state per model in git (tag names can't contain spaces — use hyphens, e.g. `502-20260901-FAA-Submission-1`); **OM: Generate Change Report...** / **OM: Export Change Report...** diff a model against a tagged baseline (or the working tree) and produce a reviewable, then exportable HTML report of what changed section-by-section.
 
 The full, version-by-version command list is kept current in [`Tools/vscode-extension/om/README.md`](Tools/vscode-extension/om/README.md) and [`Tools/vscode-extension/om/changelog.md`](Tools/vscode-extension/om/changelog.md) — check those for anything not covered above.
 
@@ -289,4 +289,14 @@ The preferred way to produce the print-ready PDF for a model is to render the re
 
 # OM Dashboard (web prototype)
 
-`WebDashboard/` holds a separate, self-contained prototype for a web-based owner/shop document dashboard (landing page, per-model manual viewer with in-manual search, and a cross-model section compare tool), styled to match `dashboard.airtractor.com`. It reuses `RenderDoc.mjs`/`docDefs`/`css/elementStyling.css` unmodified and lives entirely in its own folder — see [`WebDashboard/README.md`](WebDashboard/README.md) for how it works, how to run it, and what's still stubbed (auth, serial number lookup, changelog).
+`WebDashboard/` holds a separate, self-contained prototype for a web-based owner/shop document dashboard (landing page, per-model manual viewer with in-manual search, and a cross-model section compare tool), styled to match `dashboard.airtractor.com`. It reuses `RenderDoc.mjs`/`docDefs`/`css/elementStyling.css` unmodified and lives entirely in its own folder — see [`WebDashboard/README.md`](WebDashboard/README.md) for how it works, how to run it, and what's still stubbed (auth, serial number lookup).
+
+### Recent Changes panel (`webChangeLog.json`)
+
+The dashboard's "Recent Changes" panel reads [`webChangeLog.json`](webChangeLog.json) at the repo root. When a revision is published, add an entry to the **top** of `entries`:
+
+```json
+{ "date": "2026-09-20", "models": ["802"], "text": "What changed, written for owners.", "link": "supporting/ER2840.pdf", "linkLabel": "ER 2840" }
+```
+
+`date` (YYYY-MM-DD) and `text` are required; `models` is a list of model names to display (e.g. `["AT-802", "AT-802A"]`; the numbers `402`/`502`/`602`/`802` are expanded to the full model name, and `["all"]` shows "All models"); `link` (a URL, or a path relative to `webChangeLog.json`, e.g. a change report PDF) and `linkLabel` are optional. Entries missing a date or text are skipped and the newest 10 are shown. Keep it valid JSON (double quotes, no trailing comma) — if it's broken the panel just shows "No recent changes to show." Whatever publishes the site needs to copy `webChangeLog.json` (and any files it links to) along with `WebDashboard/`, keeping their relative positions.
