@@ -8,7 +8,7 @@ let def_Sec_6_00 = new DocSection().i(false,"",false,"",true,"html/Limitations/R
 let def_Sec_6_01 = new DocSection().i(false,"",true,"AIRWORTHINESS LIMITATIONS",true,"html/Limitations/Limitations.html");
 
 
-let def_Sec_6_1 = new DocSection().i(true,"6.1",true, "LIFE LIMITED ENGINE PARTS", true, "html/Limitations/EngineParts.html");
+let def_Sec_6_1 = new DocSection().i(true,"6.1",true, "Reserved", false, "");
 
 let def_Sec_6_2 = new DocSection().i(true,"6.2",true, "LIFE LIMITED AIRFRAME PARTS", true, "html/Limitations/AirframeParts.html");
 
