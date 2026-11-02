@@ -48,5 +48,6 @@
     "cSpell.enabledFileTypes": {
         "html": true
     },
-    "livePreview.defaultPreviewPath": "/html/Description/402/Airspeed Indicator_402.html"
+    "livePreview.defaultPreviewPath": "/html/Description/402/Airspeed Indicator_402.html",
+    "liveServer.settings.port": 5501
 }
