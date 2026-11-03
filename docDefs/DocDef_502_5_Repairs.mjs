@@ -38,7 +38,7 @@ def_Sec_5_6_8.CustomClass = "breakBefore";
 let def_Sec_5_6_9 = new DocSection().i(true, "5.6.9", true, "Elevator / Rudder Hinge", true, "html/Repairs/Elevator - Rudder Hinge.html");
 def_Sec_5_6_9.CustomClass = "breakBefore";
 
-let def_Sec_5_6_10 = new DocSection().i(true, "5.6.10", true, "Tail Wheel Lock Bushing", true, "html/Repairs/502/Tail Wheel Lock Bushing_502.html");
+let def_Sec_5_6_10 = new DocSection().i(true, "5.6.10", true, "Tail Wheel Lock Bushing", true, "html/Repairs/Tail Wheel Lock Bushing.html");
 def_Sec_5_6_10.CustomClass = "breakBefore";
 
 let def_Sec_5_6_11 = new DocSection().i(true, "5.6.11", true, "Reserved", false, "");
