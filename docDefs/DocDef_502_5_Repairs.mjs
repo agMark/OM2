@@ -32,7 +32,7 @@ def_Sec_5_6_6.CustomClass = "breakBefore";
 let def_Sec_5_6_7 = new DocSection().i(true, "5.6.7", true, "Reserved", false, "");
 def_Sec_5_6_7.CustomClass = "breakBefore";
 
-let def_Sec_5_6_8 = new DocSection().i(true, "5.6.8", true, "Oversized Horizontal Stabilizer Attach Holes", true, "html/Repairs/502/Oversized Horizontal Stabilizer Attach Holes_502.html");
+let def_Sec_5_6_8 = new DocSection().i(true, "5.6.8", true, "Oversized Horizontal Stabilizer Attach Holes", true, "html/Repairs/Oversized Horizontal Stabilizer Attach Holes.html");
 def_Sec_5_6_8.CustomClass = "breakBefore";
 
 let def_Sec_5_6_9 = new DocSection().i(true, "5.6.9", true, "Elevator / Rudder Hinge", true, "html/Repairs/502/Elevator - Rudder Hinge_502.html");
