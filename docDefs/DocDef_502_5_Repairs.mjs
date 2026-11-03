@@ -35,7 +35,7 @@ def_Sec_5_6_7.CustomClass = "breakBefore";
 let def_Sec_5_6_8 = new DocSection().i(true, "5.6.8", true, "Oversized Horizontal Stabilizer Attach Holes", true, "html/Repairs/Oversized Horizontal Stabilizer Attach Holes.html");
 def_Sec_5_6_8.CustomClass = "breakBefore";
 
-let def_Sec_5_6_9 = new DocSection().i(true, "5.6.9", true, "Elevator / Rudder Hinge", true, "html/Repairs/502/Elevator - Rudder Hinge_502.html");
+let def_Sec_5_6_9 = new DocSection().i(true, "5.6.9", true, "Elevator / Rudder Hinge", true, "html/Repairs/Elevator - Rudder Hinge.html");
 def_Sec_5_6_9.CustomClass = "breakBefore";
 
 let def_Sec_5_6_10 = new DocSection().i(true, "5.6.10", true, "Tail Wheel Lock Bushing", true, "html/Repairs/502/Tail Wheel Lock Bushing_502.html");
