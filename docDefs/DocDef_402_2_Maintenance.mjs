@@ -529,7 +529,7 @@ let defSec_2_90_50 = new DocSection().i(true, "2.90.50", true, "Main Gear Spring
 let defSec_2_90_70 = new DocSection().i(true, "2.90.70", true, "Master Cylinder Overhaul", true, "html/Maintenance/502/Master Cylinder Overhaul_502.html");
 let def_Sec_2_90 = new DocSection();
 def_Sec_2_90
-    .i(true, "2.90", true, "LANDING GEAR AND BRAKES", false, "")
+    .i(true, "2.90", true, "LANDING GEAR AND BRAKES", true, "html/Maintenance/Landing Gear and Brakes.html")
     .s([
         defSec_2_90_1,
         defSec_2_90_2,
